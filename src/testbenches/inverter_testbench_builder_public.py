@@ -1,27 +1,5 @@
-"""Public inverter testbench builder interface."""
-
-from __future__ import annotations
-
-from typing import Any
+"""Public skeleton for inverter testbench construction."""
 
 
-def build_inverter_testbenches(spec: dict[str, Any], sizing: dict[str, Any]) -> dict[str, Any]:
-    """Return sanitized testbench descriptors instead of simulator decks."""
-    _ = sizing
-    return {
-        "dc": {
-            "analysis": "voltage_transfer_sweep",
-            "vdd": spec["vdd"],
-        },
-        "ac": {
-            "analysis": "small_signal_gain_phase",
-            "load_capacitance": spec["load"]["capacitance"],
-        },
-        "tran": {
-            "analysis": "clock_timing_duty_cycle_sweep",
-            "frequency": spec["clock"]["frequency"],
-            "duty_cycle_sweep": spec["clock"]["duty_cycle_sweep"],
-        },
-        "note": "Production version emits simulator-ready netlists with private model configuration.",
-    }
-
+def build_public_inverter_tests(spec: dict) -> list[str]:
+    return ["dc_vtc", "ac_gain_phase", "transient_delay_power"]

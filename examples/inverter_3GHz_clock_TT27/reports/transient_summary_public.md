@@ -2,6 +2,7 @@
 
 Transient verification was generated for the 3 GHz inverter clock-buffer unit cell.
 
+- Design type: CMOS inverter clock-buffer unit cell
 - Representative 50 nm CMOS
 - VDD = 1.0 V
 - Frequency = 3 GHz

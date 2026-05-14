@@ -36,22 +36,8 @@ FORBIDDEN_TEXT = [
 ]
 
 RESTRICTED_LICENSE_WORD = "pro" + "prietary"
-
-RESTRICTED_LICENSE_WORD_ALLOWED = {
-    Path("LICENSE"),
-    Path("README.md"),
-}
-
-TEXT_EXTENSIONS = {
-    "",
-    ".bat",
-    ".json",
-    ".md",
-    ".py",
-    ".txt",
-    ".yml",
-    ".yaml",
-}
+RESTRICTED_LICENSE_WORD_ALLOWED = {Path("LICENSE"), Path("README.md")}
+TEXT_EXTENSIONS = {"", ".bat", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
 
 
 def is_text_file(path: Path) -> bool:
@@ -76,6 +62,7 @@ def scan() -> list[str]:
         rel = path.relative_to(ROOT)
         if rel.parts and rel.parts[0] == ".git":
             continue
+
         suffix = path.suffix.lower()
         if suffix in FORBIDDEN_EXTENSIONS:
             issues.append(f"{rel}: forbidden extension {suffix}")
