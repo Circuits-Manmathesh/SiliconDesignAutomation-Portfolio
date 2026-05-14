@@ -74,6 +74,8 @@ def scan() -> list[str]:
             continue
 
         rel = path.relative_to(ROOT)
+        if rel.parts and rel.parts[0] == ".git":
+            continue
         suffix = path.suffix.lower()
         if suffix in FORBIDDEN_EXTENSIONS:
             issues.append(f"{rel}: forbidden extension {suffix}")
