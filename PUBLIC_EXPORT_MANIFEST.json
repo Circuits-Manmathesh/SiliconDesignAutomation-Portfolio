@@ -1,0 +1,49 @@
+{
+  "export_created_at": "2026-05-14T11:19:39",
+  "public_repo_slug": "SiliconDesignAutomation-Portfolio",
+  "owner": "Circuits-Manmathesh",
+  "remote_url": "https://github.com/Circuits-Manmathesh/SiliconDesignAutomation-Portfolio.git",
+  "included_specs": [
+    "examples\\inverter_3GHz_clock_TT27\\spec\\inverter_3GHz_clock_TT27_public.yml"
+  ],
+  "included_plots": [
+    "examples\\inverter_3GHz_clock_TT27\\plots\\dc\\inverter_vtc.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\dc\\inverter_dc_gain.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\dc\\inverter_static_current.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\dc\\inverter_static_power.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\dc\\inverter_gmid_vs_vin.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\ac\\gain_phase_response_vm.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\ac\\gain_phase_response_bias_sweep.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\ac\\bandwidth_vs_bias.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\ac\\input_capacitance_check.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\tran\\best_waveform_stacked.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\tran\\delay_marker_zoom.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\tran\\delay_power_tradeoff.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\tran\\duty_cycle_check.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\final\\inverter_characterization_dashboard.png",
+    "examples\\inverter_3GHz_clock_TT27\\plots\\final\\final_summary_dashboard.png"
+  ],
+  "included_reports": [
+    "examples\\inverter_3GHz_clock_TT27\\reports\\final_summary_public.md",
+    "examples\\inverter_3GHz_clock_TT27\\reports\\verification_summary_public.md",
+    "examples\\inverter_3GHz_clock_TT27\\reports\\dc_characterization_summary_public.md",
+    "examples\\inverter_3GHz_clock_TT27\\reports\\ac_characterization_summary_public.md",
+    "examples\\inverter_3GHz_clock_TT27\\reports\\transient_summary_public.md"
+  ],
+  "excluded_patterns": [
+    ".asc",
+    ".h5",
+    ".hdf5",
+    ".lib",
+    ".log",
+    ".mdl",
+    ".net",
+    ".plt",
+    ".pyc",
+    ".raw",
+    ".scs",
+    ".sp",
+    ".tmp"
+  ],
+  "safety_status": "PENDING_CHECK"
+}

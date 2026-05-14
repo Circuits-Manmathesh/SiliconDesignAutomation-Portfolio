@@ -1,0 +1,49 @@
+SiliconDesignAutomation Public Portfolio Sanitization Report
+Created: 2026-05-14T11:19:39
+
+Copied approved files:
+- examples\inverter_3GHz_clock_TT27\plots\dc\inverter_vtc.png
+- examples\inverter_3GHz_clock_TT27\plots\dc\inverter_dc_gain.png
+- examples\inverter_3GHz_clock_TT27\plots\dc\inverter_static_current.png
+- examples\inverter_3GHz_clock_TT27\plots\dc\inverter_static_power.png
+- examples\inverter_3GHz_clock_TT27\plots\dc\inverter_gmid_vs_vin.png
+- examples\inverter_3GHz_clock_TT27\plots\ac\gain_phase_response_vm.png
+- examples\inverter_3GHz_clock_TT27\plots\ac\gain_phase_response_bias_sweep.png
+- examples\inverter_3GHz_clock_TT27\plots\ac\bandwidth_vs_bias.png
+- examples\inverter_3GHz_clock_TT27\plots\ac\input_capacitance_check.png
+- examples\inverter_3GHz_clock_TT27\plots\tran\best_waveform_stacked.png
+- examples\inverter_3GHz_clock_TT27\plots\tran\delay_marker_zoom.png
+- examples\inverter_3GHz_clock_TT27\plots\tran\delay_power_tradeoff.png
+- examples\inverter_3GHz_clock_TT27\plots\tran\duty_cycle_check.png
+- examples\inverter_3GHz_clock_TT27\plots\final\inverter_characterization_dashboard.png
+- examples\inverter_3GHz_clock_TT27\plots\final\final_summary_dashboard.png
+
+Generated public specs:
+- examples\inverter_3GHz_clock_TT27\spec\inverter_3GHz_clock_TT27_public.yml
+
+Generated public reports:
+- examples\inverter_3GHz_clock_TT27\reports\final_summary_public.md
+- examples\inverter_3GHz_clock_TT27\reports\verification_summary_public.md
+- examples\inverter_3GHz_clock_TT27\reports\dc_characterization_summary_public.md
+- examples\inverter_3GHz_clock_TT27\reports\ac_characterization_summary_public.md
+- examples\inverter_3GHz_clock_TT27\reports\transient_summary_public.md
+
+Skipped private inputs:
+- Private report sanitized instead of copied: final_summary.txt
+- Private report sanitized instead of copied: verification_report.txt
+- Private report sanitized instead of copied: dc_characterization_report.txt
+- Private report sanitized instead of copied: ac_small_signal_report.txt
+- Private report sanitized instead of copied: transient_verification_report.txt
+- Private report sanitized instead of copied: README_RESULTS.md
+
+Missing configured inputs:
+- None
+
+Forbidden files detected:
+- None
+
+Text safety issues detected:
+- None
+
+Final safety status:
+PASS

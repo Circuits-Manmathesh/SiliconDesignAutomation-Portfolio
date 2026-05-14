@@ -1,0 +1,14 @@
+Design Spec
+↓
+Master Product Runner
+↓
+gm/Id LUT Intelligence
+↓
+Candidate Sizing
+↓
+SPICE Testbench Generation
+↓
+DC / AC / Transient Verification
+↓
+Final Design Evidence Package
+

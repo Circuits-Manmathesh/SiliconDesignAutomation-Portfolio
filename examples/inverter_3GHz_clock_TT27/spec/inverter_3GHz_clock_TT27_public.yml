@@ -1,0 +1,30 @@
+project_name: inverter_3GHz_clock_TT27
+design_type: inverter
+technology: representative_50nm_cmos
+corner: TT_27
+temperature: 27
+vdd: 1.0
+
+clock:
+  frequency: 3.0e9
+  duty_cycle_sweep: [0.45, 0.50, 0.55]
+  input_slew_20_80: 10.0e-12
+
+load:
+  capacitance: 20.0e-15
+
+targets:
+  tphl_max: 20.0e-12
+  tplh_max: 20.0e-12
+  delay_mismatch_max: 3.0e-12
+  rise_time_20_80_max: 25.0e-12
+  fall_time_20_80_max: 25.0e-12
+  output_duty_cycle_min: 0.45
+  output_duty_cycle_max: 0.55
+  duty_cycle_distortion_max: 0.02
+  output_low_max: 0.05
+  output_high_min: 0.95
+
+objective:
+  primary: meet_all_specs
+  secondary: minimize_power_after_timing_pass
