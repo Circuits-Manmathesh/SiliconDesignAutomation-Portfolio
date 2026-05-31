@@ -27,16 +27,15 @@ For a quick technical review, start here:
 
 ```text
 User Requirement
-→ Topology Knowledge Pack
-→ gm/Id + LUT-Based Device Selection
-→ Testbench / Netlist Generation
-→ Real Simulation
-→ Measurement Extraction
-→ Spec Truth Gate
-→ Closed-Loop Correction
-→ Final Evidence Package
-→ Reusable Golden Topology
-        
+-> Topology Knowledge Pack
+-> gm/Id + LUT-Based Device Selection
+-> Testbench / Netlist Generation
+-> Real Simulation
+-> Measurement Extraction
+-> Spec Truth Gate
+-> Closed-Loop Correction
+-> Final Evidence Package
+-> Reusable Golden Topology
 ```
 
 ---
@@ -59,69 +58,20 @@ The following analog design projects were generated and validated using the same
 
 ```text
 User Requirement
-→ Topology Knowledge Pack
-→ gm/Id + LUT-Based Device Selection
-→ LTspice Netlist Generation
-→ Real Simulation
-→ Measurement Extraction
-→ Spec Truth Gate
-→ Closed-Loop Correction
-→ Final Evidence Package
-→ Golden Regression / Topology Maturity Map
-        
+-> Topology Knowledge Pack
+-> gm/Id + LUT-Based Device Selection
+-> LTspice Netlist Generation
+-> Real Simulation
+-> Measurement Extraction
+-> Spec Truth Gate
+-> Closed-Loop Correction
+-> Final Evidence Package
+-> Golden Regression / Topology Maturity Map
 ```
 
 This is not a manual plot collection. Each design is treated as a topology-driven CAD task. The engine reads the user specification, loads the corresponding topology knowledge pack, derives physics-aware sizing targets, selects LUT-backed devices, generates LTspice simulations, extracts real measurements, checks the required specifications, and iterates when needed.
 
-### 1. Inverter 3 GHz Clock Buffer
-
-**Status:** `VALIDATED UNIT CELL`
-
-**Problem solved:**
-
-Validate a basic high-speed switching unit cell before moving to larger analog and clock-buffer studies.
-
-**User specification used by the engine:**
-
-| Parameter | Target |
-|---|---|
-| Target use | 3 GHz clock-buffer / switching-cell demonstration |
-| Verification | Public-safe plots, tables and report artifacts |
-| Role in engine | Unit-cell validation before larger topology promotion |
-
-**Engine process:**
-
-The inverter/clock-buffer validation checks whether the flow can generate a simple topology, run real simulation, extract timing/power style evidence, and promote a clean reusable block.
-
-**Validated result:**
-
-| Metric | Measured Result | Status |
-|---|---:|---|
-| Validation status | Evidence available in project folder | `REVIEW` |
-
-**What this proves:**
-
-This project shows the engine can start from a simple reusable unit cell before scaling toward common-source, differential and op-amp level designs.
-
-**Evidence links:**
-
-- [Full project folder](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/)
-- [Plots](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/)
-- [Reports](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/reports/)
-- [Notes](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/notes/)
-- [Screenshots](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/screenshots/)
-
-**Verified result plots:**
-
-| Verified Plot | Verified Plot |
-|---|---|
-| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/best_waveform_stacked.png" width="430"><br><sub>Best Waveform Stacked</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/delay_power_tradeoff.png" width="430"><br><sub>Delay Power Tradeoff</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/duty_cycle_check.png" width="430"><br><sub>Duty Cycle Check</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response.png" width="430"><br><sub>Gain Phase Response</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response_vm.png" width="430"><br><sub>Gain Phase Response Vm</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/vout_waveform.png" width="430"><br><sub>Vout Waveform</sub> |
-
----
-
-### 2. Common-Source Amplifier
+### 1. Common-Source Amplifier
 
 **Status:** `VALIDATED / PASS`
 
@@ -136,8 +86,8 @@ Validate a short-channel analog gain cell where gain, bandwidth, output bias, po
 | Technology setup | 50 nm educational CMOS model |
 | Supply | Around 1.0 V |
 | Load | Capacitive load included in the testbench |
-| DC gain | Approximately ≥ 26 dB |
-| UGB | Approximately ≥ 20 MHz |
+| DC gain | Approximately >= 26 dB |
+| UGB | Approximately >= 20 MHz |
 | Output bias | Valid operating range |
 | Power | Below project limit |
 | Device validity | LUT-backed, physically valid operating point |
@@ -177,7 +127,7 @@ The engine can convert a simple analog gain-cell requirement into a reproducible
 
 ---
 
-### 3. Differential Pair / Differential Amplifier
+### 2. Differential Pair / Differential Amplifier
 
 **Status:** `VALIDATED / PASS`
 
@@ -189,12 +139,12 @@ Validate a differential input stage with real differential gain, output common-m
 
 | Parameter | Target |
 |---|---|
-| Differential gain | ≥ 20 dB |
-| UGB | ≥ 50 MHz |
-| Power | ≤ 300 µW |
-| Tail current | ≤ 150 µA |
+| Differential gain | >= 20 dB |
+| UGB | >= 50 MHz |
+| Power | <= 300 uW |
+| Tail current | <= 150 uA |
 | Output common-mode | ~0.35 V to 0.70 V |
-| Output balance error | ≤ 20 mV |
+| Output balance error | <= 20 mV |
 | Measurement source | Real OP/DC/AC/transient simulation |
 | Device validity | gm/Id and saturation checks required |
 
@@ -208,8 +158,8 @@ The differential-pair knowledge pack defines matched NMOS input devices, PMOS lo
 |---|---:|---|
 | Differential gain | ~28.16 dB | `PASS` |
 | UGB | ~55.14 MHz | `PASS` |
-| Average power | ~8.98 µW | `PASS` |
-| Tail current | ~8.98 µA | `PASS` |
+| Average power | ~8.98 uW | `PASS` |
+| Tail current | ~8.98 uA | `PASS` |
 | Output common-mode | ~0.497 V | `PASS` |
 | Output balance error | ~0 V | `PASS` |
 
@@ -236,7 +186,7 @@ The engine can handle matched differential devices, common-mode constraints, tai
 
 ---
 
-### 4. Two-Stage Operational Amplifier
+### 3. Two-Stage Operational Amplifier
 
 **Status:** `VALIDATED / PASS`
 
@@ -249,9 +199,9 @@ Build a higher-level analog product using matured common-source and differential
 | Parameter | Target |
 |---|---|
 | Supply | Around 1.0 V |
-| Open-loop gain | ≥ 40 dB |
-| UGB | ≥ 10 MHz for validated V1 demo |
-| Phase margin | ≥ 55° |
+| Open-loop gain | >= 40 dB |
+| UGB | >= 10 MHz for validated V1 demo |
+| Phase margin | >= 55 deg |
 | Output bias | Valid operating range |
 | Transient behavior | Slew-rate and settling required |
 | Final plots | PNG-only public evidence |
@@ -266,10 +216,10 @@ The two-stage op-amp knowledge pack defines the input differential stage, second
 
 | Metric | Measured Result | Status |
 |---|---:|---|
-| Open-loop gain | ~45–46 dB | `PASS` |
+| Open-loop gain | ~45-46 dB | `PASS` |
 | UGB | ~15.63 MHz | `PASS` |
-| Phase margin | ~64.8° | `PASS` |
-| Slew rate | ~15.96 V/µs | `PASS` |
+| Phase margin | ~64.8 deg | `PASS` |
+| Slew rate | ~15.96 V/us | `PASS` |
 | 1% settling time | ~189.5 ns | `PASS` |
 | V1 design target | Met | `PASS` |
 
@@ -294,6 +244,54 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_phase_margin_marker.png" width="430"><br><sub>04 Phase Margin Marker</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_tran_input_output_waveform.png" width="430"><br><sub>04 Tran Input Output Waveform</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/05_unity_gain_transient_step.png" width="430"><br><sub>05 Unity Gain Transient Step</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/06_slew_rate_and_settling.png" width="430"><br><sub>06 Slew Rate And Settling</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/07_ac_bode_gain.png" width="430"><br><sub>07 Ac Bode Gain</sub> |  |
+
+---
+
+### 4. Inverter 3 GHz Clock Buffer
+
+**Status:** `VALIDATED UNIT CELL`
+
+**Problem solved:**
+
+Validate a reusable high-speed switching unit cell before moving to larger analog and clock-buffer studies.
+
+**User specification used by the engine:**
+
+| Parameter | Target |
+|---|---|
+| Target use | 3 GHz clock-buffer / switching-cell demonstration |
+| Verification | Public-safe plots, tables and report artifacts |
+| Role in engine | Unit-cell validation before larger topology promotion |
+
+**Engine process:**
+
+The inverter/clock-buffer validation checks whether the flow can generate a simple topology, run real simulation, extract timing/power-style evidence, and promote a clean reusable block.
+
+**Validated result:**
+
+| Metric | Measured Result | Status |
+|---|---:|---|
+| Validation status | Evidence available in project folder | `UNIT-CELL VALIDATED` |
+
+**What this proves:**
+
+This project shows the engine can start from a simple reusable unit cell before scaling toward common-source, differential and op-amp level designs.
+
+**Evidence links:**
+
+- [Full project folder](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/)
+- [Plots](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/)
+- [Reports](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/reports/)
+- [Notes](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/notes/)
+- [Screenshots](projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/screenshots/)
+
+**Verified result plots:**
+
+| Verified Plot | Verified Plot |
+|---|---|
+| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/best_waveform_stacked.png" width="430"><br><sub>Best Waveform Stacked</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/delay_power_tradeoff.png" width="430"><br><sub>Delay Power Tradeoff</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/duty_cycle_check.png" width="430"><br><sub>Duty Cycle Check</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response.png" width="430"><br><sub>Gain Phase Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response_vm.png" width="430"><br><sub>Gain Phase Response Vm</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/vout_waveform.png" width="430"><br><sub>Vout Waveform</sub> |
 
 ---
 
@@ -335,11 +333,10 @@ After every candidate update, the engine reruns the real simulation chain:
 
 ```text
 Netlist Generation
-→ LTspice Simulation
-→ Measurement Extraction
-→ Spec Evaluation
-→ Final Truth Gate
-        
+-> LTspice Simulation
+-> Measurement Extraction
+-> Spec Evaluation
+-> Final Truth Gate
 ```
 
 The loop stops only when all required specs pass with real measurements or the valid physics/LUT candidate space is exhausted.
