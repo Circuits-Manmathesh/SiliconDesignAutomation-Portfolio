@@ -2,7 +2,7 @@
 
 ## Physics-Aware Analog / Mixed-Signal CAD Methodology Portfolio
 
-This repository is a public, non-confidential technical portfolio focused on **analog / mixed-signal IC design automation**, **semiconductor CAD methodology**, **gm/Id lookup-table based sizing**, **SPICE simulation evidence**, **clock-distribution architecture**, **RFIC design study**, and **reusable topology validation**.
+This repository is a public, non-confidential technical portfolio focused on **analog / mixed-signal IC design automation**, **semiconductor CAD methodology**, **gm/Id lookup-table based sizing**, **SPICE simulation evidence**, **clock-distribution architecture**, **RFIC design study**, and **reusable topology validation**. **CMOSEDUMODEL 50nm**, **Simulator LTSPICE**.
 
 The goal is to show how device physics, circuit knowledge, scripting, simulation, measurement extraction, validation gates, and reusable topology thinking can be combined into a structured silicon-design methodology.
 
