@@ -52,6 +52,152 @@ Start here:
 
 ---
 
+<!-- GMID_LUT_SECTION_START -->
+
+## gm/Id LUT Device Physics Foundation
+
+The Skynet Analog Agent uses a device-level LUT database as the physics foundation for transistor sizing. This section shows how the engine connects device physics, gm/Id methodology, LUT-backed operating-point selection, and real LTspice-verified analog design.
+
+This section is intentionally placed immediately after the architecture diagram because the LUT is the device-physics memory behind the validated analog projects shown later.
+
+### LUT Generation and gm/Id Methodology in Our Engine
+
+- Our engine uses a **device-level LUT database** as the physics foundation for transistor sizing. Instead of randomly choosing `W/L/current` values, the engine queries pre-characterized NMOS/PMOS operating points and selects candidates based on real device behavior.
+
+- The LUT is generated from transistor sweeps over **bias, length, multiplicity, and process corner conditions**. For each NMOS/PMOS device point, the LUT stores key analog design quantities such as:
+
+  - drain current `Id`
+  - transconductance `gm`
+  - output conductance `gds`
+  - `gm/Id`
+  - `gm/gds`
+  - intrinsic gain
+  - output resistance
+  - capacitances such as `cgg`, `cgs`, `cgd`
+  - threshold/overdrive information
+  - `ft`
+  - current density
+  - power
+  - region flag
+  - saturation/headroom validity
+
+- The current Skynet engine reads the production LUT from:
+
+```text
+lut_characterizer\generated_lut
+```
+
+- The LUT contains both **NMOS and PMOS device physics**, with thousands of valid operating-point rows. In our validated engine runs, the LUT service discovered around:
+
+```text
+NMOS rows ≈ 24,640
+PMOS rows ≈ 24,640
+```
+
+- The LUT grid has been matured around practical gm/Id design needs:
+
+  - multiple transistor lengths
+  - multiple `VGS/VSG` bias points
+  - multiple `VDS/VSD` operating points
+  - current-density awareness
+  - region/saturation flags
+  - valid/invalid operating-point filtering
+  - PMOS/NMOS sign-normalized quantities for easier design automation
+
+- In the broader LUT framework, the device sweep philosophy supports grids such as:
+
+  - `VGS/VSG` sweep across the usable supply range
+  - `VDS/VSD` sweep across output-headroom regions
+  - multiple channel lengths for gain/bandwidth trade-off
+  - multiplicity `m` scaling for layout-aware current and width scaling
+  - process corners such as `TT/SS/FF` for robustness
+
+### Representative LUT Sweep Grid
+
+| Sweep Variable | Representative Grid / Meaning |
+|---|---|
+| `VGS / VSG` | 0 V to 1.1 V, step 0.1 V |
+| `VDS / VSD` | 0 V to 1.25 V, step 0.25 V |
+| `VBody` | 0 V, 0.3 V, 0.5 V |
+| `L` | 50 nm, 100 nm, 200 nm, 600 nm, 900 nm, 1 µm |
+| `W` | 1 µm reference width |
+| `m` | 1 to 10 multiplicity for layout-aware scaling |
+
+For the current public portfolio view, the landing page shows representative `VDS/VSD = 0.5 V` gm/Id-related plots for NMOS and PMOS devices. The broader engine architecture is capable of expanding this same methodology across separate `TT`, `SS`, and `FF` process corners and temperature points such as `-40 C`, `27 C`, and `125 C`, as long as the corresponding public-safe LUT artifacts are generated and placed in the portfolio structure.
+
+### How the Engine Converts Specs into LUT Queries
+
+- The gm/Id methodology is directly connected to this LUT. The engine first converts the user requirement into circuit-level targets:
+
+  - required gain
+  - required UGB/bandwidth
+  - required load driving
+  - power/current limit
+  - output swing/headroom
+  - topology-specific bias constraints
+
+- Then it derives sizing quantities using gm/Id logic:
+
+```text
+Required bandwidth/load -> required gm
+Required gm and selected gm/Id -> required Id
+Required Id and LUT current density -> required W/m
+Gain target -> gm/gds and gds/Id constraint
+Swing/headroom target -> valid VDS/VSD and saturation margin
+```
+
+- After this, the engine queries the LUT and filters candidates using:
+
+  - correct device type: NMOS/PMOS
+  - gm/Id target range
+  - length target
+  - current target
+  - region validity
+  - saturation margin
+  - gm/gds requirement
+  - ft margin
+  - width/current-density limits
+  - output headroom compatibility
+
+- This makes the sizing process **deterministic and physics-aware**. The engine does not simply tune numbers until a plot looks good. It searches only valid device operating points available in the LUT.
+
+- The LUT also helps the closed-loop optimizer. If a design fails gain, bandwidth, output bias, phase margin, eye opening, or power, the engine uses the LUT to move toward physically meaningful alternatives rather than random guesses.
+
+- In short, the LUT acts as the **device physics memory** of the engine, and gm/Id acts as the **design reasoning method**. Together, they allow the engine to size devices, reject invalid regions, explain failures, and converge toward real LTspice-verified analog designs.
+
+### NMOS gm/Id Representative Plots at VDS = 0.5 V
+
+| gm/Id LUT Plot | gm/Id LUT Plot |
+|---|---|
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_nmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_nmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>08 Ft Vs gm/Id Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>09 Ft gm/Id Product Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
+
+### PMOS gm/Id Representative Plots at VSD = 0.5 V
+
+| gm/Id LUT Plot | gm/Id LUT Plot |
+|---|---|
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_pmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_pmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>08 Ft Vs gm/Id Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>09 Ft gm/Id Product Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
+
+### Why This Matters for the Validated Projects
+
+| Validated Project | How the LUT Helps |
+|---|---|
+| Common-source amplifier | Converts gain/UGB/load requirements into gm, current, intrinsic-gain and headroom-aware candidates |
+| Differential pair | Selects matched device candidates while checking gm/Id, current, common-mode and saturation constraints |
+| Two-stage op-amp | Supports gm budgeting, gain-stage sizing, compensation trade-off, slew-rate/power awareness and failure correction |
+| Inverter / clock buffer | Supports unit-cell drive/current/timing exploration with reusable device-level characterization |
+
+This is the key difference between a simple automation script and a physics-aware CAD methodology engine.
+
+<!-- GMID_LUT_SECTION_END -->
+
 ## Validated Analog Design Evidence
 
 The following analog design projects were generated and validated using the same staged Skynet Analog Agent flow:
