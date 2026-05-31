@@ -13,11 +13,12 @@ The goal is to show how device physics, circuit knowledge, scripting, simulation
 For a quick technical review, start here:
 
 1. Review the Skynet Analog Agent architecture below.
-2. Check the validated analog design evidence section.
-3. Open the common-source amplifier, differential pair, and two-stage op-amp evidence folders.
-4. Review the gm/Id LUT methodology and device-physics notes.
-5. Review the clock-distribution playbook for SoC timing and CAD-methodology context.
-6. Review the RFIC research track for mm-wave design background.
+2. Check the gm/Id LUT device-physics foundation.
+3. Check the validated analog design evidence section.
+4. Open the common-source amplifier, differential pair, and two-stage op-amp evidence folders.
+5. Review the CAD methodology notes: simulation truth gate, closed-loop optimization, and golden regression validation.
+6. Review the clock-distribution playbook for SoC timing and methodology context.
+7. Review the RFIC research track for mm-wave design background.
 
 ---
 
@@ -27,15 +28,15 @@ For a quick technical review, start here:
 
 ```text
 User Requirement
--> Topology Knowledge Pack
--> gm/Id + LUT-Based Device Selection
--> Testbench / Netlist Generation
--> Real Simulation
--> Measurement Extraction
--> Spec Truth Gate
--> Closed-Loop Correction
--> Final Evidence Package
--> Reusable Golden Topology
+→ Topology Knowledge Pack
+→ gm/Id + LUT-Based Device Selection
+→ Testbench / Netlist Generation
+→ Real Simulation
+→ Measurement Extraction
+→ Spec Truth Gate
+→ Closed-Loop Correction
+→ Final Evidence Package
+→ Reusable Golden Topology
 ```
 
 ---
@@ -51,8 +52,6 @@ Start here:
 - [`architecture/`](architecture/)
 
 ---
-
-<!-- GMID_LUT_SECTION_START -->
 
 ## gm/Id LUT Device Physics Foundation
 
@@ -115,7 +114,7 @@ PMOS rows ≈ 24,640
 ### Representative LUT Sweep Grid
 
 | Sweep Variable | Representative Grid / Meaning |
-|---|---|
+| --- | --- |
 | `VGS / VSG` | 0 V to 1.1 V, step 0.1 V |
 | `VDS / VSD` | 0 V to 1.25 V, step 0.25 V |
 | `VBody` | 0 V, 0.3 V, 0.5 V |
@@ -139,11 +138,11 @@ For the current public portfolio view, the landing page shows representative `VD
 - Then it derives sizing quantities using gm/Id logic:
 
 ```text
-Required bandwidth/load -> required gm
-Required gm and selected gm/Id -> required Id
-Required Id and LUT current density -> required W/m
-Gain target -> gm/gds and gds/Id constraint
-Swing/headroom target -> valid VDS/VSD and saturation margin
+Required bandwidth/load → required gm
+Required gm and selected gm/Id → required Id
+Required Id and LUT current density → required W/m
+Gain target → gm/gds and gds/Id constraint
+Swing/headroom target → valid VDS/VSD and saturation margin
 ```
 
 - After this, the engine queries the LUT and filters candidates using:
@@ -167,28 +166,28 @@ Swing/headroom target -> valid VDS/VSD and saturation margin
 
 ### NMOS gm/Id Representative Plots at VDS = 0.5 V
 
-| gm/Id LUT Plot | gm/Id LUT Plot |
+| Plot | Plot |
 |---|---|
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_nmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_nmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Nmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Nmos Full VDS 0.55v</sub> |
-| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>08 Ft Vs gm/Id Nmos Full VDS 0.55v</sub> |
-| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>09 Ft gm/Id Product Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>08 ft Vs gm/Id Nmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>09 ft gm/Id Product Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
 
 ### PMOS gm/Id Representative Plots at VSD = 0.5 V
 
-| gm/Id LUT Plot | gm/Id LUT Plot |
+| Plot | Plot |
 |---|---|
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_pmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_pmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Pmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Pmos Full VDS 0.55v</sub> |
-| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>08 Ft Vs gm/Id Pmos Full VDS 0.55v</sub> |
-| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>09 Ft gm/Id Product Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/07_gain_db_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>07 Gain Db Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/08_ft_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>08 ft Vs gm/Id Pmos Full VDS 0.55v</sub> |
+| <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/09_ft_gmid_product_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>09 ft gm/Id Product Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/10_cgg_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>10 Cgg Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
 
 ### Why This Matters for the Validated Projects
 
 | Validated Project | How the LUT Helps |
-|---|---|
+| --- | --- |
 | Common-source amplifier | Converts gain/UGB/load requirements into gm, current, intrinsic-gain and headroom-aware candidates |
 | Differential pair | Selects matched device candidates while checking gm/Id, current, common-mode and saturation constraints |
 | Two-stage op-amp | Supports gm budgeting, gain-stage sizing, compensation trade-off, slew-rate/power awareness and failure correction |
@@ -196,7 +195,7 @@ Swing/headroom target -> valid VDS/VSD and saturation margin
 
 This is the key difference between a simple automation script and a physics-aware CAD methodology engine.
 
-<!-- GMID_LUT_SECTION_END -->
+---
 
 ## Validated Analog Design Evidence
 
@@ -204,15 +203,15 @@ The following analog design projects were generated and validated using the same
 
 ```text
 User Requirement
--> Topology Knowledge Pack
--> gm/Id + LUT-Based Device Selection
--> LTspice Netlist Generation
--> Real Simulation
--> Measurement Extraction
--> Spec Truth Gate
--> Closed-Loop Correction
--> Final Evidence Package
--> Golden Regression / Topology Maturity Map
+→ Topology Knowledge Pack
+→ gm/Id + LUT-Based Device Selection
+→ LTspice Netlist Generation
+→ Real Simulation
+→ Measurement Extraction
+→ Spec Truth Gate
+→ Closed-Loop Correction
+→ Final Evidence Package
+→ Golden Regression / Topology Maturity Map
 ```
 
 This is not a manual plot collection. Each design is treated as a topology-driven CAD task. The engine reads the user specification, loads the corresponding topology knowledge pack, derives physics-aware sizing targets, selects LUT-backed devices, generates LTspice simulations, extracts real measurements, checks the required specifications, and iterates when needed.
@@ -228,12 +227,12 @@ Validate a short-channel analog gain cell where gain, bandwidth, output bias, po
 **User specification used by the engine:**
 
 | Parameter | Target |
-|---|---|
+| --- | --- |
 | Technology setup | 50 nm educational CMOS model |
 | Supply | Around 1.0 V |
 | Load | Capacitive load included in the testbench |
-| DC gain | Approximately >= 26 dB |
-| UGB | Approximately >= 20 MHz |
+| DC gain | Approximately ≥ 26 dB |
+| UGB | Approximately ≥ 20 MHz |
 | Output bias | Valid operating range |
 | Power | Below project limit |
 | Device validity | LUT-backed, physically valid operating point |
@@ -245,7 +244,7 @@ The common-source knowledge pack defines topology structure, sizing rules, devic
 **Validated result:**
 
 | Metric | Measured Result | Status |
-|---|---:|---|
+| --- | --- | --- |
 | DC gain | ~27.98 dB | `PASS` |
 | UGB | ~20.57 MHz | `PASS` |
 | Output bias | Valid mid-supply region | `PASS` |
@@ -266,10 +265,10 @@ The engine can convert a simple analog gain-cell requirement into a reproducible
 
 **Verified result plots:**
 
-| Verified Plot | Verified Plot |
+| Plot | Plot |
 |---|---|
-| <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 Dc Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/07_ac_bode_gain.png" width="430"><br><sub>07 Ac Bode Gain</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 Ac Phase Diagnostic</sub> |  |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 DC Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/07_ac_bode_gain.png" width="430"><br><sub>07 AC Bode Gain</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 AC Phase Diagnostic</sub> |  |
 
 ---
 
@@ -284,13 +283,13 @@ Validate a differential input stage with real differential gain, output common-m
 **User specification used by the engine:**
 
 | Parameter | Target |
-|---|---|
-| Differential gain | >= 20 dB |
-| UGB | >= 50 MHz |
-| Power | <= 300 uW |
-| Tail current | <= 150 uA |
+| --- | --- |
+| Differential gain | ≥ 20 dB |
+| UGB | ≥ 50 MHz |
+| Power | ≤ 300 µW |
+| Tail current | ≤ 150 µA |
 | Output common-mode | ~0.35 V to 0.70 V |
-| Output balance error | <= 20 mV |
+| Output balance error | ≤ 20 mV |
 | Measurement source | Real OP/DC/AC/transient simulation |
 | Device validity | gm/Id and saturation checks required |
 
@@ -301,11 +300,11 @@ The differential-pair knowledge pack defines matched NMOS input devices, PMOS lo
 **Validated result:**
 
 | Metric | Measured Result | Status |
-|---|---:|---|
+| --- | --- | --- |
 | Differential gain | ~28.16 dB | `PASS` |
 | UGB | ~55.14 MHz | `PASS` |
-| Average power | ~8.98 uW | `PASS` |
-| Tail current | ~8.98 uA | `PASS` |
+| Average power | ~8.98 µW | `PASS` |
+| Tail current | ~8.98 µA | `PASS` |
 | Output common-mode | ~0.497 V | `PASS` |
 | Output balance error | ~0 V | `PASS` |
 
@@ -324,11 +323,11 @@ The engine can handle matched differential devices, common-mode constraints, tai
 
 **Verified result plots:**
 
-| Verified Plot | Verified Plot |
+| Plot | Plot |
 |---|---|
-| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/02_dc_differential_transfer.png" width="430"><br><sub>02 Dc Differential Transfer</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/03_dc_output_common_mode_and_balance.png" width="430"><br><sub>03 Dc Output Common Mode And Balance</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/04_ac_differential_gain_ugb.png" width="430"><br><sub>04 Ac Differential Gain Ugb</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/05_tran_differential_step_response.png" width="430"><br><sub>05 Tran Differential Step Response</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 Ac Phase Diagnostic</sub> |  |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/02_dc_differential_transfer.png" width="430"><br><sub>02 DC Differential Transfer</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/03_dc_output_common_mode_and_balance.png" width="430"><br><sub>03 DC Output Common Mode And Balance</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/04_ac_differential_gain_ugb.png" width="430"><br><sub>04 AC Differential Gain UGB</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/05_tran_differential_step_response.png" width="430"><br><sub>05 TRAN Differential Step Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 AC Phase Diagnostic</sub> |  |
 
 ---
 
@@ -343,11 +342,11 @@ Build a higher-level analog product using matured common-source and differential
 **User specification used by the engine:**
 
 | Parameter | Target |
-|---|---|
+| --- | --- |
 | Supply | Around 1.0 V |
-| Open-loop gain | >= 40 dB |
-| UGB | >= 10 MHz for validated V1 demo |
-| Phase margin | >= 55 deg |
+| Open-loop gain | ≥ 40 dB |
+| UGB | ≥ 10 MHz for validated V1 demo |
+| Phase margin | ≥ 55° |
 | Output bias | Valid operating range |
 | Transient behavior | Slew-rate and settling required |
 | Final plots | PNG-only public evidence |
@@ -361,11 +360,11 @@ The two-stage op-amp knowledge pack defines the input differential stage, second
 **Validated result:**
 
 | Metric | Measured Result | Status |
-|---|---:|---|
-| Open-loop gain | ~45-46 dB | `PASS` |
+| --- | --- | --- |
+| Open-loop gain | ~45–46 dB | `PASS` |
 | UGB | ~15.63 MHz | `PASS` |
-| Phase margin | ~64.8 deg | `PASS` |
-| Slew rate | ~15.96 V/us | `PASS` |
+| Phase margin | ~64.8° | `PASS` |
+| Slew rate | ~15.96 V/µs | `PASS` |
 | 1% settling time | ~189.5 ns | `PASS` |
 | V1 design target | Met | `PASS` |
 
@@ -384,12 +383,12 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 
 **Verified result plots:**
 
-| Verified Plot | Verified Plot |
+| Plot | Plot |
 |---|---|
-| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 Dc Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/03_ac_gain_phase_bode.png" width="430"><br><sub>03 Ac Gain Phase Bode</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_phase_margin_marker.png" width="430"><br><sub>04 Phase Margin Marker</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_tran_input_output_waveform.png" width="430"><br><sub>04 Tran Input Output Waveform</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 DC Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/03_ac_gain_phase_bode.png" width="430"><br><sub>03 AC Gain Phase Bode</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_phase_margin_marker.png" width="430"><br><sub>04 Phase Margin Marker</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_tran_input_output_waveform.png" width="430"><br><sub>04 TRAN Input Output Waveform</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/05_unity_gain_transient_step.png" width="430"><br><sub>05 Unity Gain Transient Step</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/06_slew_rate_and_settling.png" width="430"><br><sub>06 Slew Rate And Settling</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/07_ac_bode_gain.png" width="430"><br><sub>07 Ac Bode Gain</sub> |  |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/07_ac_bode_gain.png" width="430"><br><sub>07 AC Bode Gain</sub> |  |
 
 ---
 
@@ -404,7 +403,7 @@ Validate a reusable high-speed switching unit cell before moving to larger analo
 **User specification used by the engine:**
 
 | Parameter | Target |
-|---|---|
+| --- | --- |
 | Target use | 3 GHz clock-buffer / switching-cell demonstration |
 | Verification | Public-safe plots, tables and report artifacts |
 | Role in engine | Unit-cell validation before larger topology promotion |
@@ -416,7 +415,7 @@ The inverter/clock-buffer validation checks whether the flow can generate a simp
 **Validated result:**
 
 | Metric | Measured Result | Status |
-|---|---:|---|
+| --- | --- | --- |
 | Validation status | Evidence available in project folder | `UNIT-CELL VALIDATED` |
 
 **What this proves:**
@@ -433,7 +432,7 @@ This project shows the engine can start from a simple reusable unit cell before 
 
 **Verified result plots:**
 
-| Verified Plot | Verified Plot |
+| Plot | Plot |
 |---|---|
 | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/best_waveform_stacked.png" width="430"><br><sub>Best Waveform Stacked</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/delay_power_tradeoff.png" width="430"><br><sub>Delay Power Tradeoff</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/duty_cycle_check.png" width="430"><br><sub>Duty Cycle Check</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response.png" width="430"><br><sub>Gain Phase Response</sub> |
@@ -479,10 +478,10 @@ After every candidate update, the engine reruns the real simulation chain:
 
 ```text
 Netlist Generation
--> LTspice Simulation
--> Measurement Extraction
--> Spec Evaluation
--> Final Truth Gate
+→ LTspice Simulation
+→ Measurement Extraction
+→ Spec Evaluation
+→ Final Truth Gate
 ```
 
 The loop stops only when all required specs pass with real measurements or the valid physics/LUT candidate space is exhausted.
@@ -504,7 +503,7 @@ This demonstrates that the framework is not hardcoded for one circuit. The topol
 ## Featured Portfolio Modules
 
 | Module | Purpose | Status |
-|---|---|---|
+| --- | --- | --- |
 | [`Skynet Analog Agent`](projects/01_skynet_analog_agent/) | Physics-aware analog CAD methodology engine using topology packs, gm/Id LUTs, simulation truth gates, closed-loop correction, and reusable topology validation. | Active / Core |
 | [`Interactive SoC Clock Distribution Playbook`](projects/02_interactive_soc_clock_playbook/) | Architecture-level study of clock distribution from PLL to flip-flop, including slew, load, delay, skew, jitter, duty cycle, setup/hold, and clock power. | Active / Separate Project |
 | [`RFIC Research and Thesis Track`](projects/03_rfic_research_and_thesis/) | Public-safe RFIC study based on 47 GHz power amplifier design in 130 nm SiGe/BiCMOS technology. | Public-Safe Study |
@@ -599,9 +598,10 @@ The knowledge notes section works like a technical blog. It explains the circuit
 
 ### CAD Methodology
 
-- [`Simulation truth gate`](knowledge_notes/cad_methodology/)
-- [`Closed-loop optimization`](knowledge_notes/cad_methodology/)
-- [`Golden regression validation`](knowledge_notes/cad_methodology/)
+- [`CAD methodology overview`](knowledge_notes/cad_methodology/)
+- [`Simulation truth gate`](knowledge_notes/cad_methodology/simulation_truth_gate.md)
+- [`Closed-loop optimization`](knowledge_notes/cad_methodology/closed_loop_optimization.md)
+- [`Golden regression validation`](knowledge_notes/cad_methodology/golden_regression_validation.md)
 
 Start here:
 
