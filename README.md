@@ -27,15 +27,16 @@ For a quick technical review, start here:
 
 ```text
 User Requirement
--> Topology Knowledge Pack
--> gm/Id + LUT-Based Device Selection
--> Testbench / Netlist Generation
--> Real Simulation
--> Measurement Extraction
--> Spec Truth Gate
--> Closed-Loop Correction
--> Final Evidence Package
--> Reusable Golden Topology
+→ Topology Knowledge Pack
+→ gm/Id + LUT-Based Device Selection
+→ Testbench / Netlist Generation
+→ Real Simulation
+→ Measurement Extraction
+→ Spec Truth Gate
+→ Closed-Loop Correction
+→ Final Evidence Package
+→ Reusable Golden Topology
+        
 ```
 
 ---
@@ -52,32 +53,32 @@ Start here:
 
 ---
 
-
 ## Validated Analog Design Evidence
 
 The following analog design projects were generated and validated using the same staged Skynet Analog Agent flow:
 
 ```text
 User Requirement
--> Topology Knowledge Pack
--> gm/Id + LUT-Based Device Selection
--> LTspice Netlist Generation
--> Real Simulation
--> Measurement Extraction
--> Spec Truth Gate
--> Closed-Loop Correction
--> Final Evidence Package
--> Golden Regression / Topology Maturity Map
+→ Topology Knowledge Pack
+→ gm/Id + LUT-Based Device Selection
+→ LTspice Netlist Generation
+→ Real Simulation
+→ Measurement Extraction
+→ Spec Truth Gate
+→ Closed-Loop Correction
+→ Final Evidence Package
+→ Golden Regression / Topology Maturity Map
+        
 ```
 
 This is not a manual plot collection. Each design is treated as a topology-driven CAD task. The engine reads the user specification, loads the corresponding topology knowledge pack, derives physics-aware sizing targets, selects LUT-backed devices, generates LTspice simulations, extracts real measurements, checks the required specifications, and iterates when needed.
-
 
 ### 1. Inverter 3 GHz Clock Buffer
 
 **Status:** `VALIDATED UNIT CELL`
 
-**Problem solved:**  
+**Problem solved:**
+
 Validate a basic high-speed switching unit cell before moving to larger analog and clock-buffer studies.
 
 **User specification used by the engine:**
@@ -88,7 +89,8 @@ Validate a basic high-speed switching unit cell before moving to larger analog a
 | Verification | Public-safe plots, tables and report artifacts |
 | Role in engine | Unit-cell validation before larger topology promotion |
 
-**Engine process:**  
+**Engine process:**
+
 The inverter/clock-buffer validation checks whether the flow can generate a simple topology, run real simulation, extract timing/power style evidence, and promote a clean reusable block.
 
 **Validated result:**
@@ -97,7 +99,8 @@ The inverter/clock-buffer validation checks whether the flow can generate a simp
 |---|---:|---|
 | Validation status | Evidence available in project folder | `REVIEW` |
 
-**What this proves:**  
+**What this proves:**
+
 This project shows the engine can start from a simple reusable unit cell before scaling toward common-source, differential and op-amp level designs.
 
 **Evidence links:**
@@ -118,12 +121,12 @@ This project shows the engine can start from a simple reusable unit cell before 
 
 ---
 
-
 ### 2. Common-Source Amplifier
 
 **Status:** `VALIDATED / PASS`
 
-**Problem solved:**  
+**Problem solved:**
+
 Validate a short-channel analog gain cell where gain, bandwidth, output bias, power, and device operating region trade against each other.
 
 **User specification used by the engine:**
@@ -133,13 +136,14 @@ Validate a short-channel analog gain cell where gain, bandwidth, output bias, po
 | Technology setup | 50 nm educational CMOS model |
 | Supply | Around 1.0 V |
 | Load | Capacitive load included in the testbench |
-| DC gain | Approximately >= 26 dB |
-| UGB | Approximately >= 20 MHz |
+| DC gain | Approximately ≥ 26 dB |
+| UGB | Approximately ≥ 20 MHz |
 | Output bias | Valid operating range |
 | Power | Below project limit |
 | Device validity | LUT-backed, physically valid operating point |
 
-**Engine process:**  
+**Engine process:**
+
 The common-source knowledge pack defines topology structure, sizing rules, device roles, testbench requirements, measurement rules, and report plots. The engine derives the required gm and bias current from the target UGB and load, selects NMOS/PMOS candidates from the gm/Id LUT, generates LTspice OP/DC/AC/transient testbenches, extracts measurements from real simulator outputs, and evaluates the design using the spec truth gate.
 
 **Validated result:**
@@ -151,7 +155,8 @@ The common-source knowledge pack defines topology structure, sizing rules, devic
 | Output bias | Valid mid-supply region | `PASS` |
 | Gain + bandwidth target | Met | `PASS` |
 
-**What this proves:**  
+**What this proves:**
+
 The engine can convert a simple analog gain-cell requirement into a reproducible transistor-level design using gm/Id, LUT-backed device selection, and real simulation measurements instead of random sizing.
 
 **Evidence links:**
@@ -172,28 +177,29 @@ The engine can convert a simple analog gain-cell requirement into a reproducible
 
 ---
 
-
 ### 3. Differential Pair / Differential Amplifier
 
 **Status:** `VALIDATED / PASS`
 
-**Problem solved:**  
+**Problem solved:**
+
 Validate a differential input stage with real differential gain, output common-mode, tail current, output balance, power, and device operating-point extraction.
 
 **User specification used by the engine:**
 
 | Parameter | Target |
 |---|---|
-| Differential gain | >= 20 dB |
-| UGB | >= 50 MHz |
-| Power | <= 300 uW |
-| Tail current | <= 150 uA |
+| Differential gain | ≥ 20 dB |
+| UGB | ≥ 50 MHz |
+| Power | ≤ 300 µW |
+| Tail current | ≤ 150 µA |
 | Output common-mode | ~0.35 V to 0.70 V |
-| Output balance error | <= 20 mV |
+| Output balance error | ≤ 20 mV |
 | Measurement source | Real OP/DC/AC/transient simulation |
 | Device validity | gm/Id and saturation checks required |
 
-**Engine process:**  
+**Engine process:**
+
 The differential-pair knowledge pack defines matched NMOS input devices, PMOS load behavior, tail-current constraints, common-mode checks, balance checks, and differential measurement rules. The engine selects matched device groups from the LUT, verifies OP bias and region validity, extracts differential gain and UGB from real AC simulation, checks transient behavior, and rejects fake or empty spec rows.
 
 **Validated result:**
@@ -202,12 +208,13 @@ The differential-pair knowledge pack defines matched NMOS input devices, PMOS lo
 |---|---:|---|
 | Differential gain | ~28.16 dB | `PASS` |
 | UGB | ~55.14 MHz | `PASS` |
-| Average power | ~8.98 uW | `PASS` |
-| Tail current | ~8.98 uA | `PASS` |
+| Average power | ~8.98 µW | `PASS` |
+| Tail current | ~8.98 µA | `PASS` |
 | Output common-mode | ~0.497 V | `PASS` |
 | Output balance error | ~0 V | `PASS` |
 
-**What this proves:**  
+**What this proves:**
+
 The engine can handle matched differential devices, common-mode constraints, tail-current checks, balance checks, and differential AC extraction using real simulation-backed measurements.
 
 **Evidence links:**
@@ -229,12 +236,12 @@ The engine can handle matched differential devices, common-mode constraints, tai
 
 ---
 
-
 ### 4. Two-Stage Operational Amplifier
 
 **Status:** `VALIDATED / PASS`
 
-**Problem solved:**  
+**Problem solved:**
+
 Build a higher-level analog product using matured common-source and differential-pair concepts: a two-stage Miller-compensated op-amp with gain, UGB, phase margin, slew rate, settling, power, and operating-point validation.
 
 **User specification used by the engine:**
@@ -242,30 +249,32 @@ Build a higher-level analog product using matured common-source and differential
 | Parameter | Target |
 |---|---|
 | Supply | Around 1.0 V |
-| Open-loop gain | >= 40 dB |
-| UGB | >= 10 MHz for validated V1 demo |
-| Phase margin | >= 55 deg |
+| Open-loop gain | ≥ 40 dB |
+| UGB | ≥ 10 MHz for validated V1 demo |
+| Phase margin | ≥ 55° |
 | Output bias | Valid operating range |
 | Transient behavior | Slew-rate and settling required |
 | Final plots | PNG-only public evidence |
 | Verification | Real OP/DC/AC/transient LTspice simulation |
 | Device sizing | LUT-backed |
 
-**Engine process:**  
+**Engine process:**
+
 The two-stage op-amp knowledge pack defines the input differential stage, second gain stage, compensation capacitor, biasing rules, measurement extraction, and final plots. The engine derives gm/Id targets, compensation seed, input-stage current, second-stage current, gain budget, UGB target, and output bias target. It then generates LTspice testbenches, extracts gain, UGB, phase margin, power, slew rate, and settling from real simulation outputs, and performs closed-loop correction when required.
 
 **Validated result:**
 
 | Metric | Measured Result | Status |
 |---|---:|---|
-| Open-loop gain | ~45-46 dB | `PASS` |
+| Open-loop gain | ~45–46 dB | `PASS` |
 | UGB | ~15.63 MHz | `PASS` |
-| Phase margin | ~64.8 deg | `PASS` |
-| Slew rate | ~15.96 V/us | `PASS` |
+| Phase margin | ~64.8° | `PASS` |
+| Slew rate | ~15.96 V/µs | `PASS` |
 | 1% settling time | ~189.5 ns | `PASS` |
 | V1 design target | Met | `PASS` |
 
-**What this proves:**  
+**What this proves:**
+
 The engine can move beyond primitive cells and design a compensated multi-stage analog product. The earlier aggressive 30 MHz UGB target exposed a valid design-space limitation, and the engine reported the limitation instead of producing a fake pass. After realistic V1 retargeting, the design passed gain, stability, transient, and reporting checks.
 
 **Evidence links:**
@@ -287,7 +296,6 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/07_ac_bode_gain.png" width="430"><br><sub>07 Ac Bode Gain</sub> |  |
 
 ---
-
 
 ## How the Engine Handles Failure
 
@@ -327,10 +335,11 @@ After every candidate update, the engine reruns the real simulation chain:
 
 ```text
 Netlist Generation
--> LTspice Simulation
--> Measurement Extraction
--> Spec Evaluation
--> Final Truth Gate
+→ LTspice Simulation
+→ Measurement Extraction
+→ Spec Evaluation
+→ Final Truth Gate
+        
 ```
 
 The loop stops only when all required specs pass with real measurements or the valid physics/LUT candidate space is exhausted.
@@ -346,7 +355,6 @@ The same engine flow successfully handled:
 - a compensated two-stage op-amp
 
 This demonstrates that the framework is not hardcoded for one circuit. The topology knowledge pack changes, but the CAD methodology remains the same. Each validated topology becomes a reusable design capability for future circuits such as CTLE, OTA, current mirror, comparator, and SerDes receiver blocks.
-
 
 ---
 
