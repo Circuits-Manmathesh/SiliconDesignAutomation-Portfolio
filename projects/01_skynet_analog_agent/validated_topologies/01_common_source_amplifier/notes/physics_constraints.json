@@ -1,0 +1,48 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "absolute_limits": {
+    "vdd_min_v": 0.8,
+    "vdd_max_v": 1.2,
+    "device_length_min_m": 5e-08,
+    "device_width_min_m": 2e-07,
+    "device_width_max_m": 0.0002,
+    "multiplicity_min": 1,
+    "multiplicity_max": 128,
+    "temperature_min_c": -40,
+    "temperature_max_c": 125
+  },
+  "recommended_limits": {
+    "vout_operating_window_v": [
+      0.25,
+      0.8
+    ],
+    "vin_common_mode_window_v": [
+      0.2,
+      0.8
+    ],
+    "nominal_vout_target_v": 0.5,
+    "bias_current_max_a": 0.00025,
+    "power_max_w": 0.00025,
+    "nominal_vdd_v": 1.0,
+    "load_capacitance_f": 1e-12
+  },
+  "operating_region_rules": {
+    "M_NCS": {
+      "region": "saturation",
+      "minimum_vds_margin_v": 0.05,
+      "bulk_connection": "VSS"
+    },
+    "M_PLOAD": {
+      "region": "saturation",
+      "minimum_vsd_margin_v": 0.05,
+      "bulk_connection": "VDD"
+    }
+  }
+}

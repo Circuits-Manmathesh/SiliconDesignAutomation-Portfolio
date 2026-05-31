@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "required_spec_checks": [
+    {
+      "spec_name": "dc_gain_db",
+      "metric": "dc_gain_db",
+      "operator": ">=",
+      "target_key": "dc_gain_db",
+      "required": true
+    },
+    {
+      "spec_name": "ugb_hz",
+      "metric": "ugb_hz",
+      "operator": ">=",
+      "target_key": "ugb_hz",
+      "required": true
+    },
+    {
+      "spec_name": "phase_margin_deg",
+      "metric": "phase_margin_deg",
+      "operator": ">=",
+      "target_key": "phase_margin_deg",
+      "required": true
+    },
+    {
+      "spec_name": "average_power_w",
+      "metric": "average_power_w",
+      "operator": "<=",
+      "target_key": "power_max_w",
+      "required": true
+    },
+    {
+      "spec_name": "output_bias_min_v",
+      "metric": "output_bias_v",
+      "operator": ">=",
+      "target_key": "output_bias_min_v",
+      "required": true
+    },
+    {
+      "spec_name": "output_bias_max_v",
+      "metric": "output_bias_v",
+      "operator": "<=",
+      "target_key": "output_bias_max_v",
+      "required": true
+    },
+    {
+      "spec_name": "slew_rate_v_per_s",
+      "metric": "slew_rate_v_per_s",
+      "operator": ">=",
+      "target_key": "slew_rate_min_v_per_s",
+      "required": true
+    },
+    {
+      "spec_name": "settling_time_1pct_s",
+      "metric": "settling_time_1pct_s",
+      "operator": "<=",
+      "target_key": "settling_time_1pct_max_s",
+      "required": true
+    }
+  ],
+  "truth_gate": {
+    "required_specs_count_must_be_gt_zero": true,
+    "required_missing_or_not_evaluated_fails": true,
+    "forbid_non_real_measurement_sources": true,
+    "all_required_specs_must_pass_for_final_ready": true
+  }
+}

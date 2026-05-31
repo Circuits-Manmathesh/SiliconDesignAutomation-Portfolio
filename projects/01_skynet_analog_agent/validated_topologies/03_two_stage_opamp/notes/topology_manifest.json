@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "topology_variant": "nmos_input_miller_compensated_two_stage",
+  "topology_class": "analog_opamp",
+  "description": "Two-stage Miller-compensated opamp using an NMOS differential input pair, PMOS current-mirror load, NMOS common-source second stage, PMOS current-source load, Miller compensation, and capacitive load.",
+  "supported_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "required_pins": [
+    "vinp",
+    "vinn",
+    "vout",
+    "vdd",
+    "vss"
+  ],
+  "technology_assumptions": {
+    "technology_id": "50nm_cmosedu",
+    "model_library_relative_path": "technology_models/models.lib",
+    "lut_root_relative_path": "lut_characterizer/generated_lut",
+    "device_models": {
+      "nmos": "N_50n",
+      "pmos": "P_50n"
+    }
+  },
+  "sub_block_dependencies": [
+    "differential_pair",
+    "common_source_amplifier",
+    "miller_compensation_network"
+  ],
+  "truth_policy": {
+    "no_fake_pass": true,
+    "no_fake_measurements": true,
+    "no_fake_plots": true,
+    "project_local_artifacts_only": true,
+    "real_ltspice_verification_required": true
+  }
+}

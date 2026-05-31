@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "methodology": "gm_over_id_lut_aware_two_stage_opamp_synthesis",
+  "required_project_targets": [
+    "v_dd_v",
+    "c_load_f",
+    "dc_gain_db",
+    "ugb_hz",
+    "phase_margin_deg",
+    "power_max_w",
+    "output_bias_min_v",
+    "output_bias_max_v",
+    "slew_rate_min_v_per_s",
+    "settling_time_1pct_max_s"
+  ],
+  "equations": [
+    {
+      "name": "input_gm_from_ugb_and_compensation",
+      "expression": "gm_input_total_s = 2*pi*ugb_hz*c_comp_f"
+    },
+    {
+      "name": "input_branch_current",
+      "expression": "id_input_branch_a = gm_input_per_side_s/gm_id_input_pair_vinv"
+    },
+    {
+      "name": "tail_current",
+      "expression": "tail_current_a = 2*id_input_branch_a"
+    },
+    {
+      "name": "stage_gain_lut_form",
+      "expression": "av_stage ~= gm_id_driver/(gds_id_driver+gds_id_load)"
+    },
+    {
+      "name": "total_gain",
+      "expression": "av_total_vv ~= av_stage1_vv*av_stage2_vv"
+    },
+    {
+      "name": "second_stage_current_from_slew",
+      "expression": "i_stage2_min_a = slew_rate_min_v_per_s*c_load_f"
+    },
+    {
+      "name": "phase_margin",
+      "expression": "phase_margin_deg = 180 + phase_at_ugb_deg after sign-convention normalization"
+    }
+  ],
+  "seed_targets": {
+    "gm_id_input_pair_vinv": 14.0,
+    "gm_id_pmos_load_vinv": 9.0,
+    "gm_id_second_stage_nmos_vinv": 11.0,
+    "gm_id_second_stage_pmos_load_vinv": 9.0,
+    "input_pair_L_m": [
+      "200n",
+      "300n",
+      "400n"
+    ],
+    "pmos_load_L_m": [
+      "400n",
+      "600n",
+      "800n"
+    ],
+    "second_stage_nmos_L_m": [
+      "200n",
+      "300n",
+      "400n"
+    ],
+    "second_stage_pmos_L_m": [
+      "400n",
+      "600n",
+      "800n"
+    ],
+    "c_comp_f_candidates": [
+      "100f",
+      "150f",
+      "200f"
+    ],
+    "r_null_ohm_candidates": [
+      0,
+      5000,
+      10000,
+      20000
+    ]
+  },
+  "failure_actions": {
+    "dc_gain_low": [
+      "increase_device_L",
+      "select_higher_gm_gds_candidates",
+      "increase_second_stage_gain"
+    ],
+    "ugb_low": [
+      "increase_input_gm",
+      "increase_input_current_if_power_allows",
+      "reduce_c_comp_if_pm_allows"
+    ],
+    "phase_margin_low": [
+      "increase_c_comp",
+      "increase_second_stage_gm",
+      "enable_or_tune_nulling_resistor"
+    ],
+    "power_high": [
+      "increase_gm_id_targets",
+      "reduce_bias_current",
+      "preserve_required_ugb"
+    ],
+    "slew_rate_low": [
+      "increase_second_stage_current",
+      "reduce_c_comp_if_pm_allows"
+    ],
+    "settling_time_high": [
+      "increase_ugb",
+      "increase_phase_margin",
+      "tune_c_comp_and_stage2_gm"
+    ],
+    "output_bias_out_of_range": [
+      "adjust_second_stage_pmos_bias",
+      "select_new_stage2_load_candidate"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "technology_id": "50nm_cmosedu",
+  "supply_limits": {
+    "vdd_min_v": 0.9,
+    "vdd_max_v": 1.1
+  },
+  "absolute_limits": {
+    "power_max_w": 0.0003,
+    "tail_current_max_a": 0.00015,
+    "device_width_min_m": 5e-08,
+    "device_width_max_m": 0.0002,
+    "device_length_min_m": 5e-08,
+    "device_length_max_m": 1e-06,
+    "multiplicity_max": 64
+  },
+  "operating_region_constraints": {
+    "required_region": "saturation_or_valid_lut_saturation_flag",
+    "sat_margin_min_v": 0.05,
+    "input_pair_min_vds_v": 0.08,
+    "pmos_load_min_vsd_v": 0.08,
+    "ft_to_ugb_min_ratio": 10.0
+  },
+  "bias_constraints": {
+    "input_common_mode_range_v": [
+      0.35,
+      0.65
+    ],
+    "output_common_mode_range_v": [
+      0.35,
+      0.7
+    ],
+    "output_balance_error_max_v": 0.02,
+    "tail_node_headroom_min_v": 0.05,
+    "pmos_vbp_range_v": [
+      0.35,
+      0.75
+    ]
+  },
+  "passed_spec_preservation": {
+    "preserve_power_pass": true,
+    "preserve_output_cm_pass": true,
+    "preserve_ugb_pass": true
+  },
+  "invalid_conditions": [
+    "output_common_mode_outside_window",
+    "output_balance_error_too_high",
+    "input_pair_not_saturated",
+    "pmos_load_not_saturated",
+    "tail_current_exceeds_limit",
+    "power_exceeds_limit",
+    "LUT_region_invalid",
+    "sat_margin_below_minimum"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "topology_type": "cmos_inverter",
+  "sizing_strategy": {
+    "strategy_name": "role_based_lut_guided_closed_loop_sizing",
+    "allocation_policy": "use_topology_roles_to_allocate_gm_id_bias_headroom_and_speed",
+    "initial_seed_policy": {
+      "source": "knowledge_pack_roles_plus_lut_selector_plus_project_specs",
+      "do_not_use_fake_default_sizing": true,
+      "respect_technology_limits": true
+    },
+    "iteration_policy": {
+      "use_failure_action_map": true,
+      "use_project_local_learning": true,
+      "preserve_passed_specs": true,
+      "rollback_on_degradation": true
+    }
+  },
+  "lut_candidate_policy": {
+    "selection_level": "optimizer",
+    "gm_id_range_1_per_v": [
+      1.0,
+      25.0
+    ],
+    "require_active_device": true,
+    "require_saturation_for_analog": false,
+    "allow_linear_region_for_switching_cells": true,
+    "forbid_regions": [
+      "cutoff"
+    ],
+    "do_not_modify_lut": true,
+    "technology_id_required": true
+  },
+  "role_targets": {
+    "pull_down": {
+      "target_region": "switching_valid",
+      "target_ft_margin": "project_spec_frequency_dependent",
+      "target_headroom": "project_spec_supply_dependent"
+    },
+    "pull_up": {
+      "target_region": "switching_valid",
+      "target_ft_margin": "project_spec_frequency_dependent",
+      "target_headroom": "project_spec_supply_dependent"
+    }
+  },
+  "design_knobs": {
+    "WN": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    },
+    "LN": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    },
+    "MN": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    },
+    "WP": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    },
+    "LP": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    },
+    "MP": {
+      "type": "continuous_or_discrete_design_variable",
+      "owner": "topology_pack",
+      "technology_limited": true,
+      "closed_loop_adjustable": true
+    }
+  },
+  "parameter_dependency_graph": {
+    "speed_metrics_depend_on": [
+      "WN",
+      "MN",
+      "WP",
+      "MP"
+    ],
+    "gain_metrics_depend_on": [
+      "LN",
+      "LP"
+    ],
+    "power_metrics_depend_on": [
+      "WN",
+      "MN",
+      "WP",
+      "MP"
+    ],
+    "stability_or_peaking_metrics_depend_on": []
+  },
+  "physics_limits": {
+    "stop_if_no_valid_lut_candidate": true,
+    "stop_if_headroom_impossible": true,
+    "stop_if_power_speed_tradeoff_conflict": true,
+    "stop_if_required_subpack_missing": true,
+    "do_not_cross_technology_limits": true,
+    "do_not_modify_model_library": true,
+    "do_not_modify_lut": true
+  }
+}

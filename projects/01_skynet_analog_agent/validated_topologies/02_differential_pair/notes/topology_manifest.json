@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "topology_variant": "nmos_diff_pair_pmos_active_load_ideal_tail",
+  "topology_class": "analog_amplifier",
+  "description": "NMOS differential pair with matched PMOS active-load current-source devices and ideal tail current source. First validation topology for gm/Id + LUT-aware Skynet analog engine.",
+  "supported_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "required_pins": [
+    "VINP",
+    "VINN",
+    "VOUTP",
+    "VOUTN",
+    "VDD",
+    "VSS"
+  ],
+  "required_nodes": [
+    "TAIL",
+    "VBP"
+  ],
+  "supply_nodes": {
+    "positive": "VDD",
+    "negative": "VSS"
+  },
+  "signal_convention": {
+    "input_mode": "differential",
+    "vin_diff_expression": "V(VINP)-V(VINN)",
+    "vin_cm_expression": "0.5*(V(VINP)+V(VINN))",
+    "output_mode": "differential",
+    "vout_diff_expression": "V(VOUTP)-V(VOUTN)",
+    "vout_cm_expression": "0.5*(V(VOUTP)+V(VOUTN))"
+  },
+  "device_roles": [
+    {
+      "device_name": "M_NINP",
+      "role": "input_pair_pos",
+      "device_type": "nmos",
+      "model_name": "N_50n",
+      "matched_group": "nmos_input_pair",
+      "gate": "VINP",
+      "drain": "VOUTP",
+      "source": "TAIL",
+      "bulk": "VSS"
+    },
+    {
+      "device_name": "M_NINN",
+      "role": "input_pair_neg",
+      "device_type": "nmos",
+      "model_name": "N_50n",
+      "matched_group": "nmos_input_pair",
+      "gate": "VINN",
+      "drain": "VOUTN",
+      "source": "TAIL",
+      "bulk": "VSS"
+    },
+    {
+      "device_name": "M_PLOADP",
+      "role": "pmos_active_load_pos",
+      "device_type": "pmos",
+      "model_name": "P_50n",
+      "matched_group": "pmos_active_load_pair",
+      "gate": "VBP",
+      "drain": "VOUTP",
+      "source": "VDD",
+      "bulk": "VDD"
+    },
+    {
+      "device_name": "M_PLOADN",
+      "role": "pmos_active_load_neg",
+      "device_type": "pmos",
+      "model_name": "P_50n",
+      "matched_group": "pmos_active_load_pair",
+      "gate": "VBP",
+      "drain": "VOUTN",
+      "source": "VDD",
+      "bulk": "VDD"
+    }
+  ],
+  "primitive_dependencies": [
+    "nmos_input_pair",
+    "pmos_active_load_pair",
+    "ideal_tail_current_source",
+    "differential_input_stimulus"
+  ],
+  "notes": [
+    "This topology uses an ideal tail current source for first engine validation.",
+    "A later project can replace the ideal tail with a MOS current-source knowledge pack.",
+    "Core engine must not hardcode this topology; all rules are provided through this pack."
+  ]
+}

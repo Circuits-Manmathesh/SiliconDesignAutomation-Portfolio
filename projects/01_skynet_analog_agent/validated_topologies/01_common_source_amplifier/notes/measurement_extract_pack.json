@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "trace_aliases": {
+    "time": [
+      "time",
+      "Time"
+    ],
+    "vin": [
+      "V(vin)",
+      "V(VIN)",
+      "V(Vin)",
+      "vin",
+      "V(in)"
+    ],
+    "vout": [
+      "V(vout)",
+      "V(VOUT)",
+      "V(Vout)",
+      "vout",
+      "V(out)"
+    ],
+    "vbp": [
+      "V(vbp)",
+      "V(VBP)",
+      "V(Vbp)",
+      "vbp"
+    ],
+    "supply_current": [
+      "I(VDD_SRC)",
+      "I(Vdd)",
+      "I(VDD)",
+      "I(vdd)",
+      "i(vdd)"
+    ]
+  },
+  "metrics": [
+    {
+      "metric": "dc_gain_vv",
+      "analysis": "dc",
+      "method": "negative_local_derivative_near_operating_bias",
+      "required": true,
+      "unit": "V/V"
+    },
+    {
+      "metric": "dc_gain_db",
+      "analysis": "dc",
+      "method": "20log10(abs(dc_gain_vv))",
+      "required": true,
+      "unit": "dB"
+    },
+    {
+      "metric": "ac_midband_gain_db",
+      "analysis": "ac",
+      "method": "20log10(abs(VOUT/VIN)) at low frequency plateau",
+      "required": true,
+      "unit": "dB"
+    },
+    {
+      "metric": "ugb_hz",
+      "analysis": "ac",
+      "method": "unity gain crossing frequency from AC response",
+      "required": true,
+      "unit": "Hz"
+    },
+    {
+      "metric": "phase_at_ugb_deg",
+      "analysis": "ac",
+      "method": "phase at unity gain crossing if available",
+      "required": false,
+      "unit": "deg"
+    },
+    {
+      "metric": "phase_margin_proxy_deg",
+      "analysis": "ac",
+      "method": "180 + phase_at_ugb_deg, optional without feedback wrapper",
+      "required": false,
+      "unit": "deg"
+    },
+    {
+      "metric": "output_bias_v",
+      "analysis": "op",
+      "method": "V(VOUT) at OP",
+      "required": true,
+      "unit": "V"
+    },
+    {
+      "metric": "bias_current_a",
+      "analysis": "op_or_tran",
+      "method": "abs(avg(I(VDD_SRC)))",
+      "required": true,
+      "unit": "A"
+    },
+    {
+      "metric": "average_power_w",
+      "analysis": "op_or_tran",
+      "method": "VDD*abs(avg(I(VDD_SRC)))",
+      "required": true,
+      "unit": "W"
+    },
+    {
+      "metric": "peak_current_a",
+      "analysis": "tran",
+      "method": "max(abs(I(VDD_SRC)))",
+      "required": false,
+      "unit": "A"
+    }
+  ],
+  "forbidden_metrics_for_this_topology": [
+    "VOH_v",
+    "VOL_v",
+    "VM_v",
+    "tphl_s",
+    "tplh_s",
+    "NML_v",
+    "NMH_v"
+  ],
+  "csv_exports_required": [
+    "dc_curve.csv",
+    "ac_bode.csv",
+    "tran_curve.csv"
+  ]
+}

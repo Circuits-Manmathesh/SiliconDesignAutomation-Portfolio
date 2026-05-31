@@ -1,0 +1,85 @@
+{
+  "plot_artifacts": [
+    {
+      "plot_id": "spec_status_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\01_spec_status_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\tables\\spec_checks.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "dc_transfer",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\02_dc_transfer_vout_vs_vin.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\verification\\data\\dc_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "ac_bode_gain",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\07_ac_bode_gain.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\verification\\data\\ac_bode.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "ac_phase_diagnostic",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\08_ac_phase_diagnostic.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\verification\\data\\ac_bode.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "tran_input_output",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\04_tran_input_output_waveform.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\verification\\data\\tran_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "power_current_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\06_power_current_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\tables\\measurement_summary.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\09_closed_loop_candidate_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\stage18\\closed_loop_iteration_demo_common_source_amplifier.json",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "dc_gain_derivative",
+      "status": "NOT_EVALUATED",
+      "png_path": "",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\verification\\data\\dc_curve.csv",
+      "missing_reason": "optional derivative plot not implemented for this run"
+    },
+    {
+      "plot_id": "device_operating_point_gmid_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\plots\\07_device_operating_point_gmid_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_common_source_amplifier\\reports\\final\\tables\\device_operating_point_summary.csv",
+      "missing_reason": ""
+    }
+  ],
+  "diagnostics": [
+    {
+      "plot_id": "dc_gain_derivative",
+      "status": "NOT_EVALUATED",
+      "missing_reason": "optional derivative plot not implemented for this run",
+      "responsible_stage": "S14/S19",
+      "repair_hint": "Generate the required project-local CSV export before S19."
+    }
+  ]
+}

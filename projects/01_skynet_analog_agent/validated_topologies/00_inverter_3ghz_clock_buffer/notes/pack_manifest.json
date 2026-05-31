@@ -1,0 +1,39 @@
+{
+  "topology_type": "cmos_inverter",
+  "display_name": "CMOS Inverter",
+  "category": "digital_analog_cell",
+  "product_group": "B_DIGITAL_ANALOG_CELLS",
+  "maturity": "production",
+  "description": "CMOS inverter characterized as digital logic and analog switching cell for delay, power, VTC, and drive analysis.",
+  "supported_applications": [
+    "logic_inverter",
+    "clock_buffer_stage",
+    "delay_cell",
+    "digital_driver"
+  ],
+  "limitations": [
+    "Execution quality depends on later generic planner/netlist/verification stages.",
+    "Unsupported measurements must be reported as NOT_EVALUATED_WITH_REASON, not fake pass.",
+    "Pack intelligence must not modify LUT or technology models."
+  ],
+  "execution_readiness": "deep_knowledge_ready_flow_validation_pending",
+  "required_engine_capabilities": [
+    "knowledge_pack_manager",
+    "technology_manager",
+    "simulator_backend_manager",
+    "composition_resolver",
+    "design_task_graph_builder",
+    "measurement_registry",
+    "sizing_planner",
+    "testbench_planner",
+    "lut_selector",
+    "initial_sizer",
+    "netlist_writer",
+    "verification_runner",
+    "failure_action_map",
+    "learning_engine",
+    "action_application_engine",
+    "closed_loop_solver",
+    "report_generator"
+  ]
+}

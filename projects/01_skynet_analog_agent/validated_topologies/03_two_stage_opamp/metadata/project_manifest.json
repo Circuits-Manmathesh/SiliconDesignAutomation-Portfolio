@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo_two_stage_opamp",
+  "project_name": "Direct Two-Stage Opamp Demo",
+  "topology_type": "two_stage_opamp",
+  "topology_variant": "nmos_input_miller_compensated_two_stage",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "workspace_project": "workspace_projects/demo_two_stage_opamp",
+  "knowledge_pack": "knowledge_packs/two_stage_opamp",
+  "project_spec": "workspace_projects/demo_two_stage_opamp/project_spec.json",
+  "design_spec": "workspace_projects/demo_two_stage_opamp/design_spec.json",
+  "plot_requirements": "workspace_projects/demo_two_stage_opamp/plot_requirements.json",
+  "stage_order": [
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S18",
+    "S19"
+  ],
+  "final_output_dir": "workspace_projects/demo_two_stage_opamp/reports/final",
+  "artifact_policy": {
+    "project_local_only": true,
+    "no_stale_root_fallback": true,
+    "identity_guard_required": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "2.0",
+  "project_id": "demo_common_source_amplifier",
+  "project_name": "Direct Common-Source Amplifier Demo",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "technology_node": "50nm",
+  "simulator_backend": "ltspice",
+  "knowledge_pack": "knowledge_packs/common_source_amplifier",
+  "operating_mode": "dc_ac_and_transient_verification",
+  "target_performance_metrics": {
+    "dc_gain_db": "26.0dB",
+    "ugb_hz": "20.0MHz",
+    "phase_margin_deg": {
+      "value": "60.0deg",
+      "required": false,
+      "note": "Optional proxy because no feedback wrapper is defined."
+    },
+    "power_max_w": "250.0uW"
+  },
+  "environmental_conditions": {
+    "v_dd_v": "1.0V",
+    "v_ss_v": "0V",
+    "c_load_f": "1.0pF",
+    "temperature_c": 27.0,
+    "process_corner": "TT"
+  },
+  "biasing_initial_conditions": {
+    "vin_common_mode_v": "0.50V",
+    "vbp_initial_v": "0.45V",
+    "vout_target_v": "0.50V",
+    "vout_valid_window_v": [
+      "0.25V",
+      "0.80V"
+    ]
+  },
+  "isolation_guards": {
+    "clean_build_dir": true,
+    "stale_data_block": true,
+    "project_local_artifacts_only": true,
+    "legacy_root_fallback_allowed": false
+  },
+  "required_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "final_report_expectations": {
+    "must_include_final_sizing": true,
+    "must_include_bias_conditions": true,
+    "must_include_lut_provenance": true,
+    "must_include_simulation_artifacts": true,
+    "must_be_reproducible_by_manual_ltspice": true
+  }
+}

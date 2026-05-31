@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo_differential_pair",
+  "project_name": "Direct Differential Pair Demo",
+  "topology_type": "differential_pair",
+  "topology_variant": "nmos_diff_pair_pmos_active_load_ideal_tail",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "workspace_project": "workspace_projects/demo_differential_pair",
+  "knowledge_pack": "knowledge_packs/differential_pair",
+  "project_spec": "workspace_projects/demo_differential_pair/project_spec.json",
+  "design_spec": "workspace_projects/demo_differential_pair/design_spec.json",
+  "plot_requirements": "workspace_projects/demo_differential_pair/plot_requirements.json",
+  "stage_order": [
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S18",
+    "S19"
+  ],
+  "mode_policy": {
+    "default": "full",
+    "project_local_artifacts_only": true,
+    "legacy_root_fallback_allowed": false
+  },
+  "final_output_dir": "workspace_projects/demo_differential_pair/reports/final"
+}

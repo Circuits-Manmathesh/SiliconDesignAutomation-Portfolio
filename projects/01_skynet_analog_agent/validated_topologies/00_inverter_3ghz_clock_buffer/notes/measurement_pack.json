@@ -1,0 +1,202 @@
+{
+  "topology_type": "cmos_inverter",
+  "measurements": {
+    "VOH_v": {
+      "unit": "V",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "VOH_v_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "VOL_v": {
+      "unit": "V",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "VOL_v_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "VM_v": {
+      "unit": "V",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "VM_v_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "NMH_v": {
+      "unit": "unitless",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "NMH_v_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "NML_v": {
+      "unit": "unitless",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "NML_v_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "dc_gain_max": {
+      "unit": "dB",
+      "analysis_source": "dc",
+      "required": true,
+      "target_direction": "min",
+      "extraction_method": "measurement_registry",
+      "failure_class": "dc_gain_max_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "tphl_s": {
+      "unit": "s",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "tphl_s_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "tplh_s": {
+      "unit": "s",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "tplh_s_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "rise_time_s": {
+      "unit": "s",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "rise_time_s_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "fall_time_s": {
+      "unit": "s",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "fall_time_s_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "delay_average_s": {
+      "unit": "s",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "delay_average_s_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "rise_fall_mismatch_pct": {
+      "unit": "unitless",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "rise_fall_mismatch_pct_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "energy_per_transition_j": {
+      "unit": "unitless",
+      "analysis_source": "tran",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "energy_per_transition_j_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "average_power_w": {
+      "unit": "W",
+      "analysis_source": "system",
+      "required": true,
+      "target_direction": "max",
+      "extraction_method": "measurement_registry",
+      "failure_class": "average_power_w_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "peak_current_a": {
+      "unit": "A",
+      "analysis_source": "system",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "peak_current_a_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "spec_status": {
+      "unit": "unitless",
+      "analysis_source": "system",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "spec_status_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    },
+    "physics_limit_status": {
+      "unit": "unitless",
+      "analysis_source": "system",
+      "required": true,
+      "target_direction": "range",
+      "extraction_method": "measurement_registry",
+      "failure_class": "physics_limit_status_spec_gap",
+      "not_evaluated_policy": "NOT_EVALUATED_WITH_REASON"
+    }
+  },
+  "measurement_groups": {
+    "dc": [
+      "VOH_v",
+      "VOL_v",
+      "VM_v",
+      "NMH_v",
+      "NML_v",
+      "dc_gain_max"
+    ],
+    "ac": [],
+    "transient": [
+      "tphl_s",
+      "tplh_s",
+      "rise_time_s",
+      "fall_time_s",
+      "delay_average_s",
+      "rise_fall_mismatch_pct",
+      "energy_per_transition_j"
+    ],
+    "system": [
+      "average_power_w",
+      "peak_current_a",
+      "spec_status",
+      "physics_limit_status"
+    ]
+  },
+  "measurement_extraction_policy": {
+    "must_use_real_simulation_data": true,
+    "missing_required_measurement_status": "FAIL_OR_NOT_EVALUATED_WITH_REASON",
+    "not_evaluated_is_not_design_failure": true,
+    "do_not_fake_measurements": true,
+    "source_priority": [
+      "simulator_raw_waveform",
+      "simulator_log_measure",
+      "verified_exported_csv",
+      "deterministic_plugin_postprocess"
+    ]
+  },
+  "not_evaluated_rules": {
+    "missing_testbench": "NOT_EVALUATED",
+    "unsupported_analysis": "NOT_EVALUATED",
+    "missing_optional_plugin": "NOT_EVALUATED_FOR_PLUGIN_METRIC",
+    "must_report_reason": true
+  }
+}

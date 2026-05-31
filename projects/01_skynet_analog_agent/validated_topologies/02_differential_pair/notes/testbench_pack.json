@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "required_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "analysis_plan": [
+    {
+      "analysis": "op",
+      "purpose": "Bias point, output common-mode, output balance, current and power."
+    },
+    {
+      "analysis": "dc",
+      "purpose": "Small differential DC transfer around zero VID and local differential gain."
+    },
+    {
+      "analysis": "ac",
+      "purpose": "Differential gain, bandwidth, unity-gain frequency and phase diagnostic."
+    },
+    {
+      "analysis": "tran",
+      "purpose": "Small differential step response around solved input common-mode."
+    }
+  ],
+  "stimulus": {
+    "op": {
+      "VINP": "VIN_CM",
+      "VINN": "VIN_CM",
+      "VBP": "selected_bias",
+      "ITAIL": "selected_tail_current"
+    },
+    "dc": {
+      "sweep_parameter": "VID",
+      "start": "-20mV",
+      "stop": "20mV",
+      "step": "0.2mV"
+    },
+    "ac": {
+      "differential_ac_input_v": 1.0,
+      "VINP_AC": 0.5,
+      "VINN_AC": -0.5
+    },
+    "tran": {
+      "type": "differential_small_signal_step",
+      "vin_step_v": "2mV",
+      "center": "VIN_CM",
+      "must_use_solved_operating_point": true
+    }
+  },
+  "save_directives": [
+    "V(VINP)",
+    "V(VINN)",
+    "V(VOUTP)",
+    "V(VOUTN)",
+    "V(TAIL)",
+    "V(VBP)",
+    "I(VDD_SRC)",
+    "I(ITAIL)"
+  ],
+  "validity_checks": [
+    "AC and transient must use solved VIN_CM/VBP/ITAIL from S10 or S18.",
+    "Transient is invalid if output is pinned near rail or VID is not centered around solved OP."
+  ]
+}

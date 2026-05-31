@@ -1,0 +1,183 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "sizing_method": "contract_driven_gm_id_lut_candidate_selection",
+  "device_roles": [
+    {
+      "device_name": "M_NINP",
+      "role": "input_pair_positive",
+      "group": "input_pair",
+      "device_type": "nmos",
+      "matched_with": "M_NINN",
+      "gm_id_target_vinv": 14.0,
+      "gm_id_range_vinv": [
+        10,
+        18
+      ],
+      "allowed_L_m": [
+        "220n",
+        "300n",
+        "420n"
+      ],
+      "requires_saturation": true,
+      "min_sat_margin_v": 0.05
+    },
+    {
+      "device_name": "M_NINN",
+      "role": "input_pair_negative",
+      "group": "input_pair",
+      "device_type": "nmos",
+      "matched_with": "M_NINP",
+      "gm_id_target_vinv": 14.0,
+      "gm_id_range_vinv": [
+        10,
+        18
+      ],
+      "allowed_L_m": [
+        "220n",
+        "300n",
+        "420n"
+      ],
+      "requires_saturation": true,
+      "min_sat_margin_v": 0.05
+    },
+    {
+      "device_name": "M_PLOAD_DIODE",
+      "role": "first_stage_pmos_diode_load",
+      "group": "first_stage_pmos_current_mirror_load",
+      "device_type": "pmos",
+      "matched_with": "M_PLOAD_MIRROR",
+      "gm_id_target_vinv": 9.0,
+      "gm_id_range_vinv": [
+        6,
+        13
+      ],
+      "allowed_L_m": [
+        "420n",
+        "650n",
+        "750n"
+      ],
+      "requires_saturation": true,
+      "requires_active_load": true,
+      "min_sat_margin_v": 0.05
+    },
+    {
+      "device_name": "M_PLOAD_MIRROR",
+      "role": "first_stage_pmos_mirror_load",
+      "group": "first_stage_pmos_current_mirror_load",
+      "device_type": "pmos",
+      "matched_with": "M_PLOAD_DIODE",
+      "gm_id_target_vinv": 9.0,
+      "gm_id_range_vinv": [
+        6,
+        13
+      ],
+      "allowed_L_m": [
+        "420n",
+        "650n",
+        "750n"
+      ],
+      "requires_saturation": true,
+      "requires_active_load": true,
+      "min_sat_margin_v": 0.05
+    },
+    {
+      "device_name": "M_NCS2",
+      "role": "second_stage_nmos_common_source",
+      "group": "second_stage",
+      "device_type": "nmos",
+      "gm_id_target_vinv": 11.0,
+      "gm_id_range_vinv": [
+        8,
+        15
+      ],
+      "allowed_L_m": [
+        "220n",
+        "300n",
+        "420n"
+      ],
+      "requires_saturation": true,
+      "min_sat_margin_v": 0.05
+    },
+    {
+      "device_name": "M_PLOAD2",
+      "role": "second_stage_pmos_current_source_load",
+      "group": "second_stage_load",
+      "device_type": "pmos",
+      "gm_id_target_vinv": 9.0,
+      "gm_id_range_vinv": [
+        6,
+        13
+      ],
+      "allowed_L_m": [
+        "420n",
+        "650n",
+        "750n"
+      ],
+      "requires_saturation": true,
+      "requires_active_load": true,
+      "min_sat_margin_v": 0.05
+    }
+  ],
+  "passive_roles": [
+    {
+      "name": "C_COMP",
+      "role": "miller_compensation",
+      "initial_value_f": "150f",
+      "allowed_values_f": [
+        "100f",
+        "150f",
+        "200f"
+      ]
+    },
+    {
+      "name": "R_NULL_OPTIONAL",
+      "role": "nulling_resistor",
+      "initial_value_ohm": 0,
+      "allowed_values_ohm": [
+        0,
+        5000,
+        10000,
+        20000
+      ]
+    },
+    {
+      "name": "C_LOAD",
+      "role": "load_capacitance",
+      "project_spec_key": "c_load_f"
+    }
+  ],
+  "bias_roles": [
+    {
+      "name": "I_TAIL",
+      "role": "input_tail_current",
+      "source": "derived_from_gm_id_contract"
+    },
+    {
+      "name": "VBP2",
+      "role": "second_stage_pmos_bias",
+      "source": "derived_from_selected_pmos_vsg_and_vdd"
+    },
+    {
+      "name": "VIN_CM",
+      "role": "input_common_mode",
+      "initial_value_v": 0.5
+    }
+  ],
+  "synthesis_controls": {
+    "minimum_input_branch_current_a": "1.0u",
+    "minimum_second_stage_current_a": "10u",
+    "minimum_input_branch_current_rationale": "V1 keeps the required UGB target at 10MHz but seeds the gm/Id sizing near the real LTspice-verified low-power candidate region. This preserves enough first-stage gm and PMOS mirror current headroom for gain/output-bias closure without using measurements as final truth."
+  },
+  "sizing_outputs_required": [
+    "device_sizing_records",
+    "passive_sizing_records",
+    "bias_solution",
+    "lut_provenance",
+    "initial_op_synthesis_status"
+  ],
+  "package_notes": {
+    "length_grid_aligned_to_existing_lut": true,
+    "lut_length_alignment_note": "Allowed role lengths use the existing 50 nm LUT grid; no LUT regeneration required."
+  }
+}

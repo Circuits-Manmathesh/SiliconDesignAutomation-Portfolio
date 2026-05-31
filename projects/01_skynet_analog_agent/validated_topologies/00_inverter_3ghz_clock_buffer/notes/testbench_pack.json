@@ -1,0 +1,57 @@
+{
+  "topology_type": "cmos_inverter",
+  "supported_analyses": [
+    "dc",
+    "tran"
+  ],
+  "testbench_analyses": {
+    "dc": {
+      "type": "dc",
+      "purpose": "dc analysis for CMOS Inverter",
+      "required_for_metrics": [
+        "VOH_v",
+        "VOL_v",
+        "VM_v",
+        "NMH_v",
+        "NML_v",
+        "dc_gain_max"
+      ],
+      "real_simulation_required": true,
+      "adapter_owned_syntax": true
+    },
+    "tran": {
+      "type": "tran",
+      "purpose": "tran analysis for CMOS Inverter",
+      "required_for_metrics": [
+        "tphl_s",
+        "tplh_s",
+        "rise_time_s",
+        "fall_time_s",
+        "delay_average_s",
+        "rise_fall_mismatch_pct",
+        "energy_per_transition_j"
+      ],
+      "real_simulation_required": true,
+      "adapter_owned_syntax": true
+    }
+  },
+  "stimulus_profiles": {
+    "default_bias": "project_spec_driven",
+    "default_small_signal": "project_spec_driven",
+    "default_transient": "project_spec_driven"
+  },
+  "sweep_profiles": {
+    "pvt": [
+      "TT_27",
+      "SS_27",
+      "FF_27"
+    ],
+    "load": "project_spec_driven",
+    "bias": "project_spec_driven"
+  },
+  "unsupported_analysis_policy": {
+    "unsupported_analysis_status": "NOT_EVALUATED",
+    "must_report_reason": true,
+    "do_not_fake_plots": true
+  }
+}

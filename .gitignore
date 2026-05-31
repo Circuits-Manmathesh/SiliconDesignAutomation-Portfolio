@@ -1,0 +1,42 @@
+# Private / generated / simulation files
+*.raw
+*.log
+*.lis
+*.out
+*.tr0
+*.mt0
+*.st0
+*.sp
+*.cir
+*.ckt
+*.scs
+*.lib
+*.pdk
+
+# Python / local environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyd
+*.dll
+*.exe
+
+# Archives / binary dumps
+*.zip
+*.7z
+*.rar
+*.db
+*.oa
+*.cds
+
+# Secrets / environment
+.env
+*.key
+*password*
+*secret*
+*token*
+*confidential*
+*do_not_publish*
+*client_internal*
+*internal_only*

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "required_testbenches": [
+    {
+      "analysis": "op",
+      "purpose": "Bias/current/power/device OP.",
+      "required": true
+    },
+    {
+      "analysis": "dc",
+      "purpose": "Open-loop DC transfer around VIN_CM.",
+      "required": true
+    },
+    {
+      "analysis": "ac",
+      "purpose": "Open-loop gain, UGB, phase margin proxy.",
+      "required": true,
+      "frequency": {
+        "start_hz": "1k",
+        "stop_hz": "10G",
+        "points_per_decade": 100
+      }
+    },
+    {
+      "analysis": "tran",
+      "purpose": "Unity-gain buffer step response.",
+      "required": true,
+      "stimulus": {
+        "input_step_v": "100m",
+        "stop_time_s": "200n",
+        "max_timestep_s": "2p"
+      }
+    }
+  ],
+  "optional_testbenches": [
+    {
+      "analysis": "cmrr",
+      "required": false
+    },
+    {
+      "analysis": "psrr",
+      "required": false
+    },
+    {
+      "analysis": "noise",
+      "required": false
+    },
+    {
+      "analysis": "pvt",
+      "required": false
+    }
+  ]
+}

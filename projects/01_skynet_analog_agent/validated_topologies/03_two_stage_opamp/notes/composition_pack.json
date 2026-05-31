@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "composition_style": "hierarchical_analog_block",
+  "blocks": [
+    {
+      "block_id": "input_stage",
+      "block_type": "differential_pair",
+      "variant": "nmos_input_pmos_current_mirror_load",
+      "devices": [
+        "M_NINP",
+        "M_NINN",
+        "M_PLOAD_DIODE",
+        "M_PLOAD_MIRROR",
+        "I_TAIL"
+      ],
+      "reuse_matured_capability": "differential_pair"
+    },
+    {
+      "block_id": "second_stage",
+      "block_type": "common_source_amplifier",
+      "variant": "nmos_common_source_pmos_current_source_load",
+      "devices": [
+        "M_NCS2",
+        "M_PLOAD2"
+      ],
+      "reuse_matured_capability": "common_source_amplifier"
+    },
+    {
+      "block_id": "compensation",
+      "block_type": "miller_compensation",
+      "devices": [
+        "C_COMP",
+        "R_NULL_OPTIONAL"
+      ]
+    },
+    {
+      "block_id": "load",
+      "block_type": "capacitive_load",
+      "devices": [
+        "C_LOAD"
+      ]
+    }
+  ],
+  "internal_nodes": {
+    "vx": "first-stage high-impedance node / second-stage gate",
+    "vout": "opamp output",
+    "v1n": "diode-connected PMOS mirror node",
+    "vbp2": "PMOS second-stage load bias",
+    "tail": "NMOS pair tail node"
+  },
+  "stage_contract": {
+    "S7": "Resolve hierarchy and dependencies.",
+    "S9": "Derive gm/Id, gain, current, Cc, and stability targets.",
+    "S10": "Select LUT-backed device candidates and solve bias.",
+    "S12": "Render OP/DC/AC/TRAN netlists.",
+    "S14": "Extract real measurements.",
+    "S15": "Evaluate opamp specs.",
+    "S18": "Closed-loop correction if needed.",
+    "S19": "Project-local PNG-only final report."
+  }
+}

@@ -1,0 +1,2 @@
+model_library_path,lut_root,v_dd_v,c_load_f,temperature_c,process_corner
+C:\Skynet_Setup\skynet_analog_agent\technology_models\models.lib,C:\Skynet_Setup\skynet_analog_agent\lut_characterizer\generated_lut,1.0,1e-12,27.0,TT

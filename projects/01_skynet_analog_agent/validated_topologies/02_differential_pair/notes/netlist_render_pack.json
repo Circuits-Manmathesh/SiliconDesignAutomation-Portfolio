@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "simulator": "ltspice",
+  "model_library": "technology_models/models.lib",
+  "model_names": {
+    "nmos": "N_50n",
+    "pmos": "P_50n"
+  },
+  "parameter_defaults": {
+    "VDD": "1.0",
+    "CL": "200f",
+    "VINCM": "0.50",
+    "VBP": "0.58",
+    "ITAIL": "20u",
+    "VID": "0",
+    "VID_AC": "1",
+    "VIN_STEP": "2m",
+    "TRISE": "20p",
+    "TFALL": "20p",
+    "TPER": "400n",
+    "TWIDTH": "200n",
+    "TSTOP": "300n",
+    "TSTEP": "1p",
+    "WN": "1u",
+    "LN": "180n",
+    "MN": "1",
+    "WP": "2u",
+    "LP": "400n",
+    "MP": "1"
+  },
+  "unit_safe_parameters": true,
+  "netlist_common_header": "* Skynet Analog Agent - differential_pair\n* NMOS differential pair with PMOS active loads and ideal tail current\n.include \"{MODEL_LIBRARY}\"\n.options plotwinsize=0\n.param VDD={VDD}\n.param CL={CL}\n.param VINCM={VINCM}\n.param VBP={VBP}\n.param ITAIL={ITAIL}\n.param VID={VID}\n.param VID_AC={VID_AC}\n.param VIN_STEP={VIN_STEP}\n.param TRISE={TRISE}\n.param TFALL={TFALL}\n.param TPER={TPER}\n.param TWIDTH={TWIDTH}\n.param TSTOP={TSTOP}\n.param TSTEP={TSTEP}\n.param WN={WN}\n.param LN={LN}\n.param MN={MN}\n.param WP={WP}\n.param LP={LP}\n.param MP={MP}\n\nVDD_SRC VDD VSS {VDD}\nVBP_SRC VBP VSS {VBP}\nITAIL TAIL VSS {ITAIL}\n\nM_NINP VOUTP VINP TAIL VSS N_50n W={WN} L={LN} m={MN}\nM_NINN VOUTN VINN TAIL VSS N_50n W={WN} L={LN} m={MN}\nM_PLOADP VOUTP VBP VDD VDD P_50n W={WP} L={LP} m={MP}\nM_PLOADN VOUTN VBP VDD VDD P_50n W={WP} L={LP} m={MP}\n\nCLOADP VOUTP VSS {CL}\nCLOADN VOUTN VSS {CL}\n\n.save V(VINP) V(VINN) V(VOUTP) V(VOUTN) V(TAIL) V(VBP) I(VDD_SRC) I(ITAIL)",
+  "analysis_templates": {
+    "op": "VVINP VINP VSS {VINCM}\nVVINN VINN VSS {VINCM}\n.op\n.end",
+    "dc": "VVINP VINP VSS {VINCM + VID/2}\nVVINN VINN VSS {VINCM - VID/2}\n.dc param VID -20m 20m 0.2m\n.end",
+    "ac": "VVINP VINP VSS DC {VINCM} AC 0.5\nVVINN VINN VSS DC {VINCM} AC -0.5\n.ac dec 80 1k 50G\n.end",
+    "tran": "VVINP VINP VSS PULSE({VINCM - VIN_STEP/4} {VINCM + VIN_STEP/4} 2n {TRISE} {TFALL} {TWIDTH} {TPER})\nVVINN VINN VSS PULSE({VINCM + VIN_STEP/4} {VINCM - VIN_STEP/4} 2n {TRISE} {TFALL} {TWIDTH} {TPER})\n.tran 0 {TSTOP} 0 {TSTEP}\n.end"
+  },
+  "rendered_netlist_expectations": {
+    "required_analyses": [
+      "op",
+      "dc",
+      "ac",
+      "tran"
+    ],
+    "required_signals": [
+      "V(VINP)",
+      "V(VINN)",
+      "V(VOUTP)",
+      "V(VOUTN)",
+      "I(VDD_SRC)",
+      "I(ITAIL)"
+    ],
+    "must_use_project_local_paths": true,
+    "must_render_selected_sizing": true,
+    "must_render_selected_bias": true
+  }
+}

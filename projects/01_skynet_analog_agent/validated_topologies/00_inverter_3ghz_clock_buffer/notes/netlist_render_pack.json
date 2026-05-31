@@ -1,0 +1,248 @@
+{
+  "schema_name": "SkynetNetlistRenderPack",
+  "schema_version": "1.0-stage5r",
+  "topology_type": "cmos_inverter",
+  "render_contract_status": "PRODUCTION_RENDER_READY",
+  "render_maturity": "production_for_current_ltspice_flow",
+  "renderer_mode": "topology_exact_template",
+  "supported_simulators": [
+    "ltspice"
+  ],
+  "no_generic_guessing_policy": "ENFORCED",
+  "source_of_truth": {
+    "knowledge_pack_driven": true,
+    "sizing_source": "S10_initial_sizing_result.role_initial_sizing",
+    "testbench_source": "S11_testbench_plan",
+    "technology_model_source": "technology_pack.model_map",
+    "simulator_syntax_source": "simulator_adapter",
+    "do_not_hardcode_pdk_path": true,
+    "do_not_hardcode_absolute_model_path": true
+  },
+  "external_nodes": [
+    "Vin",
+    "Vout",
+    "VDD",
+    "VSS"
+  ],
+  "internal_nodes": [],
+  "node_aliases": {
+    "input": "Vin",
+    "output": "Vout",
+    "supply": "VDD",
+    "ground": "VSS"
+  },
+  "supply_policy": {
+    "positive_supply_node": "VDD",
+    "ground_node": "VSS",
+    "vdd_parameter": "VDD",
+    "body_tie_policy": {
+      "nmos": "VSS",
+      "pmos": "VDD"
+    }
+  },
+  "device_instances": [
+    {
+      "instance_name": "M_NPD",
+      "role_candidates": [
+        "M_PullDown",
+        "pull_down",
+        "nmos_pull_down",
+        "NMOS",
+        "nmos"
+      ],
+      "device_class": "nmos",
+      "model_class": "nmos",
+      "terminal_order": [
+        "D",
+        "G",
+        "S",
+        "B"
+      ],
+      "terminal_map": {
+        "D": "Vout",
+        "G": "Vin",
+        "S": "VSS",
+        "B": "VSS"
+      },
+      "sizing_binding": {
+        "W": [
+          "W_m",
+          "WN",
+          "W_N",
+          "nmos_width"
+        ],
+        "L": [
+          "L_m",
+          "LN",
+          "L_N",
+          "nmos_length"
+        ],
+        "m": [
+          "m",
+          "MN",
+          "M_N",
+          "nmos_multiplicity"
+        ]
+      },
+      "required_for_simulation": true
+    },
+    {
+      "instance_name": "M_PPU",
+      "role_candidates": [
+        "M_PullUp",
+        "pull_up",
+        "pmos_pull_up",
+        "PMOS",
+        "pmos"
+      ],
+      "device_class": "pmos",
+      "model_class": "pmos",
+      "terminal_order": [
+        "D",
+        "G",
+        "S",
+        "B"
+      ],
+      "terminal_map": {
+        "D": "Vout",
+        "G": "Vin",
+        "S": "VDD",
+        "B": "VDD"
+      },
+      "sizing_binding": {
+        "W": [
+          "W_m",
+          "WP",
+          "W_P",
+          "pmos_width"
+        ],
+        "L": [
+          "L_m",
+          "LP",
+          "L_P",
+          "pmos_length"
+        ],
+        "m": [
+          "m",
+          "MP",
+          "M_P",
+          "pmos_multiplicity"
+        ]
+      },
+      "required_for_simulation": true
+    }
+  ],
+  "passive_instances": [
+    {
+      "instance_name": "CLOAD",
+      "element_type": "capacitor",
+      "terminal_map": {
+        "plus": "Vout",
+        "minus": "VSS"
+      },
+      "value_binding": {
+        "source": "design_spec_or_default",
+        "spec_key": "CL",
+        "default": "10f"
+      },
+      "required_for_simulation": true
+    }
+  ],
+  "stimulus_templates": {
+    "dc": {
+      "source_name": "VIN",
+      "source_type": "voltage",
+      "positive": "Vin",
+      "negative": "VSS",
+      "definition": "0",
+      "sweep_directive": ".dc VIN 0 {VDD} 0.005"
+    },
+    "tran": {
+      "source_name": "VIN",
+      "source_type": "voltage",
+      "positive": "Vin",
+      "negative": "VSS",
+      "definition": "PULSE(0 {VDD} 100p {input_slew} {input_slew} 2n 4n)",
+      "tran_directive": ".tran 1p 10n"
+    },
+    "bias_dc": {
+      "source_name": "VIN",
+      "source_type": "voltage",
+      "positive": "Vin",
+      "negative": "VSS",
+      "definition": "{VDD/2}",
+      "op_directive": ".op"
+    }
+  },
+  "analysis_render_rules": {
+    "bias_dc": [
+      ".op"
+    ],
+    "dc": [
+      ".dc VIN 0 {VDD} 0.005"
+    ],
+    "tran": [
+      ".tran 1p 10n"
+    ]
+  },
+  "save_directives": [
+    ".save V(Vin) V(Vout) I(VDD)"
+  ],
+  "measure_render_rules": {
+    "ltspice_measure_optional": true,
+    "prefer_python_extraction_from_raw": true,
+    "dc": [
+      {
+        "metric": "VOH",
+        "ltspice": ".meas DC VOH FIND V(Vout) AT=0"
+      },
+      {
+        "metric": "VOL",
+        "ltspice": ".meas DC VOL FIND V(Vout) AT={VDD}"
+      }
+    ],
+    "tran": [
+      {
+        "metric": "tphl",
+        "ltspice": ".meas TRAN tphl TRIG V(Vin) VAL={VDD/2} RISE=1 TARG V(Vout) VAL={VDD/2} FALL=1"
+      },
+      {
+        "metric": "tplh",
+        "ltspice": ".meas TRAN tplh TRIG V(Vin) VAL={VDD/2} FALL=1 TARG V(Vout) VAL={VDD/2} RISE=1"
+      }
+    ]
+  },
+  "netlist_validation_rules": {
+    "must_have_include": true,
+    "must_have_end": true,
+    "must_have_analysis_directive": true,
+    "must_have_required_devices": [
+      "M_NPD",
+      "M_PPU"
+    ],
+    "must_have_model_classes": [
+      "nmos",
+      "pmos"
+    ],
+    "must_have_load": "CLOAD",
+    "must_not_have_floating_nodes": [
+      "Vin",
+      "Vout",
+      "VDD",
+      "VSS"
+    ],
+    "fail_if_generic_placeholder_used": true
+  },
+  "hierarchy_policy": {
+    "is_composite": false,
+    "subpack_calls_required": [],
+    "hierarchical_expansion_required": false
+  },
+  "failure_provenance_rules": {
+    "missing_seed": "S10 initial_sizer",
+    "missing_testbench": "S11 testbench_planner",
+    "invalid_netlist": "S12 netlist_writer",
+    "simulation_failure": "S13 verification_runner",
+    "measurement_failure": "S14 measurement_extractor"
+  }
+}

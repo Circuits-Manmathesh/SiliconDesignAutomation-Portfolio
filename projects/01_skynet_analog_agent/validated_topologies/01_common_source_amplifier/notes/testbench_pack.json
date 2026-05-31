@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "required_testbenches": [
+    {
+      "analysis": "op",
+      "testbench_id": "cs_pmos_load_op",
+      "purpose": "Bias point, current and output common-mode.",
+      "required": true,
+      "required_signals": [
+        "V(VIN)",
+        "V(VOUT)",
+        "V(VBP)",
+        "I(VDD_SRC)"
+      ]
+    },
+    {
+      "analysis": "dc",
+      "testbench_id": "cs_pmos_load_dc",
+      "purpose": "DC transfer, output-bias window and gain derivative.",
+      "required": true,
+      "required_signals": [
+        "V(VIN)",
+        "V(VOUT)",
+        "I(VDD_SRC)"
+      ]
+    },
+    {
+      "analysis": "ac",
+      "testbench_id": "cs_pmos_load_ac",
+      "purpose": "Bode gain, UGB and bandwidth.",
+      "required": true,
+      "required_signals": [
+        "V(VIN)",
+        "V(VOUT)"
+      ]
+    },
+    {
+      "analysis": "tran",
+      "testbench_id": "cs_pmos_load_tran",
+      "purpose": "Small-signal transient response around VIN_CM.",
+      "required": true,
+      "required_signals": [
+        "V(VIN)",
+        "V(VOUT)",
+        "I(VDD_SRC)"
+      ]
+    }
+  ],
+  "analysis_policy": {
+    "phase_margin_deg": {
+      "required": false,
+      "reason": "No feedback wrapper in this topology."
+    },
+    "ac_bode_gain_required": true,
+    "ac_bode_phase_optional": true
+  }
+}

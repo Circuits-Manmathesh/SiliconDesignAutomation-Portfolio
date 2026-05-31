@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "measurement_policy": {
+    "real_simulation_required": true,
+    "forbidden_final_sources": [
+      "LUT_ESTIMATE",
+      "TARGET_VALUE",
+      "S10_ESTIMATE",
+      "S18_ESTIMATE",
+      "DEFAULT_VALUE",
+      "UNKNOWN"
+    ],
+    "allowed_sources": [
+      "RAW_OP",
+      "RAW_DC",
+      "RAW_AC",
+      "RAW_TRAN",
+      "CSV_DERIVED_FROM_RAW",
+      "CALCULATED_FROM_RAW_OP",
+      "LUT_SELECTED_ROW_PROVENANCE"
+    ]
+  },
+  "trace_aliases": {
+    "vinp": [
+      "V(vinp)",
+      "V(VINP)",
+      "vinp"
+    ],
+    "vinn": [
+      "V(vinn)",
+      "V(VINN)",
+      "vinn"
+    ],
+    "vx": [
+      "V(vx)",
+      "V(VX)",
+      "vx"
+    ],
+    "vout": [
+      "V(vout)",
+      "V(VOUT)",
+      "vout"
+    ],
+    "vdd_current": [
+      "I(VDD_SRC)",
+      "I(VDD)",
+      "I(vdd)",
+      "i(vdd)"
+    ],
+    "frequency": [
+      "frequency",
+      "freq"
+    ],
+    "time": [
+      "time",
+      "Time"
+    ]
+  },
+  "required_metrics": [
+    "output_bias_v",
+    "dc_gain_db",
+    "ac_midband_gain_db",
+    "ugb_hz",
+    "phase_margin_deg",
+    "average_power_w",
+    "slew_rate_v_per_s",
+    "settling_time_1pct_s"
+  ],
+  "optional_metrics": [
+    "bandwidth_hz",
+    "phase_at_ugb_deg",
+    "overshoot_percent",
+    "output_swing_low_v",
+    "output_swing_high_v",
+    "total_current_a",
+    "tail_current_a",
+    "second_stage_current_a"
+  ],
+  "extraction_methods": {
+    "output_bias_v": "OP value of VOUT from RAW_OP.",
+    "average_power_w": "VDD * abs(avg(I(VDD_SRC))).",
+    "dc_gain_db": "Local slope d(VOUT)/d(VINP-VINN) near VIN_CM from dc_curve.csv.",
+    "ac_midband_gain_db": "Low-frequency gain from ac_bode.csv.",
+    "ugb_hz": "Frequency where gain_db crosses 0 dB.",
+    "phase_margin_deg": "180 + phase_at_ugb_deg after sign convention normalization.",
+    "slew_rate_v_per_s": "Maximum output slope during unity-gain transient.",
+    "settling_time_1pct_s": "Time to enter and stay within 1% of final output."
+  },
+  "device_op_summary_required": true,
+  "device_op_devices": [
+    "M_NINP",
+    "M_NINN",
+    "M_PLOAD_DIODE",
+    "M_PLOAD_MIRROR",
+    "M_NCS2",
+    "M_PLOAD2"
+  ],
+  "s19_ready_gate": {
+    "required_missing_count_must_be_zero": true,
+    "measurement_source_truth_gate_must_pass": true,
+    "measurement_csv_consistency_must_pass": true
+  }
+}

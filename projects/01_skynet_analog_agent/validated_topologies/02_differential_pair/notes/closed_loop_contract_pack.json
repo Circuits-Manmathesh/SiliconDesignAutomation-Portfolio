@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "candidate_exhaustion_policy": "EXHAUST_VALID_LUT_PHYSICS_CANDIDATE_SPACE",
+  "arbitrary_max_iterations_allowed": false,
+  "allowed_stop_statuses": [
+    "PASS",
+    "VALID_LUT_CANDIDATE_SPACE_EXHAUSTED",
+    "LUT_LIMIT_REACHED",
+    "PHYSICS_LIMIT_REACHED",
+    "PASSED_SPEC_PRESERVATION_CONFLICT",
+    "SIMULATION_FAILED",
+    "USER_RUNTIME_STOP",
+    "CANDIDATE_GENERATION_BLOCKED"
+  ],
+  "allowed_knobs": [
+    {
+      "knob": "VIN_CM",
+      "type": "bias",
+      "allowed_range": [
+        0.35,
+        0.65
+      ],
+      "step": 0.01
+    },
+    {
+      "knob": "VBP",
+      "type": "bias",
+      "allowed_range": [
+        0.35,
+        0.75
+      ],
+      "step": 0.01
+    },
+    {
+      "knob": "ITAIL",
+      "type": "current",
+      "allowed_range": [
+        1e-06,
+        0.00015
+      ]
+    },
+    {
+      "knob": "input_pair_L",
+      "type": "device_length",
+      "role": "input_pair"
+    },
+    {
+      "knob": "input_pair_W_or_m",
+      "type": "device_strength",
+      "role": "input_pair"
+    },
+    {
+      "knob": "pmos_load_L",
+      "type": "device_length",
+      "role": "pmos_active_load_pair"
+    },
+    {
+      "knob": "pmos_load_W_or_m",
+      "type": "device_strength",
+      "role": "pmos_active_load_pair"
+    }
+  ],
+  "failure_action_rules": {
+    "gain_low": [
+      "increase_pmos_load_L_to_reduce_gds",
+      "search_lower_gds_id_load_candidates",
+      "increase_input_pair_gm_if_power_allows",
+      "preserve_output_common_mode_and_ugb"
+    ],
+    "ugb_low": [
+      "increase_input_pair_gm_or_current",
+      "select_higher_ft_input_pair_candidate",
+      "reduce_excessive_device_capacitance_if_possible",
+      "preserve_gain_and_power"
+    ],
+    "ugb_not_evaluated": [
+      "treat_as_gain_or_bandwidth_failure",
+      "increase_midband_gain_above_0dB_first",
+      "then_recheck_unity_gain_crossing"
+    ],
+    "output_common_mode_low": [
+      "strengthen_pmos_load_or_reduce_tail_current",
+      "adjust_VBP_down_if_allowed",
+      "check_current_balance"
+    ],
+    "output_common_mode_high": [
+      "weaken_pmos_load_or_increase_tail_current",
+      "adjust_VBP_up_if_allowed",
+      "check_headroom"
+    ],
+    "output_balance_error_high": [
+      "enforce_matched_sizing",
+      "check_symmetric_netlist_rendering",
+      "reject_asymmetrical_candidates"
+    ],
+    "power_high": [
+      "reduce_tail_current",
+      "search_higher_gm_id_candidates",
+      "preserve_ugb"
+    ],
+    "transient_invalid": [
+      "fix_operating_point_first",
+      "ensure_transient_is_centered_around_solved_VIN_CM",
+      "reject_if_outputs_pin_to_rails"
+    ]
+  },
+  "passed_spec_preservation": [
+    "power_max_w",
+    "ugb_hz",
+    "output_common_mode_min_v",
+    "output_common_mode_max_v",
+    "output_balance_error_max_v"
+  ],
+  "candidate_queue_layers": [
+    "direct_failed_metric_knobs",
+    "bias_headroom_correction",
+    "primary_gm_id_device_candidates",
+    "ro_gds_gain_improvement",
+    "bandwidth_ft_capacitance_candidates",
+    "combined_multi_knob_preserving_passed_specs",
+    "expanded_lut_rank_depth_until_candidate_space_exhausted"
+  ],
+  "checkpointing": {
+    "enabled": true,
+    "checkpoint_every_candidates": 1
+  }
+}

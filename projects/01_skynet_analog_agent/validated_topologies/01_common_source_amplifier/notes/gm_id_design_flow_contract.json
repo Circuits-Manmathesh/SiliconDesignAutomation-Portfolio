@@ -1,0 +1,176 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "contract_name": "Generic gm/Id LUT-aware design flow for common-source PMOS-load validation",
+  "this_file_is_topology_specific_but_uses_generic_engine_services": true,
+  "core_equations": {
+    "gm_target_from_ugb": {
+      "equation": "gm_nmos_target_s = 2*pi*ugb_hz*c_load_f",
+      "inputs": [
+        "ugb_hz",
+        "c_load_f"
+      ],
+      "output": "gm_nmos_target_s"
+    },
+    "id_from_gm_id": {
+      "equation": "id_target_a = gm_nmos_target_s / gm_id_nmos_target_vinv",
+      "inputs": [
+        "gm_nmos_target_s",
+        "gm_id_nmos_target_vinv"
+      ],
+      "output": "id_target_a"
+    },
+    "active_load_intrinsic_gain": {
+      "equation": "av_vv = gm_id_nmos / (gds_id_nmos + gds_id_pmos)",
+      "inputs": [
+        "gm_id_nmos",
+        "gds_id_nmos",
+        "gds_id_pmos"
+      ],
+      "output": "av_vv"
+    },
+    "gain_db": {
+      "equation": "av_db = 20*log10(abs(av_vv))",
+      "inputs": [
+        "av_vv"
+      ],
+      "output": "av_db"
+    }
+  },
+  "default_project_targets": {
+    "dc_gain_db_min": 26.0,
+    "ugb_hz_min": 20000000.0,
+    "phase_margin_deg": {
+      "value": 60.0,
+      "required": false,
+      "reason": "Open-loop common-source stage has no feedback wrapper."
+    },
+    "power_max_w": 0.00025,
+    "vdd_v": 1.0,
+    "c_load_f": 1e-12,
+    "temperature_c": 27.0,
+    "process_corner": "TT"
+  },
+  "deterministic_sequence": [
+    {
+      "phase": "I_NMOS_INPUT_DRIVER_SEEDING",
+      "device_name": "M_NCS",
+      "fixed_or_preferred_values": {
+        "L_nmos_seed_m": 2e-07,
+        "VDS_query_v": "VDD/2",
+        "gm_id_target_vinv": 14.0,
+        "region_required": "saturation"
+      },
+      "dimension_rules": [
+        "W_nmos = gm_nmos_target_s / gm_over_w_nmos",
+        "ID_nmos = gm_nmos_target_s / gm_id_nmos_target_vinv"
+      ]
+    },
+    {
+      "phase": "II_PMOS_ACTIVE_LOAD_CURRENT_MATCH",
+      "device_name": "M_PLOAD",
+      "fixed_or_preferred_values": {
+        "L_pmos_seed_m": 4e-07,
+        "VSD_query_v": "VDD/2",
+        "gm_id_target_vinv": 10.0,
+        "region_required": "saturation"
+      },
+      "current_matching_rule": "ID_pmos_target_a == ID_nmos_target_a",
+      "dimension_rules": [
+        "W_pmos = ID_target_a / id_over_w_pmos"
+      ]
+    }
+  ],
+  "lut_field_aliases": {
+    "gm_id": [
+      "gm_id",
+      "gm_over_id",
+      "gm_over_ID",
+      "gm/Id"
+    ],
+    "gds_id": [
+      "gds_id",
+      "gds_over_id",
+      "gds_over_ID",
+      "gds/Id"
+    ],
+    "id_w": [
+      "id_w",
+      "id_over_w",
+      "Id_per_W",
+      "current_density"
+    ],
+    "gm_w": [
+      "gm_w",
+      "gm_over_w",
+      "gm_per_W"
+    ],
+    "id": [
+      "id",
+      "ID",
+      "Id"
+    ],
+    "gm": [
+      "gm",
+      "GM"
+    ],
+    "gds": [
+      "gds",
+      "GDS"
+    ],
+    "ft": [
+      "ft",
+      "fT"
+    ],
+    "capacitance": [
+      "cgg",
+      "cgs",
+      "cgd",
+      "cdd"
+    ],
+    "region": [
+      "region",
+      "operating_region",
+      "region_flag"
+    ],
+    "sat_margin": [
+      "sat_margin",
+      "saturation_margin",
+      "vds_minus_vov",
+      "vsd_minus_vov"
+    ],
+    "bias": [
+      "vgs",
+      "VGS",
+      "vsg",
+      "VSG",
+      "vds",
+      "VDS",
+      "vsd",
+      "VSD",
+      "vsb",
+      "VSB"
+    ],
+    "geometry": [
+      "W",
+      "width",
+      "width_m",
+      "L",
+      "length",
+      "length_m",
+      "m"
+    ]
+  },
+  "no_fake_rules": [
+    "If required LUT columns are missing, return LUT_SCHEMA_MISSING_FIELD.",
+    "If no valid row exists, return LUT_LIMIT_REACHED.",
+    "Do not invent gm, gds, gm/Id, ft or region.",
+    "Final pass requires real LTspice simulation verification."
+  ]
+}

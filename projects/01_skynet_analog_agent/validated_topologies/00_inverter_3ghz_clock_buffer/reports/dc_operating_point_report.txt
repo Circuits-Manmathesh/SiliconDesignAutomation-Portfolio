@@ -1,0 +1,9 @@
+DC operating-point evidence
+Selected bias approximation: Vin = Vout = VDD/2 = 0.5 V
+Selected NMOS gm/Id: 4.216352957881945  inversion=strong  region=saturation
+Selected PMOS gm/Id: 4.219999098955782  inversion=strong  region=saturation
+NMOS LUT: Id=0.0013786831783024 gm=0.0058130148968176 gds=0.00039001204357718875 gm/gds=14.904706130356107 vth=0.2946467035801194 vdsat=0.2846061541780438 vov=0.3853532964198806 sat_margin=0.6153938458219562
+PMOS LUT: Id=0.0016860320617979078 gm=0.0071150537815956 gds=0.0006121749553316308 gm/gds=11.62258226938298 vth=-0.3348061384618443 vdsat=0.2843602502893742 vov=0.3551938615381556 sat_margin=0.4156397497106257
+SPICE .op raw path: C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\generated_netlists\dc\best_inverter_dc_op.raw
+SPICE .op comparison: LTspice run status returncode=0; scalar device internals are reported from LUT where LTspice raw does not expose a quantity.
+Why this supports 3 GHz: both devices are selected near strong/moderate valid saturation LUT points with high gm/Cgg and short channel length, then transient verification confirms the large-signal timing.

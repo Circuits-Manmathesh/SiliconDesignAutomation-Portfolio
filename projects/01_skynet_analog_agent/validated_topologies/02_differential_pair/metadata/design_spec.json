@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "user_request": "Design a 50nm NMOS differential pair with PMOS active loads and an ideal tail current source. Use gm/Id LUT-based sizing, verify with LTspice OP/DC/AC/transient, and generate final project-local report/plots.",
+  "design_notes": [
+    "This is the next analog validation topology after common-source amplifier.",
+    "Use ideal tail current source for first validation; do not build MOS tail source in this project.",
+    "The engine must derive gm/current from UGB and load, size matched devices from LUT, solve VIN_CM/VBP/ITAIL, and verify with real LTspice."
+  ],
+  "constraints": {
+    "vdd": "1.0V",
+    "cl_each": "200fF",
+    "max_power": "300uW",
+    "max_tail_current": "150uA"
+  },
+  "manual_reproducibility_expectation": "Final report must include W/L/m, VIN_CM, VBP, ITAIL, VDD, CL_each, netlist paths, raw/log paths, and measurement summary so a designer can reproduce the LTspice schematic manually.",
+  "do_not_use": [
+    "SiliconDesignAutomation paths",
+    "root report fallback",
+    "fake measurements",
+    "random sizing",
+    "topology hardcoding in core_engine"
+  ]
+}

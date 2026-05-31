@@ -1,0 +1,133 @@
+{
+  "topology_type": "cmos_inverter",
+  "required_nodes": [
+    "vin",
+    "vout",
+    "vdd",
+    "vss"
+  ],
+  "optional_nodes": [
+    "load"
+  ],
+  "device_roles": {
+    "pull_down": {
+      "device_class": "nmos",
+      "device_type": "mos",
+      "function": "NMOS output discharge device",
+      "controls": [
+        "gm",
+        "gds",
+        "ft",
+        "headroom",
+        "current",
+        "capacitance"
+      ],
+      "lut_required": true,
+      "technology_mapped": true
+    },
+    "pull_up": {
+      "device_class": "pmos",
+      "device_type": "mos",
+      "function": "PMOS output charge device",
+      "controls": [
+        "gm",
+        "gds",
+        "ft",
+        "headroom",
+        "current",
+        "capacitance"
+      ],
+      "lut_required": true,
+      "technology_mapped": true
+    }
+  },
+  "design_variables": [
+    "WN",
+    "LN",
+    "MN",
+    "WP",
+    "LP",
+    "MP"
+  ],
+  "spec_semantics": {
+    "accepted_user_phrases": {
+      "fast": "minimize propagation delay under load and power constraints",
+      "balanced": "match tphl and tplh and center switching threshold near VDD/2",
+      "low_power": "minimize average switching power while preserving timing specs",
+      "high_drive": "drive larger load capacitance with bounded slew and delay",
+      "minimum_area": "use smallest widths/multiplicity satisfying specs"
+    },
+    "spec_aliases": {},
+    "priority_mapping": {
+      "balanced_fast": [
+        "tphl_s",
+        "tplh_s",
+        "rise_fall_mismatch_pct",
+        "VM_v"
+      ],
+      "low_power": [
+        "average_power_w",
+        "energy_per_transition_j"
+      ]
+    },
+    "intent_to_metric_mapping": {
+      "fast": [
+        "rise_time_s",
+        "fall_time_s",
+        "delay_average_s",
+        "rise_fall_mismatch_pct"
+      ],
+      "low_power": [
+        "average_power_w",
+        "peak_current_a"
+      ],
+      "high_gain": [
+        "dc_gain_max"
+      ],
+      "robust": [
+        "VOH_v",
+        "VOL_v",
+        "VM_v",
+        "NMH_v",
+        "NML_v",
+        "dc_gain_max",
+        "tphl_s",
+        "tplh_s",
+        "rise_time_s",
+        "fall_time_s",
+        "delay_average_s",
+        "rise_fall_mismatch_pct",
+        "energy_per_transition_j",
+        "average_power_w",
+        "peak_current_a",
+        "spec_status",
+        "physics_limit_status"
+      ]
+    }
+  },
+  "composition": {
+    "required_subpacks": [],
+    "optional_subpacks": [],
+    "callable_by": [
+      "nand_gate",
+      "nor_gate",
+      "xor_gate",
+      "clock_buffer_chain",
+      "dll_delay_cell",
+      "pll_vco_cell"
+    ],
+    "subpack_role_map": {},
+    "max_call_depth": 0,
+    "allow_recursive_call": false,
+    "fail_if_required_subpack_missing": true,
+    "do_not_use_generic_fallback": true,
+    "composition_policy": "pack_declares_dependencies_core_engine_builds_task_graph"
+  },
+  "topology_constraints": {
+    "requires_explicit_topology_intent": true,
+    "requires_topology_net_for_production": true,
+    "no_hidden_sources": true,
+    "device_classes_must_map_through_technology_pack": true,
+    "simulator_syntax_must_come_from_adapter": true
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "topology_type": "cmos_inverter",
+  "plot_recipes": {
+    "dc_operating_summary": {
+      "type": "table_or_xy_plot",
+      "title": "DC Operating and Transfer Summary",
+      "x_axis": "sweep_or_bias_point",
+      "y_axis": [
+        "VOH_v",
+        "VOL_v",
+        "VM_v",
+        "NMH_v",
+        "NML_v",
+        "dc_gain_max"
+      ],
+      "source": "real_exported_csv_or_verified_measurements_only"
+    },
+    "transient_waveform_summary": {
+      "type": "transient_plot",
+      "title": "Transient Waveform and Time-Domain Metrics",
+      "x_axis": "time_s",
+      "y_axis": [
+        "tphl_s",
+        "tplh_s",
+        "rise_time_s",
+        "fall_time_s",
+        "delay_average_s",
+        "rise_fall_mismatch_pct"
+      ],
+      "source": "real_exported_csv_or_verified_measurements_only"
+    },
+    "system_metric_summary": {
+      "type": "summary_table",
+      "title": "System-Level Metrics",
+      "x_axis": "metric",
+      "y_axis": [
+        "average_power_w",
+        "peak_current_a",
+        "spec_status",
+        "physics_limit_status"
+      ],
+      "source": "verified_measurements_only"
+    },
+    "spec_status_summary": {
+      "type": "bar_or_table",
+      "title": "Pass / Fail / Not-Evaluated Specification Summary",
+      "x_axis": "spec_name",
+      "y_axis": [
+        "status",
+        "measured_value",
+        "target_value"
+      ],
+      "source": "verified_spec_checks_only"
+    }
+  },
+  "plot_style": {
+    "style_name": "skynet_ieee_isscc_clean",
+    "dpi": 300,
+    "major_grid": true,
+    "minor_grid": true,
+    "legend": true,
+    "no_fake_smoothing": true,
+    "source_policy": "real_exported_csv_or_verified_measurements_only"
+  },
+  "publication_report": {
+    "required_summary_metrics": [
+      "VOH_v",
+      "VOL_v",
+      "VM_v",
+      "NMH_v",
+      "NML_v",
+      "dc_gain_max",
+      "tphl_s",
+      "tplh_s",
+      "rise_time_s",
+      "fall_time_s",
+      "delay_average_s",
+      "rise_fall_mismatch_pct"
+    ],
+    "required_plots": [
+      "dc_operating_summary",
+      "transient_waveform_summary",
+      "system_metric_summary",
+      "spec_status_summary"
+    ],
+    "optional_plots": [
+      "pvt_spread_summary",
+      "learning_history_summary",
+      "failure_action_history"
+    ],
+    "must_report_not_evaluated": true,
+    "must_report_physics_limits": true,
+    "must_report_learning_history": true,
+    "must_report_model_library": true,
+    "must_report_lut_validation_status": true
+  }
+}

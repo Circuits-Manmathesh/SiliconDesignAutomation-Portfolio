@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "trace_aliases": {
+    "vinp": [
+      "V(vinp)",
+      "V(VINP)",
+      "vinp"
+    ],
+    "vinn": [
+      "V(vinn)",
+      "V(VINN)",
+      "vinn"
+    ],
+    "voutp": [
+      "V(voutp)",
+      "V(VOUTP)",
+      "voutp"
+    ],
+    "voutn": [
+      "V(voutn)",
+      "V(VOUTN)",
+      "voutn"
+    ],
+    "tail": [
+      "V(tail)",
+      "V(TAIL)",
+      "tail"
+    ],
+    "vbp": [
+      "V(vbp)",
+      "V(VBP)",
+      "vbp"
+    ],
+    "vdd_current": [
+      "I(VDD_SRC)",
+      "I(Vdd)",
+      "I(vdd)"
+    ],
+    "tail_current": [
+      "I(ITAIL)",
+      "I(Itail)"
+    ]
+  },
+  "metrics": [
+    {
+      "metric": "voutp_op_v",
+      "analysis": "op",
+      "method": "V(VOUTP) from OP raw",
+      "required": true
+    },
+    {
+      "metric": "voutn_op_v",
+      "analysis": "op",
+      "method": "V(VOUTN) from OP raw",
+      "required": true
+    },
+    {
+      "metric": "output_common_mode_v",
+      "analysis": "op",
+      "method": "0.5*(VOUTP+VOUTN)",
+      "required": true
+    },
+    {
+      "metric": "output_balance_error_v",
+      "analysis": "op",
+      "method": "abs(VOUTP-VOUTN)",
+      "required": true
+    },
+    {
+      "metric": "tail_current_a",
+      "analysis": "op",
+      "method": "abs(I(ITAIL))",
+      "required": true
+    },
+    {
+      "metric": "average_power_w",
+      "analysis": "op",
+      "method": "VDD*abs(avg(I(VDD_SRC)))",
+      "required": true
+    },
+    {
+      "metric": "differential_gain_vv",
+      "analysis": "dc",
+      "method": "local derivative d(VOUTP-VOUTN)/d(VINP-VINN) near VID=0",
+      "required": true
+    },
+    {
+      "metric": "differential_gain_db",
+      "analysis": "dc",
+      "method": "20log10(abs(differential_gain_vv))",
+      "required": true
+    },
+    {
+      "metric": "ac_midband_gain_db",
+      "analysis": "ac",
+      "method": "low-frequency 20log10(abs((VOUTP-VOUTN)/(VINP-VINN)))",
+      "required": true
+    },
+    {
+      "metric": "ugb_hz",
+      "analysis": "ac",
+      "method": "unity-gain crossing of differential gain magnitude",
+      "required": true
+    },
+    {
+      "metric": "bandwidth_hz",
+      "analysis": "ac",
+      "method": "-3dB bandwidth from AC midband gain",
+      "required": false
+    },
+    {
+      "metric": "phase_at_ugb_deg",
+      "analysis": "ac",
+      "method": "phase near unity-gain crossing",
+      "required": false
+    },
+    {
+      "metric": "transient_differential_gain_vv",
+      "analysis": "tran",
+      "method": "abs(delta(VOUTP-VOUTN)/delta(VINP-VINN))",
+      "required": false
+    },
+    {
+      "metric": "transient_validity_status",
+      "analysis": "tran",
+      "method": "validity gate for centered small-signal differential transient",
+      "required": true
+    }
+  ],
+  "actual_device_bias_context": {
+    "M_NINP": {
+      "vgs": "V(VINP)-V(TAIL)",
+      "vds": "V(VOUTP)-V(TAIL)",
+      "vsb": "V(TAIL)-V(VSS)"
+    },
+    "M_NINN": {
+      "vgs": "V(VINN)-V(TAIL)",
+      "vds": "V(VOUTN)-V(TAIL)",
+      "vsb": "V(TAIL)-V(VSS)"
+    },
+    "M_PLOADP": {
+      "vsg": "V(VDD)-V(VBP)",
+      "vsd": "V(VDD)-V(VOUTP)",
+      "vbs": "V(VDD)-V(VDD)"
+    },
+    "M_PLOADN": {
+      "vsg": "V(VDD)-V(VBP)",
+      "vsd": "V(VDD)-V(VOUTN)",
+      "vbs": "V(VDD)-V(VDD)"
+    }
+  },
+  "source_type_policy": {
+    "allowed_final_sources": [
+      "RAW_OP",
+      "RAW_DC",
+      "RAW_AC",
+      "RAW_TRAN",
+      "CSV_DERIVED_FROM_RAW"
+    ],
+    "forbidden_final_sources": [
+      "LUT_ESTIMATE",
+      "TARGET_VALUE",
+      "S10_ESTIMATE",
+      "S18_ESTIMATE",
+      "DEFAULT_VALUE",
+      "UNKNOWN"
+    ]
+  }
+}

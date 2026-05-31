@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "spec_metric_map": {
+    "differential_gain_db": {
+      "metric": "differential_gain_db",
+      "operator": ">=",
+      "required": true
+    },
+    "ugb_hz": {
+      "metric": "ugb_hz",
+      "operator": ">=",
+      "required": true
+    },
+    "power_max_w": {
+      "metric": "average_power_w",
+      "operator": "<=",
+      "required": true
+    },
+    "tail_current_max_a": {
+      "metric": "tail_current_a",
+      "operator": "<=",
+      "required": true
+    },
+    "output_common_mode_min_v": {
+      "metric": "output_common_mode_v",
+      "operator": ">=",
+      "required": true
+    },
+    "output_common_mode_max_v": {
+      "metric": "output_common_mode_v",
+      "operator": "<=",
+      "required": true
+    },
+    "output_balance_error_max_v": {
+      "metric": "output_balance_error_v",
+      "operator": "<=",
+      "required": true
+    },
+    "transient_validity_status": {
+      "metric": "transient_validity_status",
+      "operator": "==",
+      "target": "PASS",
+      "required": false
+    }
+  },
+  "required_not_evaluated_policy": "FAIL",
+  "measurement_source_policy": {
+    "allowed_sources": [
+      "RAW_OP",
+      "RAW_DC",
+      "RAW_AC",
+      "RAW_TRAN",
+      "CSV_DERIVED_FROM_RAW"
+    ],
+    "forbidden_sources": [
+      "LUT_ESTIMATE",
+      "TARGET_VALUE",
+      "S10_ESTIMATE",
+      "S18_ESTIMATE",
+      "DEFAULT_VALUE",
+      "UNKNOWN"
+    ]
+  },
+  "optional_specs": {
+    "phase_margin_deg": {
+      "required": false,
+      "note": "Not a true phase margin unless feedback wrapper is defined."
+    }
+  }
+}

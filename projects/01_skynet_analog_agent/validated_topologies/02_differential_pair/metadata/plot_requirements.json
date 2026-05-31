@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.1",
+  "project_id": "demo_differential_pair",
+  "topology_type": "differential_pair",
+  "plot_policy": {
+    "style": "ieee",
+    "required_plot_rule": "Only plots needed to explain final design specs, real verification, bias health, and reproducibility are required.",
+    "optional_plot_policy": "NOT_EVALUATED_NONBLOCKING",
+    "missing_required_policy": "BLOCK_FINAL_REPORT",
+    "missing_optional_policy": "NOT_EVALUATED_NONBLOCKING",
+    "do_not_generate_empty_optional_plots": true
+  },
+  "plots": [
+    {
+      "plot_id": "spec_status_summary",
+      "title": "Specification Status Summary",
+      "analysis": "summary",
+      "required": true,
+      "purpose": "Third-person executive view of measured specs versus targets.",
+      "source": "reports/final/tables/spec_checks.csv",
+      "x": "spec_name",
+      "y": [
+        "measured_value",
+        "target_value_si"
+      ],
+      "annotations": [
+        "PASS_FAIL_STATUS",
+        "margin",
+        "required_optional"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "dc_differential_transfer",
+      "title": "DC Differential Transfer",
+      "analysis": "dc",
+      "required": true,
+      "purpose": "Show differential-pair linear region, polarity, and differential output response versus differential input.",
+      "source": "verification/data/dc_curve.csv",
+      "x": "vid_v",
+      "y": [
+        "voutp_v",
+        "voutn_v",
+        "vout_diff_v"
+      ],
+      "annotations": [
+        "zero_differential_input",
+        "linear_region",
+        "gain_slope_region"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "dc_output_common_mode_and_balance",
+      "title": "DC Output Common-Mode and Balance",
+      "analysis": "dc",
+      "required": true,
+      "purpose": "Show output common-mode health and symmetry/balance over input differential sweep.",
+      "source": "verification/data/dc_curve.csv",
+      "x": "vid_v",
+      "y": [
+        "vout_cm_v",
+        "output_balance_error_v"
+      ],
+      "target_bands": {
+        "vout_cm_v": [
+          "output_common_mode_min_v",
+          "output_common_mode_max_v"
+        ],
+        "output_balance_error_v": [
+          "max_output_balance_error_v"
+        ]
+      },
+      "annotations": [
+        "valid_common_mode_window",
+        "balance_error_limit"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "ac_differential_gain",
+      "title": "AC Differential Gain and UGB",
+      "analysis": "ac",
+      "required": true,
+      "purpose": "Show frequency response, low-frequency differential gain, bandwidth, and unity-gain crossing.",
+      "source": "verification/data/ac_bode.csv",
+      "x": "frequency_hz",
+      "y": [
+        "gain_db"
+      ],
+      "x_scale": "log",
+      "target_lines": {
+        "differential_gain_db": "min_differential_gain_db",
+        "ugb_hz": "min_ugb_hz",
+        "zero_db": 0.0
+      },
+      "annotations": [
+        "midband_gain_db",
+        "ugb_hz",
+        "bandwidth_hz"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "tran_differential_step",
+      "title": "Transient Differential Step Response",
+      "analysis": "tran",
+      "required": true,
+      "purpose": "Show time-domain differential input and amplified differential output response around solved operating point.",
+      "source": "verification/data/tran_curve.csv",
+      "x": "time_s",
+      "y": [
+        "vin_diff_v",
+        "vout_diff_v"
+      ],
+      "annotations": [
+        "input_step_v",
+        "output_step_v",
+        "transient_gain_db",
+        "settling_time_s"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "power_current_summary",
+      "title": "Power and Bias Current Summary",
+      "analysis": "summary",
+      "required": true,
+      "purpose": "Show total current, tail current, branch current and power against project limits.",
+      "source": "reports/final/tables/measurement_summary.csv",
+      "y": [
+        "average_power_w",
+        "tail_current_a",
+        "branch_current_a"
+      ],
+      "target_lines": {
+        "average_power_w": "max_power_w",
+        "tail_current_a": "max_tail_current_a"
+      },
+      "annotations": [
+        "measured_value_labels",
+        "pass_fail_margin"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "device_operating_point_gmid_summary",
+      "title": "Device Operating-Point gm/Id Summary",
+      "analysis": "sizing_or_op",
+      "required": true,
+      "purpose": "Prove gm/Id methodology and LUT-selected device operating region for third-person review.",
+      "source": "reports/final/tables/final_device_sizing.csv",
+      "x": "device_name",
+      "y": [
+        "gm_id_vinv",
+        "gm_gds",
+        "sat_margin_v"
+      ],
+      "annotations": [
+        "region",
+        "lut_source_file",
+        "selected_lut_row_id"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "ac_phase_diagnostic",
+      "title": "AC Phase Diagnostic",
+      "analysis": "ac",
+      "required": false,
+      "purpose": "Diagnostic only. Do not treat as phase margin unless a feedback wrapper is defined.",
+      "source": "verification/data/ac_bode.csv",
+      "x": "frequency_hz",
+      "y": [
+        "phase_deg"
+      ],
+      "x_scale": "log",
+      "annotations": [
+        "phase_at_ugb_deg"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "tran_output_common_mode_diagnostic",
+      "title": "Transient Output Common-Mode Diagnostic",
+      "analysis": "tran",
+      "required": false,
+      "purpose": "Optional diagnostic to verify common-mode drift during transient.",
+      "source": "verification/data/tran_curve.csv",
+      "x": "time_s",
+      "y": [
+        "vout_cm_v"
+      ],
+      "annotations": [
+        "output_common_mode_window"
+      ],
+      "style": "ieee"
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "title": "Closed-Loop Candidate Summary",
+      "analysis": "s18",
+      "required": false,
+      "purpose": "Show candidate search history only when S18 actually runs optimization. Do not create an empty candidate plot for no-iteration pass.",
+      "source": "reports/stage18/candidate_table.csv",
+      "x": "candidate_id",
+      "y": [
+        "measured_differential_gain_db",
+        "measured_ugb_hz",
+        "measured_power_w",
+        "measured_output_common_mode_v"
+      ],
+      "annotations": [
+        "accepted_candidate",
+        "rejected_reason",
+        "best_candidate"
+      ],
+      "render_condition": "only_if_candidate_table_exists_and_nonempty",
+      "style": "ieee"
+    }
+  ],
+  "third_person_presentation_minimum_required": [
+    "spec_status_summary",
+    "dc_differential_transfer",
+    "dc_output_common_mode_and_balance",
+    "ac_differential_gain",
+    "tran_differential_step",
+    "power_current_summary",
+    "device_operating_point_gmid_summary"
+  ],
+  "explicitly_not_required": [
+    {
+      "plot_id": "ac_phase_diagnostic",
+      "reason": "Phase is useful as diagnostic, but phase margin is not valid unless feedback loop is defined."
+    },
+    {
+      "plot_id": "tran_output_common_mode_diagnostic",
+      "reason": "Useful only if common-mode drift becomes a debug issue."
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "reason": "Should be generated only when S18 actually ran optimization candidates."
+    }
+  ]
+}

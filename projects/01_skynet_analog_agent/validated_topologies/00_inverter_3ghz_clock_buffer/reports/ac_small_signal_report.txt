@@ -1,0 +1,10 @@
+AC small-signal characterization
+AC sweeps are small-signal analyses around fixed DC input bias points; transient remains the final authority for digital switching delay.
+Sweep: .ac dec 100 1Meg 100Gig
+Bias summaries:
+- vm bias=0.5099999904632568 V gain=20.984817157799274 dB bw=2454708915.685008 Hz unity=26915348039.268833 Hz source=ltspice_raw
+- vin045 bias=0.45 V gain=4.313391730842683 dB bw=11220184543.019505 Hz unity=14454397707.459103 Hz source=ltspice_raw
+- vin050 bias=0.5 V gain=20.984817157799274 dB bw=2454708915.685008 Hz unity=26915348039.268833 Hz source=ltspice_raw
+- vin055 bias=0.55 V gain=11.794453952275973 dB bw=6025595860.743514 Hz unity=22908676527.677452 Hz source=ltspice_raw
+LUT ft/gm-Cgg relation: ft_N=39314994850.02007 Hz, ft_P=16946442358.193567 Hz, gm/Cgg_N=247023397993.4872, gm/Cgg_P=106477637633.9676.
+The AC bandwidth is a local linear indicator near bias; the large-signal transient verification confirms the 3 GHz clock-buffer behavior.

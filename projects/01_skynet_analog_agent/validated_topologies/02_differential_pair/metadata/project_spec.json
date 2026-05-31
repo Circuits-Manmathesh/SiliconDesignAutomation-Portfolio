@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo_differential_pair",
+  "project_name": "Direct Differential Pair Demo",
+  "topology_type": "differential_pair",
+  "topology_variant": "nmos_diff_pair_pmos_active_load_ideal_tail",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "supply": {
+    "VDD": "1.0V",
+    "VSS": "0V"
+  },
+  "load": {
+    "CL_each": "200fF"
+  },
+  "operating_conditions": {
+    "temperature": "27C",
+    "corners": [
+      "TT"
+    ],
+    "process_corner": "TT"
+  },
+  "required_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "design_objective": "Design and verify an NMOS differential pair with PMOS active loads and ideal tail current using gm/Id LUT methodology.",
+  "target_specs": {
+    "differential_gain_db": "20dB",
+    "ugb_hz": "50MHz",
+    "power_max_w": "300uW",
+    "tail_current_max_a": "150uA",
+    "output_common_mode_min_v": "0.35V",
+    "output_common_mode_max_v": "0.70V",
+    "output_balance_error_max_v": "20mV",
+    "phase_margin_deg": {
+      "value": "60deg",
+      "required": false,
+      "note": "Optional diagnostic only; no feedback loop is defined."
+    }
+  },
+  "priorities": [
+    "valid_operating_point",
+    "differential_gain",
+    "ugb",
+    "power",
+    "output_common_mode",
+    "transient_validity"
+  ],
+  "reporting": {
+    "required_plots": [
+      "spec_status_summary",
+      "dc_differential_transfer",
+      "dc_output_common_mode",
+      "ac_differential_gain",
+      "tran_differential_step",
+      "power_current_summary"
+    ],
+    "optional_plots": [
+      "ac_phase_diagnostic",
+      "gm_id_lut_candidate_summary"
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": "V5.9",
+  "mode": "full",
+  "generated_at": "2026-05-23T15:07:48",
+  "elapsed_s": 531.4092557430267,
+  "devices": {
+    "nmos": {
+      "device": "nmos",
+      "csv": "C:\\Skynet_Setup\\skynet_analog_agent\\lut_characterizer\\generated_lut\\nmos_50nm_nominal_27C_full.csv",
+      "npz": "C:\\Skynet_Setup\\skynet_analog_agent\\lut_characterizer\\generated_lut\\nmos_50nm_nominal_27C_full.npz",
+      "metadata": "C:\\Skynet_Setup\\skynet_analog_agent\\lut_characterizer\\generated_lut\\nmos_50nm_nominal_27C_full_metadata.json",
+      "rows": 24640,
+      "parse_ok_rows": 24640,
+      "dc_parse_ok_rows": 24640,
+      "ac_gate_parse_ok_rows": 24640,
+      "active_rows": 23760,
+      "vdsat_valid_rows": 19192,
+      "saturation_ok_rows": 18312,
+      "gm_gds_valid_rows": 23760,
+      "cap_valid_rows": 24640,
+      "ft_valid_rows": 23754,
+      "curve_quality_ok_rows": 18312,
+      "usable_for_design_rows": 13393,
+      "optimizer_candidate_rows": 12553,
+      "regions": {
+        "cutoff": 880,
+        "subthreshold": 4919,
+        "weak": 2184,
+        "triode": 5448,
+        "moderate": 1178,
+        "strong": 10031
+      },
+      "reject_reasons": {
+        "cutoff": 880,
+        "near_zero_bias": 440,
+        "not_design_usable": 4479,
+        "not_optimizer_range_or_margin": 840,
+        "invalid_vdsat": 5448,
+        "accepted": 12553
+      },
+      "raw_gmid_min": 0.0012874804133238542,
+      "raw_gmid_max": 41.97177572031274,
+      "points_gmid_1_to_30": 21431
+    }
+  },
+  "output_dir": "C:\\Skynet_Setup\\skynet_analog_agent\\lut_characterizer\\generated_lut",
+  "policy": {
+    "dc_and_gate_ac_for_each_bias_point": true,
+    "vdsat_method": "gds_over_gm_knee_threshold_0p20",
+    "regions": [
+      "cutoff",
+      "triode",
+      "subthreshold",
+      "weak",
+      "moderate",
+      "strong"
+    ],
+    "usable_excludes_regions": [
+      "cutoff",
+      "triode",
+      "subthreshold"
+    ],
+    "no_width_sweep_width_independent_metrics": true,
+    "no_internal_mos_op_parameter_dependency": true,
+    "pmos_positive_vsg_vsd": true,
+    "gmb_removed": true,
+    "cdd_removed_not_required": true,
+    "fail_fast_no_empty_lut": true
+  }
+}

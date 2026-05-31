@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo_two_stage_opamp",
+  "project_name": "Direct Two-Stage Opamp Demo",
+  "topology_type": "two_stage_opamp",
+  "topology_variant": "nmos_input_miller_compensated_two_stage",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "supply": {
+    "v_dd_v": "1.0V",
+    "v_ss_v": "0V"
+  },
+  "load": {
+    "c_load_f": "500fF"
+  },
+  "operating_conditions": {
+    "temperature_c": "27C",
+    "process_corner": "TT"
+  },
+  "biasing": {
+    "input_common_mode_v": "0.50V",
+    "output_bias_target_v": "0.50V"
+  },
+  "design_targets": {
+    "dc_gain_db": "40dB",
+    "ugb_hz": "10MHz",
+    "ugb_hz_stretch_v2": "15MHz",
+    "phase_margin_deg": "55deg",
+    "power_max_w": "300uW",
+    "output_bias_min_v": "0.40V",
+    "output_bias_max_v": "0.60V",
+    "output_swing_min_v": "0.25V",
+    "output_swing_max_v": "0.75V",
+    "slew_rate_min_v_per_s": "10e6V/s",
+    "settling_time_1pct_max_s": "200ns"
+  },
+  "expected_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "reporting": {
+    "plot_format": "png",
+    "style": "ieee",
+    "required_plots": [
+      "spec_status_summary",
+      "dc_operating_point_bias_summary",
+      "ac_gain_phase_bode",
+      "phase_margin_marker",
+      "unity_gain_transient_step",
+      "slew_rate_and_settling",
+      "power_current_summary",
+      "device_operating_point_gmid_summary"
+    ]
+  },
+  "truth_policy": {
+    "real_ltspice_required": true,
+    "no_fake_pass": true,
+    "no_fake_measurements": true,
+    "no_fake_plots": true
+  },
+  "demo_v1_notes": {
+    "positioning": "Realistic short-channel 50nm low-power two-stage opamp V1 demo.",
+    "ugb_target_rationale": "The previous 30MHz UGB target is deferred to a high-speed V2. The valid LUT-backed candidate space reached about 15.26MHz while satisfying gain and output-bias requirements, so 10MHz is the V1 required target and 15MHz is recorded as stretch capability."
+  }
+}

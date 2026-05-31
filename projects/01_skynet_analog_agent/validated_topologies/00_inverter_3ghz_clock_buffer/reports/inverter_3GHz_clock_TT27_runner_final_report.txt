@@ -1,0 +1,75 @@
+{
+  "pass": true,
+  "preflight_only": true,
+  "preflight": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "Python 3.12 virtual environment",
+        "path": "C:\\SiliconDesignAutomation\\.venv",
+        "pass": true
+      },
+      {
+        "name": "LTspice executable",
+        "path": "C:\\Program Files\\LTC\\LTspiceXVII\\XVIIx64.exe",
+        "pass": true
+      },
+      {
+        "name": "Model file",
+        "path": "C:\\SiliconDesignAutomation\\00_Tech_Library\\models\\PVT\\50nm_TT_27.lib",
+        "pass": true
+      },
+      {
+        "name": "Clean LUT",
+        "path": "C:\\SiliconDesignAutomation\\00_Tech_Library\\lut\\device_lut_clean_TT27.h5",
+        "pass": true
+      },
+      {
+        "name": "NMOS clean CSV",
+        "path": "C:\\SiliconDesignAutomation\\00_Tech_Library\\lut\\csv_exports\\nmos_TT_27_clean.csv",
+        "pass": true
+      },
+      {
+        "name": "PMOS clean CSV",
+        "path": "C:\\SiliconDesignAutomation\\00_Tech_Library\\lut\\csv_exports\\pmos_TT_27_clean.csv",
+        "pass": true
+      },
+      {
+        "name": "Global path file",
+        "path": "C:\\SiliconDesignAutomation\\sda_paths.py",
+        "pass": true
+      },
+      {
+        "name": "Scripts intelligence",
+        "path": "C:\\SiliconDesignAutomation\\Scripts\\intelligence",
+        "pass": true
+      },
+      {
+        "name": "Scripts testbenches",
+        "path": "C:\\SiliconDesignAutomation\\Scripts\\testbenches",
+        "pass": true
+      },
+      {
+        "name": "Scripts measurement",
+        "path": "C:\\SiliconDesignAutomation\\Scripts\\measurement",
+        "pass": true
+      },
+      {
+        "name": "Scripts reporting",
+        "path": "C:\\SiliconDesignAutomation\\Scripts\\reporting",
+        "pass": true
+      },
+      {
+        "name": "Scripts plotting",
+        "path": "C:\\SiliconDesignAutomation\\Scripts\\plotting",
+        "pass": true
+      },
+      {
+        "name": "Spec file",
+        "path": "C:\\SiliconDesignAutomation\\Projects\\inverter_3GHz_clock_TT27\\spec\\inverter_3GHz_clock_TT27.yml",
+        "pass": true
+      }
+    ]
+  },
+  "engine_result": null
+}

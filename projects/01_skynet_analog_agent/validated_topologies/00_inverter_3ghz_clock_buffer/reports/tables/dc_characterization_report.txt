@@ -1,0 +1,15 @@
+DC characterization report
+VTC sweep: Vin 0 V to 1.0 V, step 2 mV
+Data source: ltspice_raw
+VM: 0.5099999904632568 V
+VOH: 0.999984860420227 V
+VOL: 2.7672913347487338e-05 V
+VIL: 0.42578270177849475 V
+VIH: 0.5979732466589421 V
+NMH: 0.4020116137612849 V
+NML: 0.42575502886514727 V
+Short-circuit current peak: 0.0009626404498703778 A
+Static power peak: 0.0009626404498703778 W
+Chosen operating point near VM uses NMOS gm/Id=4.216352957881945 and PMOS gm/Id=4.219999098955782.
+Region and gm/Id vs Vin curves are LUT-estimated where LTspice does not expose per-device internals in the sweep raw.
+The selected operating point is consistent with high-speed clock design because the VTC midpoint, high DC gain region, and short-channel gm/Id choice align with the transient-verified 3 GHz edge timing.

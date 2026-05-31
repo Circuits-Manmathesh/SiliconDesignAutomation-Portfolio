@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "composition": {
+    "blocks": [
+      {
+        "block_id": "input_pair",
+        "block_type": "matched_nmos_pair",
+        "instances": [
+          "M_NINP",
+          "M_NINN"
+        ],
+        "matched": true
+      },
+      {
+        "block_id": "active_load_pair",
+        "block_type": "matched_pmos_current_source_loads",
+        "instances": [
+          "M_PLOADP",
+          "M_PLOADN"
+        ],
+        "matched": true
+      },
+      {
+        "block_id": "tail_source",
+        "block_type": "ideal_current_source",
+        "instance": "ITAIL"
+      },
+      {
+        "block_id": "differential_stimulus",
+        "block_type": "differential_voltage_input",
+        "nodes": [
+          "VINP",
+          "VINN"
+        ]
+      }
+    ],
+    "connectivity_rules": [
+      "M_NINP and M_NINN sources share TAIL.",
+      "ITAIL sinks tail current from TAIL to VSS.",
+      "PMOS loads source/bulk tie to VDD and drain to output nodes.",
+      "Differential outputs are VOUTP and VOUTN."
+    ]
+  },
+  "hierarchy_policy": {
+    "allow_composition": true,
+    "self_calling": false,
+    "future_expansion": [
+      "mos_tail_current_source",
+      "current_mirror_active_load",
+      "folded_cascode_input_pair"
+    ]
+  },
+  "artifact_identity_required": true
+}

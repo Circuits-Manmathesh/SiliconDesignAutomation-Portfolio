@@ -1,0 +1,641 @@
+{
+  "topology_type": "cmos_inverter",
+  "failure_actions": {
+    "VOH_v_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "VOH_v_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "VOL_v_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "VOL_v_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "VM_v_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "VM_v_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "NMH_v_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "NMH_v_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "NML_v_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "NML_v_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "dc_gain_max_spec_gap": {
+      "responsible_role": "pull_up",
+      "primary_knobs": [
+        "WN",
+        "LN",
+        "MN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "increase_intrinsic_gain_candidate",
+        "increase_effective_L_if_speed_margin_exists",
+        "improve_output_resistance",
+        "retune_bias_region"
+      ],
+      "learning_sensitivity": "dc_gain_max_vs_gm_ro_or_L",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "tphl_s_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "tphl_s_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "tplh_s_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "tplh_s_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "rise_time_s_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "rise_time_s_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "fall_time_s_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "fall_time_s_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "delay_average_s_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "delay_average_s_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "rise_fall_mismatch_pct_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "select_higher_ft_lut_candidate",
+        "increase_drive_strength_if_power_allows",
+        "reduce_excessive_loading",
+        "retune_bias_current"
+      ],
+      "learning_sensitivity": "rise_fall_mismatch_pct_vs_drive_or_bias",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "energy_per_transition_j_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "energy_per_transition_j_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "average_power_w_spec_gap": {
+      "responsible_role": "bias_network",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "reduce_bias_if_speed_and_gain_margin_exist",
+        "downscale_widths_with_passed_spec_preservation",
+        "reject_overpowered_lut_candidates"
+      ],
+      "learning_sensitivity": "average_power_w_vs_bias_or_width",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "peak_current_a_spec_gap": {
+      "responsible_role": "bias_network",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "reduce_bias_if_speed_and_gain_margin_exist",
+        "downscale_widths_with_passed_spec_preservation",
+        "reject_overpowered_lut_candidates"
+      ],
+      "learning_sensitivity": "peak_current_a_vs_bias_or_width",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "spec_status_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "spec_status_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    },
+    "physics_limit_status_spec_gap": {
+      "responsible_role": "pull_down",
+      "primary_knobs": [
+        "WN",
+        "LN"
+      ],
+      "secondary_knobs": [
+        "MN",
+        "WP",
+        "LP"
+      ],
+      "preserve_if_passed": [],
+      "constraints": [
+        "do_not_modify_lut",
+        "do_not_fake_pass",
+        "do_not_use_generic_fallback",
+        "respect_technology_parameter_limits",
+        "rollback_if_passed_spec_degrades"
+      ],
+      "action_priority": [
+        "use_pack_specific_primary_knobs",
+        "preserve_passed_specs",
+        "respect_physics_limits"
+      ],
+      "learning_sensitivity": "physics_limit_status_vs_primary_knobs",
+      "physics_limit_condition": "stop_if_no_valid_lut_candidate_or_tradeoff_conflict"
+    }
+  },
+  "preserve_specs_policy": {
+    "preserve_passed_specs": true,
+    "optimize_only_measured_failed_specs": true,
+    "do_not_optimize_not_evaluated": true,
+    "never_convert_not_evaluated_to_pass": true
+  },
+  "learning_policy": {
+    "enabled": true,
+    "scope": "project_local",
+    "learning_type": "local_sensitivity",
+    "min_points_for_sensitivity": 2,
+    "max_step_change_percent": 25,
+    "rollback_if_passed_spec_degrades": true,
+    "do_not_modify_lut": true,
+    "do_not_modify_base_pack_automatically": true,
+    "do_not_override_failed_simulation": true,
+    "learnable_sensitivities": {
+      "VOH_v_vs_WN": {
+        "metric": "VOH_v",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "VOL_v_vs_WN": {
+        "metric": "VOL_v",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "VM_v_vs_WN": {
+        "metric": "VM_v",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "NMH_v_vs_WN": {
+        "metric": "NMH_v",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "NML_v_vs_WN": {
+        "metric": "NML_v",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "dc_gain_max_vs_WN": {
+        "metric": "dc_gain_max",
+        "knob": "WN",
+        "expected_sign": "positive",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "tphl_s_vs_WN": {
+        "metric": "tphl_s",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "tplh_s_vs_WN": {
+        "metric": "tplh_s",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "rise_time_s_vs_WN": {
+        "metric": "rise_time_s",
+        "knob": "WN",
+        "expected_sign": "negative",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "fall_time_s_vs_WN": {
+        "metric": "fall_time_s",
+        "knob": "WN",
+        "expected_sign": "negative",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "delay_average_s_vs_WN": {
+        "metric": "delay_average_s",
+        "knob": "WN",
+        "expected_sign": "negative",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "rise_fall_mismatch_pct_vs_WN": {
+        "metric": "rise_fall_mismatch_pct",
+        "knob": "WN",
+        "expected_sign": "negative",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "energy_per_transition_j_vs_WN": {
+        "metric": "energy_per_transition_j",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "average_power_w_vs_WN": {
+        "metric": "average_power_w",
+        "knob": "WN",
+        "expected_sign": "positive",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "peak_current_a_vs_WN": {
+        "metric": "peak_current_a",
+        "knob": "WN",
+        "expected_sign": "positive",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "spec_status_vs_WN": {
+        "metric": "spec_status",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      },
+      "physics_limit_status_vs_WN": {
+        "metric": "physics_limit_status",
+        "knob": "WN",
+        "expected_sign": "topology_dependent",
+        "confidence_policy": "local_two_point_or_multi_iteration_estimate",
+        "max_step_change_percent": 25,
+        "responsible_role": "pack_failure_action_map"
+      }
+    }
+  },
+  "rollback_policy": {
+    "rollback_if_any_passed_spec_degrades": true,
+    "rollback_if_simulation_fails": true,
+    "rollback_if_physics_limit_crossed": true,
+    "store_rollback_history": true
+  },
+  "closed_loop_policy": {
+    "max_iterations_default": 8,
+    "stop_on_physics_limit": true,
+    "stop_on_tradeoff_conflict": true,
+    "require_action_history": true,
+    "require_learning_log": true,
+    "final_status_must_reflect_unresolved_failures": true
+  }
+}

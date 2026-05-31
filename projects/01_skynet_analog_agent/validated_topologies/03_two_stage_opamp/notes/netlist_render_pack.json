@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "unit_policy": {
+    "render_all_capacitance_with_units": true,
+    "render_all_lengths_widths_with_units": true,
+    "use_curly_params_for_passives": true,
+    "forbid_unitless_capacitors": true
+  },
+  "model_include": {
+    "path_from_root": "technology_models/models.lib",
+    "nmos_model": "N_50n",
+    "pmos_model": "P_50n"
+  },
+  "global_params": {
+    "VDD": "{v_dd_v}",
+    "VIN_CM": "{vin_cm_v}",
+    "CL": "{c_load_f}",
+    "CC": "{c_comp_f}",
+    "RZ": "{r_null_ohm}",
+    "ITAIL": "{tail_current_a}",
+    "VBP2": "{vbp2_v}",
+    "VID_STEP": "{transient_input_step_v}"
+  },
+  "devices": [
+    "M_NINP VX VINP TAIL VSS N_50n W={M_NINP.W} L={M_NINP.L} m={M_NINP.m}",
+    "M_NINN V1N VINN TAIL VSS N_50n W={M_NINN.W} L={M_NINN.L} m={M_NINN.m}",
+    "M_PLOAD_DIODE V1N V1N VDD VDD P_50n W={M_PLOAD_DIODE.W} L={M_PLOAD_DIODE.L} m={M_PLOAD_DIODE.m}",
+    "M_PLOAD_MIRROR VX V1N VDD VDD P_50n W={M_PLOAD_MIRROR.W} L={M_PLOAD_MIRROR.L} m={M_PLOAD_MIRROR.m}",
+    "I_TAIL TAIL VSS {ITAIL}",
+    "M_NCS2 VOUT VX VSS VSS N_50n W={M_NCS2.W} L={M_NCS2.L} m={M_NCS2.m}",
+    "M_PLOAD2 VOUT VBP2 VDD VDD P_50n W={M_PLOAD2.W} L={M_PLOAD2.L} m={M_PLOAD2.m}",
+    "VBP2_SRC VBP2 VSS {VBP2}",
+    "C_COMP VX VOUT {CC}",
+    "C_LOAD VOUT VSS {CL}"
+  ],
+  "stimuli": {
+    "op": [
+      "VINP_SRC VINP VSS {VIN_CM}",
+      "VINN_SRC VINN VSS {VIN_CM}",
+      "VDD_SRC VDD VSS {VDD}",
+      ".op"
+    ],
+    "dc": [
+      "VINP_SRC VINP VSS {VIN_CM}",
+      "VINN_SRC VINN VSS {VIN_CM}",
+      "VDD_SRC VDD VSS {VDD}",
+      ".dc VINP_SRC {VIN_CM-0.05} {VIN_CM+0.05} 1m"
+    ],
+    "ac": [
+      "VINP_SRC VINP VSS DC {VIN_CM} AC 0.5",
+      "VINN_SRC VINN VSS DC {VIN_CM} AC -0.5",
+      "VDD_SRC VDD VSS {VDD}",
+      ".ac dec 100 1k 10G"
+    ],
+    "tran": [
+      "VINP_SRC VINP VSS PULSE({VIN_CM} {VIN_CM+VID_STEP} 5n 100p 100p 40n 80n)",
+      "VFB VINN VOUT 0",
+      "VDD_SRC VDD VSS {VDD}",
+      ".tran 0 200n 0 2p"
+    ]
+  },
+  "save_directives": [
+    ".save V(vinp) V(vinn) V(vx) V(vout) V(vdd) I(VDD_SRC) I(I_TAIL)",
+    ".save @M_NINP[id] @M_NINN[id] @M_NCS2[id] @M_PLOAD2[id]"
+  ],
+  "notes": [
+    "AC testbench measures open-loop differential input to single-ended output gain.",
+    "Transient testbench uses unity-gain feedback for settling/slew-rate."
+  ]
+}

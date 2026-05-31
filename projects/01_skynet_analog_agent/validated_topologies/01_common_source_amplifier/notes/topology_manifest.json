@@ -1,0 +1,68 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "topology_name": "NMOS common-source amplifier with PMOS active load",
+  "topology_class": "single_stage_analog_voltage_amplifier",
+  "supported_analyses": [
+    "op",
+    "dc",
+    "ac",
+    "tran"
+  ],
+  "required_pins": [
+    "VIN",
+    "VOUT",
+    "VDD",
+    "VSS",
+    "VBP"
+  ],
+  "external_nodes": {
+    "input": "VIN",
+    "output": "VOUT",
+    "positive_supply": "VDD",
+    "negative_supply": "VSS",
+    "pmos_bias": "VBP"
+  },
+  "device_instances": [
+    {
+      "device_name": "M_NCS",
+      "role": "input_transconductance_device",
+      "device_type": "nmos",
+      "model_name": "N_50n",
+      "nodes": {
+        "drain": "VOUT",
+        "gate": "VIN",
+        "source": "VSS",
+        "bulk": "VSS"
+      }
+    },
+    {
+      "device_name": "M_PLOAD",
+      "role": "active_load_current_source",
+      "device_type": "pmos",
+      "model_name": "P_50n",
+      "nodes": {
+        "drain": "VOUT",
+        "gate": "VBP",
+        "source": "VDD",
+        "bulk": "VDD"
+      }
+    }
+  ],
+  "design_purpose": [
+    "Validate generic gm/Id and LUT-aware sizing beyond CMOS inverter.",
+    "Verify project-local OP/DC/AC/tran simulation flow.",
+    "Generate reproducible final sizing, biasing, measurements and IEEE-style plots."
+  ],
+  "non_goals": [
+    "Do not use CMOS inverter metrics.",
+    "Use only project-local artifacts for this topology.",
+    "Do not fake gain, bandwidth, bias current or transient response."
+  ]
+}

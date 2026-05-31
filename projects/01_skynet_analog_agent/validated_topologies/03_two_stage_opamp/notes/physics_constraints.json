@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "supply": {
+    "vdd_nominal_v": 1.0,
+    "vdd_min_v": 0.9,
+    "vdd_max_v": 1.1
+  },
+  "device_limits": {
+    "min_L_m": "50n",
+    "max_L_m": "1u",
+    "min_W_m": "100n",
+    "max_single_device_total_W_m": "300u",
+    "max_m": 128,
+    "requires_saturation_for_all_signal_mos": true,
+    "min_sat_margin_v": 0.05,
+    "reject_regions": [
+      "cutoff",
+      "deep_triode"
+    ],
+    "min_ft_over_ugb_ratio": 5.0,
+    "min_gm_gds_input_pair": 15.0,
+    "min_gm_gds_loads": 20.0,
+    "min_gm_gds_second_stage": 15.0
+  },
+  "bias_windows": {
+    "vin_cm_min_v": 0.35,
+    "vin_cm_max_v": 0.65,
+    "vout_dc_min_v": 0.4,
+    "vout_dc_max_v": 0.6,
+    "output_swing_min_v": 0.25,
+    "output_swing_max_v": 0.75
+  },
+  "power_current_limits": {
+    "max_total_power_w": "300u",
+    "max_total_current_a": "300u",
+    "max_tail_current_a": "80u",
+    "max_second_stage_current_a": "150u"
+  },
+  "compensation_limits": {
+    "c_comp_min_f": "50f",
+    "c_comp_max_f": "300f",
+    "r_null_min_ohm": 0,
+    "r_null_max_ohm": 50000
+  },
+  "validation_policy": {
+    "physics_filter_before_width_scaling": true,
+    "reject_invalid_lut_regions_before_current_matching": true,
+    "no_zero_vsg_active_load": true,
+    "no_cutoff_active_load": true
+  },
+  "package_notes": {
+    "length_grid_aligned_to_existing_lut": true,
+    "lut_length_alignment_note": "Role allowed_L_m values in sizing_pack.json are aligned to the existing generated LUT length grid."
+  }
+}

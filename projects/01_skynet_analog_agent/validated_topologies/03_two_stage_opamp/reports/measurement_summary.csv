@@ -1,0 +1,15 @@
+metric,value,unit,status,required,measurement_source_type,measurement_source_artifact
+output_bias_v,0.5537757277488708,V,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw
+bias_current_a,4.714154056273401e-05,A,EXTRACTED,False,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw
+average_power_w,4.714154056273401e-05,W,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw
+dc_gain_vv,-178.7769118435954,V/V,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\dc_curve.csv
+dc_gain_db,45.04622862181894,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\dc_curve.csv
+output_swing_low_v,0.14587348699569702,V,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\dc_curve.csv
+output_swing_high_v,0.9914889335632324,V,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\dc_curve.csv
+ac_midband_gain_db,46.204745457616625,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv
+bandwidth_hz,79653.00366876957,Hz,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv
+ugb_hz,15626228.529554041,Hz,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv
+phase_at_ugb_deg,-115.24691072056092,deg,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv
+phase_margin_deg,64.75308927943908,deg,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv
+slew_rate_v_per_s,15962712.366085947,V/s,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\tran_curve.csv
+settling_time_1pct_s,1.895270000000274e-07,s,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\tran_curve.csv

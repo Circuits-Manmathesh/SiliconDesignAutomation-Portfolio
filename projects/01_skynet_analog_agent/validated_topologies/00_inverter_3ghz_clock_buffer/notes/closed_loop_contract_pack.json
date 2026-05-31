@@ -1,0 +1,61 @@
+{
+  "schema_name": "SkynetClosedLoopContractPack",
+  "schema_version": "1.0-stage5r",
+  "topology_type": "cmos_inverter",
+  "closed_loop_contract_status": "READY_FOR_S16_CONTRACT",
+  "spec_preservation_policy": {
+    "preserve_passed_specs": true,
+    "do_not_degrade_passed_specs_without_rollback": true,
+    "rollback_if_passed_spec_degrades": true,
+    "failed_specs_drive_next_iteration": true
+  },
+  "optimization_policy": {
+    "method": "failure_action_pack_plus_sensitivity_learning",
+    "use_lut_candidate_boundaries": true,
+    "use_gm_id_physics_boundaries": true,
+    "use_design_variables_from_topology_pack": true,
+    "use_failure_actions_from_failure_action_pack": true,
+    "learning_log_required": true
+  },
+  "physics_limit_policy": {
+    "stop_when_no_candidate_improves_failed_specs": true,
+    "stop_when_lut_boundary_reached": true,
+    "stop_when_device_limit_reached": true,
+    "stop_when_power_or_headroom_conflict_is_irreducible": true,
+    "report_physics_limit_not_script_failure": true,
+    "include_lut_slice_evidence": true,
+    "include_failed_and_preserved_specs": true
+  },
+  "sensitivity_learning_contract": {
+    "record_iteration_history": true,
+    "record_knob_delta": true,
+    "record_metric_delta": true,
+    "estimate_local_sensitivity": true,
+    "reject_updates_that_break_preserved_specs": true
+  },
+  "declared_metrics_for_loop": [
+    "VOH_v",
+    "VOL_v",
+    "VM_v",
+    "NMH_v",
+    "NML_v",
+    "dc_gain_max",
+    "tphl_s",
+    "tplh_s",
+    "rise_time_s",
+    "fall_time_s",
+    "delay_average_s",
+    "rise_fall_mismatch_pct",
+    "energy_per_transition_j",
+    "average_power_w",
+    "peak_current_a",
+    "spec_status",
+    "physics_limit_status"
+  ],
+  "stage_flow_contract": {
+    "S13": "simulation must run",
+    "S14": "measurements extracted without fake data",
+    "S15": "spec pass/fail evaluated",
+    "S16": "closed-loop correction or physics-limit report"
+  }
+}

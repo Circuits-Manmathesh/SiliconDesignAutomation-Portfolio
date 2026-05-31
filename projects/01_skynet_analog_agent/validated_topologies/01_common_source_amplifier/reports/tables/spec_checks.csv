@@ -1,0 +1,7 @@
+spec_name,metric,operator,target,measured,required,pass,measurement_source_type,measurement_source_artifact,measurement_source_status
+dc_gain_db,dc_gain_db,>=,26.0,27.92638437108979,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\dc_curve.csv,PASS
+ugb_hz,ugb_hz,>=,20000000.0,20152032.71852511,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv,PASS
+power_max_w,average_power_w,<=,0.00025,9.288323781220242e-06,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw,PASS
+output_bias_min_v,output_bias_v,>=,0.25,0.5494044423103333,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw,PASS
+output_bias_max_v,output_bias_v,<=,0.8,0.5494044423103333,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw,PASS
+phase_margin_deg,phase_margin_proxy_deg,>=,60.0,,False,,UNKNOWN,,FAIL

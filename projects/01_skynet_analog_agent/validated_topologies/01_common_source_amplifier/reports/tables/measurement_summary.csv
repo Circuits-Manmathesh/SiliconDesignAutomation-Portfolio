@@ -1,0 +1,15 @@
+metric,value,unit,status,required,measurement_source_type,measurement_source_artifact
+output_bias_v,0.5494044423103333,V,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw
+bias_current_a,9.288323781220242e-06,A,EXTRACTED,False,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw
+average_power_w,9.288323781220242e-06,W,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\reports\stage13\runs\demo_common_source_amplifier_op.raw
+dc_gain_vv,24.90687370300291,V/V,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\dc_curve.csv
+dc_gain_db,27.92638437108979,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\dc_curve.csv
+output_swing_low_v,0.016366181895136833,V,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\dc_curve.csv
+output_swing_high_v,0.9999420046806335,V,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\dc_curve.csv
+ac_midband_gain_db,27.928936302874774,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv
+bandwidth_hz,807537.0808647823,Hz,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv
+ugb_hz,20152032.71852511,Hz,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv
+phase_at_ugb_deg,92.15083657259552,deg,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv
+phase_margin_deg,87.8491634274045,deg,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\ac_bode.csv
+slew_rate_v_per_s,1563820.7876552779,V/s,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\tran_curve.csv
+settling_time_1pct_s,9.1215e-09,s,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_common_source_amplifier\verification\data\tran_curve.csv

@@ -1,0 +1,173 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "optimization_policy": {
+    "max_iterations": 12,
+    "preserve_passed_specs": true,
+    "candidate_generation": "deterministic_lut_aware",
+    "random_search_allowed": false,
+    "rerun_chain_after_update": [
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16"
+    ]
+  },
+  "metric_category_mapping": {
+    "dc_gain_db": "gain_low",
+    "ugb_hz": "ugb_low",
+    "phase_margin_proxy_deg": "phase_margin_low",
+    "average_power_w": "power_high",
+    "bias_current_a": "bias_current_high",
+    "output_bias_v.upper": "output_bias_high",
+    "output_bias_v.lower": "output_bias_low"
+  },
+  "allowed_knobs": [
+    {
+      "knob": "M_NCS.W",
+      "min": "0.2u",
+      "max": "200u",
+      "source": "LUT_current_density"
+    },
+    {
+      "knob": "M_NCS.L",
+      "allowed": [
+        "50n",
+        "100n",
+        "200n",
+        "400n"
+      ],
+      "source": "LUT_supported_or_nearest"
+    },
+    {
+      "knob": "M_NCS.m",
+      "min": 1,
+      "max": 128,
+      "integer": true
+    },
+    {
+      "knob": "M_PLOAD.W",
+      "min": "0.2u",
+      "max": "200u",
+      "source": "LUT_current_density"
+    },
+    {
+      "knob": "M_PLOAD.L",
+      "allowed": [
+        "100n",
+        "200n",
+        "400n",
+        "600n",
+        "800n",
+        "1u"
+      ],
+      "source": "LUT_supported_or_nearest"
+    },
+    {
+      "knob": "M_PLOAD.m",
+      "min": 1,
+      "max": 128,
+      "integer": true
+    },
+    {
+      "knob": "VBP",
+      "min": "0.15",
+      "max": "0.95",
+      "step": "10m"
+    },
+    {
+      "knob": "VIN_CM",
+      "min": "0.2",
+      "max": "0.8",
+      "step": "10m"
+    }
+  ],
+  "failure_action_rules": [
+    {
+      "category": "gain_low",
+      "actions": [
+        "query PMOS LUT for larger valid L and lower gds/Id",
+        "query NMOS LUT for higher gm/gds if UGB margin allows",
+        "increase gm through W/m only if power/current margin allows",
+        "recenter VOUT through VBP"
+      ],
+      "preserve": [
+        "power_max_w",
+        "output_bias_v",
+        "ugb_hz"
+      ]
+    },
+    {
+      "category": "ugb_low",
+      "actions": [
+        "query NMOS LUT for higher gm and ft at allowed current",
+        "increase W/m from LUT current density",
+        "avoid excessive L if ft/UGB is weak"
+      ],
+      "preserve": [
+        "dc_gain_db",
+        "power_max_w"
+      ]
+    },
+    {
+      "category": "output_bias_high",
+      "actions": [
+        "increase VBP to weaken PMOS load",
+        "increase NMOS W/m if current and power margins allow",
+        "verify OP/DC recentering"
+      ],
+      "preserve": [
+        "dc_gain_db",
+        "ugb_hz",
+        "power_max_w"
+      ]
+    },
+    {
+      "category": "output_bias_low",
+      "actions": [
+        "decrease VBP to strengthen PMOS load",
+        "reduce NMOS strength if gain/UGB remain passing",
+        "verify OP/DC recentering"
+      ],
+      "preserve": [
+        "dc_gain_db",
+        "ugb_hz",
+        "power_max_w"
+      ]
+    },
+    {
+      "category": "power_high",
+      "actions": [
+        "reduce current through VBP and device size",
+        "preserve gain/UGB with higher gm/Id operating point if possible"
+      ],
+      "preserve": [
+        "dc_gain_db",
+        "ugb_hz"
+      ]
+    }
+  ],
+  "candidate_acceptance_rules": [
+    "candidate must be backed by LUT row or valid nearest-row policy",
+    "candidate must pass region and sat_margin filters",
+    "candidate must be simulated by LTspice",
+    "candidate must preserve already passed required specs unless no feasible candidate exists",
+    "final pass requires S15 all required specs pass"
+  ],
+  "stop_conditions": [
+    "PASS",
+    "VALID_LUT_CANDIDATE_SPACE_EXHAUSTED",
+    "PHYSICS_LIMIT_REACHED",
+    "LUT_LIMIT_REACHED",
+    "CANDIDATE_GENERATION_BLOCKED",
+    "SIMULATION_FAILED",
+    "PASSED_SPEC_PRESERVATION_CONFLICT"
+  ]
+}

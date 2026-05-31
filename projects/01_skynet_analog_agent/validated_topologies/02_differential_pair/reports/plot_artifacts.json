@@ -1,0 +1,77 @@
+{
+  "plot_artifacts": [
+    {
+      "plot_id": "spec_status_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\01_spec_status_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\tables\\spec_checks.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "dc_differential_transfer",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\02_dc_differential_transfer.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\dc_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "dc_output_common_mode_and_balance",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\03_dc_output_common_mode_and_balance.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\dc_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "dc_output_common_mode",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\03_dc_output_common_mode_and_balance.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\dc_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "ac_differential_gain",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\04_ac_differential_gain_ugb.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\ac_bode.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "ac_phase_diagnostic",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\08_ac_phase_diagnostic.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\ac_bode.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "tran_differential_step",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\05_tran_differential_step_response.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\verification\\data\\tran_curve.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "power_current_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\06_power_current_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\tables\\measurement_summary.csv",
+      "missing_reason": ""
+    },
+    {
+      "plot_id": "device_operating_point_gmid_summary",
+      "status": "PASS",
+      "png_path": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\plots\\07_device_operating_point_gmid_summary.png",
+      "pdf_path": "",
+      "source_csv": "C:\\Skynet_Setup\\skynet_analog_agent\\workspace_projects\\demo_differential_pair\\reports\\final\\tables\\device_operating_point_summary.csv",
+      "missing_reason": ""
+    }
+  ],
+  "diagnostics": []
+}

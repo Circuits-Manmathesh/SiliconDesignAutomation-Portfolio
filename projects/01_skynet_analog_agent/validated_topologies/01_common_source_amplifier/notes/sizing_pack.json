@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "sizing_strategy": "generic_gm_id_lut_guided_initial_sizing",
+  "global_constraints": {
+    "vdd_v": 1.0,
+    "default_temperature_c": 27.0,
+    "default_corner": "TT",
+    "max_bias_current_a": 0.00025,
+    "max_power_w": 0.00025,
+    "load_capacitance_f": 1e-12,
+    "minimum_channel_length_m": 5e-08
+  },
+  "device_roles": [
+    {
+      "device_name": "M_NCS",
+      "role": "input_transconductance_device",
+      "device_type": "nmos",
+      "model_name": "N_50n",
+      "gate_node": "VIN",
+      "drain_node": "VOUT",
+      "source_node": "VSS",
+      "bulk_node": "VSS",
+      "sizing_knobs": [
+        "W",
+        "L",
+        "m",
+        "VIN_CM",
+        "ID"
+      ],
+      "allowed_L_m": [
+        5e-08,
+        1e-07,
+        2e-07,
+        4e-07
+      ],
+      "preferred_L_m": 2e-07,
+      "allowed_m_range": [
+        1,
+        128
+      ],
+      "gm_id_target_range_vinv": [
+        10.0,
+        18.0
+      ],
+      "gm_id_seed_vinv": 14.0,
+      "preferred_region": "saturation",
+      "sat_margin_min_v": 0.05,
+      "current_limit_a": 0.00025,
+      "metric_contribution": [
+        "gm_target",
+        "ugb",
+        "gain",
+        "output_bias_pull_down"
+      ]
+    },
+    {
+      "device_name": "M_PLOAD",
+      "role": "active_load_current_source",
+      "device_type": "pmos",
+      "model_name": "P_50n",
+      "gate_node": "VBP",
+      "drain_node": "VOUT",
+      "source_node": "VDD",
+      "bulk_node": "VDD",
+      "sizing_knobs": [
+        "W",
+        "L",
+        "m",
+        "VBP",
+        "ID"
+      ],
+      "allowed_L_m": [
+        1e-07,
+        2e-07,
+        4e-07,
+        6e-07,
+        8e-07,
+        1e-06
+      ],
+      "preferred_L_m": 4e-07,
+      "allowed_m_range": [
+        1,
+        128
+      ],
+      "gm_id_target_range_vinv": [
+        7.0,
+        14.0
+      ],
+      "gm_id_seed_vinv": 10.0,
+      "preferred_region": "saturation",
+      "sat_margin_min_v": 0.05,
+      "current_limit_a": 0.00025,
+      "metric_contribution": [
+        "active_load_ro",
+        "gain",
+        "output_bias_pull_up"
+      ]
+    }
+  ],
+  "initial_target_derivations": [
+    "gm_nmos_target_s = 2*pi*ugb_hz*c_load_f",
+    "id_nmos_target_a = gm_nmos_target_s/gm_id_nmos_seed",
+    "id_pmos_target_a = id_nmos_target_a",
+    "W_nmos = gm_nmos_target_s/gm_over_w_nmos",
+    "W_pmos = id_pmos_target_a/id_over_w_pmos",
+    "Av_lut = gm_id_nmos/(gds_id_nmos + gds_id_pmos)"
+  ]
+}

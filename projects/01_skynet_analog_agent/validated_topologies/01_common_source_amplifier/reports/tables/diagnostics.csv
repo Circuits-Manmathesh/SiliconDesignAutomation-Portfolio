@@ -1,0 +1,8 @@
+name,value
+stale_artifact_reused,False
+random_search_used,False
+synthetic_data_used,False
+final_measurement_truth_gate,PASS
+measurement_csv_consistency,PASS
+s18_rerun_truth_gate,NOT_REQUIRED
+plot_dc_gain_derivative,NOT_EVALUATED

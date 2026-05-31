@@ -1,0 +1,48 @@
+{
+  "schema_name": "SkynetVerificationRuntimePack",
+  "schema_version": "1.0-stage5r",
+  "topology_type": "cmos_inverter",
+  "verification_contract_status": "READY_FOR_S13_S14_CHAIN",
+  "simulator_runtime_policy": {
+    "run_simulator_only_after_netlist_validation": true,
+    "preserve_netlist": true,
+    "preserve_log": true,
+    "preserve_raw": true,
+    "preserve_stdout_stderr": true,
+    "do_not_fake_success": true,
+    "do_not_continue_to_measurement_if_simulation_failed": true
+  },
+  "ltspice_failure_patterns": [
+    "fatal error",
+    "error:",
+    "can't open",
+    "could not open",
+    "unknown subcircuit",
+    "can't find definition",
+    "undefined symbol",
+    "singular matrix",
+    "time step too small",
+    "timestep too small",
+    "iteration limit reached",
+    "too many iterations",
+    "failed"
+  ],
+  "convergence_failure_policy": {
+    "classification": "SIMULATION_FAILURE_NOT_DESIGN_SPEC_FAILURE",
+    "repair_stage": "S12 netlist_writer or topology pack render contract",
+    "do_not_call_closed_loop_sizing_until_sim_runs": true
+  },
+  "runtime_gate_to_measurement": {
+    "requires_log": true,
+    "requires_no_blocking_errors": true,
+    "requires_raw_for_ac_tran": true,
+    "op_dc_can_use_log_only_if_measure_present": true
+  },
+  "failure_provenance_required_fields": [
+    "failed_stage",
+    "input_file",
+    "problem",
+    "repair_hint",
+    "blocking"
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "metric_category_mapping": {
+    "dc_gain_db": "gain_low",
+    "ugb_hz": "ugb_low",
+    "phase_margin_deg": "phase_margin_low",
+    "average_power_w": "power_high",
+    "output_bias_v": "output_bias_low",
+    "output_bias_v.lower": "output_bias_low",
+    "output_bias_v.upper": "output_bias_high",
+    "slew_rate_v_per_s": "slew_rate_low",
+    "settling_time_1pct_s": "settling_time_high"
+  },
+  "closed_loop_policy": {
+    "no_fixed_max_iteration_count": true,
+    "stop_on_real_s15_pass": true,
+    "stop_on_lut_limit": true,
+    "stop_on_physics_limit": true,
+    "preserve_passed_specs": true,
+    "project_local_rerun_chain": [
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16"
+    ]
+  },
+  "allowed_knobs": [
+    {
+      "knob": "VBP",
+      "min": 0.25,
+      "max": 0.75,
+      "allowed": [0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
+    },
+    {
+      "knob": "VIN_CM",
+      "min": 0.35,
+      "max": 0.65,
+      "allowed": [0.4, 0.45, 0.5, 0.55, 0.6]
+    }
+  ],
+  "failure_action_rules": [
+    {
+      "category": "gain_low",
+      "failed_metric": "dc_gain_db",
+      "actions": [
+        "increase_load_L",
+        "increase_second_stage_L",
+        "select_higher_gm_gds_candidates"
+      ]
+    },
+    {
+      "category": "ugb_low",
+      "failed_metric": "ugb_hz",
+      "actions": [
+        "increase_input_stage_gm",
+        "increase_current_if_power_allows",
+        "reduce_c_comp_if_pm_allows"
+      ]
+    },
+    {
+      "category": "phase_margin_low",
+      "failed_metric": "phase_margin_deg",
+      "actions": [
+        "increase_c_comp",
+        "increase_second_stage_gm",
+        "enable_or_tune_nulling_resistor"
+      ]
+    },
+    {
+      "category": "power_high",
+      "failed_metric": "average_power_w",
+      "actions": [
+        "increase_gm_id_targets",
+        "reduce_bias_currents"
+      ]
+    },
+    {
+      "category": "slew_rate_low",
+      "failed_metric": "slew_rate_v_per_s",
+      "actions": [
+        "increase_second_stage_current",
+        "reduce_c_comp_if_pm_allows"
+      ]
+    },
+    {
+      "category": "settling_time_high",
+      "failed_metric": "settling_time_1pct_s",
+      "actions": [
+        "increase_ugb",
+        "increase_phase_margin",
+        "tune_c_comp_and_stage2_gm"
+      ]
+    },
+    {
+      "category": "output_bias_low",
+      "failed_metric": "output_bias_v",
+      "actions": [
+        "decrease VBP",
+        "adjust_pmos_second_stage_bias",
+        "select_new_stage2_load_candidate"
+      ]
+    },
+    {
+      "category": "output_bias_high",
+      "failed_metric": "output_bias_v",
+      "actions": [
+        "increase VBP",
+        "adjust_pmos_second_stage_bias",
+        "select_new_stage2_load_candidate"
+      ]
+    }
+  ]
+}

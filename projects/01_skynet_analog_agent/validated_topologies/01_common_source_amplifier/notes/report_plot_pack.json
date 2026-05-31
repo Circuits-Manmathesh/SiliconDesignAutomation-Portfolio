@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "style": {
+    "family": "IEEE_ISSCC_clean",
+    "dpi": 300,
+    "font_family": "serif",
+    "line_width": 1.7,
+    "major_grid": true,
+    "minor_grid": true,
+    "minor_grid_style": "dotted",
+    "ascii_markdown": true
+  },
+  "signal_aliases": {
+    "time": [
+      "time",
+      "Time"
+    ],
+    "input": [
+      "V(vin)",
+      "V(VIN)",
+      "V(Vin)",
+      "vin",
+      "V(in)"
+    ],
+    "output": [
+      "V(vout)",
+      "V(VOUT)",
+      "V(Vout)",
+      "vout",
+      "V(out)"
+    ],
+    "bias": [
+      "V(vbp)",
+      "V(VBP)",
+      "V(Vbp)",
+      "vbp"
+    ],
+    "supply_current": [
+      "I(VDD_SRC)",
+      "I(Vdd)",
+      "I(VDD)",
+      "I(vdd)",
+      "i(vdd)"
+    ]
+  },
+  "required_plots": [
+    {
+      "plot_id": "spec_status_summary",
+      "file_stem": "01_spec_status_summary",
+      "analysis": "spec",
+      "required": true,
+      "blocks_final_report_if_missing": true
+    },
+    {
+      "plot_id": "dc_transfer",
+      "file_stem": "02_dc_transfer_vout_vs_vin",
+      "analysis": "dc",
+      "x": "input_voltage_v",
+      "y": [
+        "output_voltage_v"
+      ],
+      "required": true,
+      "blocks_final_report_if_missing": true
+    },
+    {
+      "plot_id": "ac_bode_gain",
+      "file_stem": "03_ac_bode_gain",
+      "analysis": "ac",
+      "x": "frequency_hz",
+      "y": [
+        "gain_db"
+      ],
+      "x_scale": "log",
+      "required": true,
+      "blocks_final_report_if_missing": true
+    },
+    {
+      "plot_id": "tran_input_output",
+      "file_stem": "04_tran_input_output_waveform",
+      "analysis": "tran",
+      "x": "time_s",
+      "y": [
+        "input_voltage_v",
+        "output_voltage_v"
+      ],
+      "required": true,
+      "blocks_final_report_if_missing": true
+    },
+    {
+      "plot_id": "power_current_summary",
+      "file_stem": "05_power_current_summary",
+      "analysis": "summary",
+      "required": true,
+      "blocks_final_report_if_missing": true
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "file_stem": "06_gm_id_lut_candidate_summary",
+      "analysis": "sizing",
+      "required": true,
+      "blocks_final_report_if_missing": false
+    }
+  ],
+  "optional_plots": [
+    {
+      "plot_id": "ac_bode_phase",
+      "file_stem": "07_ac_bode_phase",
+      "analysis": "ac",
+      "x": "frequency_hz",
+      "y": [
+        "phase_deg"
+      ],
+      "x_scale": "log",
+      "required": false,
+      "blocks_final_report_if_missing": false
+    },
+    {
+      "plot_id": "dc_gain_derivative",
+      "file_stem": "08_dc_gain_derivative",
+      "analysis": "dc",
+      "required": false,
+      "blocks_final_report_if_missing": false
+    },
+    {
+      "plot_id": "device_operating_point_summary",
+      "file_stem": "09_device_operating_point_summary",
+      "analysis": "op",
+      "required": false,
+      "blocks_final_report_if_missing": false
+    }
+  ],
+  "final_report_required_sections": [
+    "Design Requirements",
+    "Final Device Sizing",
+    "Biasing and Simulation Conditions",
+    "gm/Id LUT Provenance",
+    "Closed-Loop Iteration Summary",
+    "Measured Results",
+    "Spec Pass/Fail Summary",
+    "Reproducibility Checklist",
+    "Source Artifacts"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0",
+  "project_id": "demo_common_source_amplifier",
+  "user_request": "Design and verify a 50nm NMOS common-source amplifier with PMOS active load using deterministic gm/Id LUT-aware sizing and real LTspice OP/DC/AC/tran verification.",
+  "design_intent_summary": {
+    "what_to_design": "single-stage common-source voltage amplifier",
+    "why_this_project": "validate Skynet beyond CMOS inverter using a gm/Id and LUT-aware analog topology",
+    "topology": "NMOS common-source device with PMOS active load",
+    "expected_output": "final reproducible device sizing, biasing, plots, measurement summary, and pass/fail report"
+  },
+  "designer_level_expectations": [
+    "Final report must let a human recreate the schematic and simulation manually.",
+    "Report exact W/L/m for M_NCS and M_PLOAD.",
+    "Report VIN_CM, VBP, VDD, CL, corner, temperature, model library path, and netlist paths.",
+    "Report selected gm/Id, Id, gm, gds, ft, region, saturation margin and LUT source when available.",
+    "Report OP/DC/AC/tran measurements from real LTspice raw/log data.",
+    "Do not produce inverter metrics or rail-to-rail inverter plots for this project."
+  ],
+  "optimization_expectations": [
+    "Use gm/Id and LUT data for initial sizing.",
+    "Use deterministic LUT-aware candidate generation in closed-loop.",
+    "Preserve passed specs while improving failed specs.",
+    "Stop with a clear physics/LUT limit if no valid candidate exists.",
+    "Never fake pass."
+  ]
+}

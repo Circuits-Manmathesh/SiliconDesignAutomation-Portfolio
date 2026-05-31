@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "sizing_strategy": "gm_id_lut_synthesis_with_matched_pairs",
+  "global_knobs": [
+    {
+      "knob": "VIN_CM",
+      "unit": "V",
+      "allowed_range": [
+        0.35,
+        0.65
+      ],
+      "step": 0.01,
+      "source": "operating_point_synthesis"
+    },
+    {
+      "knob": "VBP",
+      "unit": "V",
+      "allowed_range": [
+        0.35,
+        0.75
+      ],
+      "step": 0.01,
+      "source": "pmos_load_bias"
+    },
+    {
+      "knob": "ITAIL",
+      "unit": "A",
+      "allowed_range": [
+        1e-06,
+        0.00015
+      ],
+      "source": "gm_over_id_equation"
+    }
+  ],
+  "device_roles": [
+    {
+      "role": "input_pair",
+      "devices": [
+        "M_NINP",
+        "M_NINN"
+      ],
+      "device_type": "nmos",
+      "model_name": "N_50n",
+      "matched": true,
+      "shared_sizing": true,
+      "gm_id_target_range": [
+        10.0,
+        18.0
+      ],
+      "gm_id_seed": 14.0,
+      "allowed_L_m": [
+        5e-08,
+        8e-08,
+        1e-07,
+        1.5e-07,
+        1.8e-07,
+        2e-07,
+        3e-07
+      ],
+      "preferred_L_m": [
+        1.8e-07,
+        2e-07
+      ],
+      "allowed_m": [
+        1,
+        2,
+        4,
+        8,
+        12,
+        16
+      ],
+      "knobs": [
+        "W",
+        "L",
+        "m",
+        "VIN_CM",
+        "ITAIL"
+      ],
+      "constraints": [
+        "saturation",
+        "sat_margin_min",
+        "ft_margin",
+        "current_density_limit"
+      ]
+    },
+    {
+      "role": "pmos_active_load_pair",
+      "devices": [
+        "M_PLOADP",
+        "M_PLOADN"
+      ],
+      "device_type": "pmos",
+      "model_name": "P_50n",
+      "requires_active_load": true,
+      "requires_saturation": true,
+      "matched": true,
+      "shared_sizing": true,
+      "gm_id_target_range": [
+        7.0,
+        12.0
+      ],
+      "gm_id_seed": 9.0,
+      "allowed_L_m": [
+        1e-07,
+        1.5e-07,
+        2e-07,
+        3e-07,
+        4e-07,
+        5e-07,
+        6e-07
+      ],
+      "preferred_L_m": [
+        3e-07,
+        4e-07,
+        5e-07
+      ],
+      "allowed_m": [
+        1,
+        2,
+        4,
+        8,
+        12,
+        16
+      ],
+      "knobs": [
+        "W",
+        "L",
+        "m",
+        "VBP"
+      ],
+      "constraints": [
+        "saturation",
+        "sat_margin_min",
+        "low_gds_id",
+        "output_cm_headroom"
+      ]
+    }
+  ],
+  "matching_rules": [
+    {
+      "matched_group": "nmos_input_pair",
+      "same_W": true,
+      "same_L": true,
+      "same_m": true
+    },
+    {
+      "matched_group": "pmos_active_load_pair",
+      "same_W": true,
+      "same_L": true,
+      "same_m": true
+    }
+  ],
+  "branch_current_rules": [
+    {
+      "name": "tail_current_split",
+      "rule": "ID_M_NINP = ID_M_NINN = 0.5*ITAIL at zero differential input"
+    },
+    {
+      "name": "load_current_match",
+      "rule": "ID_M_PLOADP ~= ID_M_NINP and ID_M_PLOADN ~= ID_M_NINN at OP"
+    }
+  ],
+  "output_artifact_requirements": [
+    "device W/L/m",
+    "VIN_CM",
+    "VBP",
+    "ITAIL",
+    "LUT row provenance",
+    "predicted gain/UGB/power",
+    "initial_op_synthesis_status"
+  ]
+}

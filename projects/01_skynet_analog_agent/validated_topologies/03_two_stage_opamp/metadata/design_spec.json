@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo_two_stage_opamp",
+  "user_request": "Design a realistic two-stage Miller-compensated opamp in 50nm CMOSedu using gm/Id + LUT-aware sizing and LTspice verification.",
+  "design_story": "Product-level analog demo that builds on the matured common-source amplifier and differential-pair flows. This V1 is a realistic short-channel 50nm low-power two-stage opamp demo; the prior 30MHz UGB goal is deferred to a high-speed V2 because the valid LUT-backed candidate space reached about 15.26MHz while satisfying gain and output-bias requirements.",
+  "priority_order": [
+    "real LTspice verification",
+    "valid device operating regions",
+    "phase margin/stability",
+    "DC gain",
+    "UGB",
+    "power",
+    "settling/slew-rate",
+    "reproducible device sizing"
+  ],
+  "constraints": {
+    "do_not_target_unrealistic_80dB_gain": true,
+    "do_not_use_large_5pF_load_for_first_demo": true,
+    "phase_margin_must_come_from_ac_stability_analysis": true,
+    "transient_must_use_unity_gain_buffer_step": true
+  },
+  "presentation_expectations": [
+    "Show spec targets versus measured values.",
+    "Show AC gain and phase with UGB and phase-margin markers.",
+    "Show unity-gain step response with settling band and slew-rate annotation.",
+    "Show device gm/Id operating-point summary with region/saturation margins.",
+    "Show complete sizing/bias conditions for schematic reproduction."
+  ],
+  "v1_target_notes": {
+    "required_ugb_hz": "10MHz",
+    "stretch_ugb_hz": "15MHz",
+    "deferred_v2_goal": "30MHz"
+  }
+}

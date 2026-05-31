@@ -1,0 +1,51 @@
+{
+  "schema_version": "2.0",
+  "project_id": "demo_common_source_amplifier",
+  "project_name": "Direct Common-Source Amplifier Demo",
+  "workspace_project": "workspace_projects/demo_common_source_amplifier",
+  "project_spec": "workspace_projects/demo_common_source_amplifier/project_spec.json",
+  "design_spec": "workspace_projects/demo_common_source_amplifier/design_spec.json",
+  "plot_requirements": "workspace_projects/demo_common_source_amplifier/plot_requirements.json",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "knowledge_pack": "knowledge_packs/common_source_amplifier",
+  "technology_id": "50nm_cmosedu",
+  "technology_node": "50nm",
+  "simulator_backend": "ltspice",
+  "stage_order": [
+    "S7",
+    "S8",
+    "S9",
+    "S9A",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S18",
+    "S19"
+  ],
+  "paths": {
+    "final_report_dir": "workspace_projects/demo_common_source_amplifier/reports/final",
+    "verification_data_dir": "workspace_projects/demo_common_source_amplifier/verification/data",
+    "project_reports_dir": "workspace_projects/demo_common_source_amplifier/reports"
+  },
+  "mode_policy": {
+    "default_mode": "full",
+    "allow_report_only": true,
+    "allow_rerun_safe_tail": true,
+    "clean_project_run_default": true,
+    "legacy_root_fallback_allowed": false
+  },
+  "locked_spec_enforcement": {
+    "dc_gain_db": 26.0,
+    "ugb_hz": 20000000.0,
+    "power_max_w": 0.00025,
+    "v_dd_v": 1.0,
+    "c_load_f": 1e-12,
+    "temperature_c": 27.0,
+    "process_corner": "TT"
+  }
+}

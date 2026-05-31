@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "two_stage_opamp",
+  "plot_policy": {
+    "format": "png_only",
+    "dpi": 300,
+    "style": "ieee",
+    "required_plot_missing_blocks_final": true,
+    "optional_plot_missing_nonblocking": true,
+    "do_not_generate_empty_optional_plots": true
+  },
+  "required_plots": [
+    {
+      "plot_id": "spec_status_summary",
+      "filename": "01_spec_status_summary.png",
+      "title": "Specification Status Summary",
+      "analysis": "summary",
+      "source": "reports/final/tables/spec_checks.csv",
+      "required": true
+    },
+    {
+      "plot_id": "dc_operating_point_bias_summary",
+      "filename": "02_dc_operating_point_bias_summary.png",
+      "title": "DC Operating-Point and Bias Summary",
+      "analysis": "op",
+      "source": "reports/final/tables/measurement_summary.csv",
+      "required": true
+    },
+    {
+      "plot_id": "ac_gain_phase_bode",
+      "filename": "03_ac_gain_phase_bode.png",
+      "title": "Open-Loop Gain and Phase",
+      "analysis": "ac",
+      "source": "verification/data/ac_bode.csv",
+      "required": true
+    },
+    {
+      "plot_id": "phase_margin_marker",
+      "filename": "04_phase_margin_marker.png",
+      "title": "Unity-Gain Phase Margin Verification",
+      "analysis": "ac",
+      "source": "verification/data/ac_bode.csv",
+      "required": true
+    },
+    {
+      "plot_id": "unity_gain_transient_step",
+      "filename": "05_unity_gain_transient_step.png",
+      "title": "Unity-Gain Step Response",
+      "analysis": "tran",
+      "source": "verification/data/tran_curve.csv",
+      "required": true
+    },
+    {
+      "plot_id": "slew_rate_and_settling",
+      "filename": "06_slew_rate_and_settling.png",
+      "title": "Slew Rate and Settling Detail",
+      "analysis": "tran",
+      "source": "verification/data/tran_curve.csv",
+      "required": true
+    },
+    {
+      "plot_id": "power_current_summary",
+      "filename": "07_power_current_summary.png",
+      "title": "Power and Current Summary",
+      "analysis": "summary",
+      "source": "reports/final/tables/measurement_summary.csv",
+      "required": true
+    },
+    {
+      "plot_id": "device_operating_point_gmid_summary",
+      "filename": "08_device_operating_point_gmid_summary.png",
+      "title": "Device Operating-Point gm/Id Summary",
+      "analysis": "op",
+      "source": "reports/final/tables/device_operating_point_summary.csv",
+      "required": true
+    }
+  ],
+  "optional_plots": [
+    {
+      "plot_id": "output_swing_diagnostic",
+      "filename": "09_output_swing_diagnostic.png",
+      "required": false
+    },
+    {
+      "plot_id": "closed_loop_candidate_summary",
+      "filename": "10_closed_loop_candidate_summary.png",
+      "required": false,
+      "render_condition": "only_if_candidate_table_exists_and_nonempty"
+    },
+    {
+      "plot_id": "cmrr_diagnostic",
+      "filename": "11_cmrr_diagnostic.png",
+      "required": false
+    }
+  ]
+}

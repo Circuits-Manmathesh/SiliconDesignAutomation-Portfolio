@@ -1,0 +1,126 @@
+{
+  "schema_name": "SkynetMeasurementExtractPack",
+  "schema_version": "1.0-stage5r",
+  "topology_type": "cmos_inverter",
+  "measurement_contract_status": "PRODUCTION_READY_FOR_CMOS_INVERTER",
+  "measurement_source_of_truth": "measurement_pack.json",
+  "supported_analyses": [
+    "dc",
+    "tran"
+  ],
+  "declared_measurements": [
+    "VOH_v",
+    "VOL_v",
+    "VM_v",
+    "NMH_v",
+    "NML_v",
+    "dc_gain_max",
+    "tphl_s",
+    "tplh_s",
+    "rise_time_s",
+    "fall_time_s",
+    "delay_average_s",
+    "rise_fall_mismatch_pct",
+    "energy_per_transition_j",
+    "average_power_w",
+    "peak_current_a",
+    "spec_status",
+    "physics_limit_status"
+  ],
+  "no_fake_measurement_policy": "ENFORCED",
+  "missing_measurement_policy": {
+    "missing_raw_trace": "NOT_EVALUATED_WITH_REASON",
+    "missing_log_measure": "NOT_EVALUATED_WITH_REASON",
+    "failed_simulation": "BLOCK_MEASUREMENT_EXTRACTION",
+    "do_not_interpolate_missing_measurement": true,
+    "do_not_invent_measurement": true
+  },
+  "raw_file_contract": {
+    "preferred_raw_reader": "PyLTSpice RawRead if available",
+    "fallback": "curve_csv_export_from_adapter_if_available",
+    "raw_preservation_required": true,
+    "log_preservation_required": true
+  },
+  "trace_aliases": {
+    "vin": [
+      "V(vin)",
+      "V(Vin)",
+      "vin"
+    ],
+    "vout": [
+      "V(vout)",
+      "V(Vout)",
+      "vout"
+    ],
+    "vdd_current": [
+      "I(VDD)",
+      "I(vdd)",
+      "-I(VDD)"
+    ],
+    "time": [
+      "time"
+    ],
+    "frequency": [
+      "frequency",
+      "freq"
+    ]
+  },
+  "analysis_to_measurement_mapping": {
+    "bias_dc": [
+      "average_power_w",
+      "peak_current_a"
+    ],
+    "dc": [
+      "VOH_v",
+      "VOL_v",
+      "VM_v",
+      "NMH_v",
+      "NML_v",
+      "dc_gain_max"
+    ],
+    "ac": [],
+    "tran": [
+      "rise_time_s",
+      "fall_time_s",
+      "delay_average_s",
+      "rise_fall_mismatch_pct",
+      "energy_per_transition_j"
+    ]
+  },
+  "extraction_failure_provenance": {
+    "raw_missing": "S13 verification_runner",
+    "log_missing": "S13 verification_runner",
+    "trace_missing": "S14 measurement_extractor",
+    "formula_error": "S14 measurement_extractor",
+    "spec_mapping_error": "S15 spec_evaluator"
+  },
+  "required_traces_by_analysis": {
+    "dc": [
+      "V(Vin)",
+      "V(Vout)"
+    ],
+    "tran": [
+      "time",
+      "V(Vin)",
+      "V(Vout)",
+      "I(VDD)"
+    ],
+    "bias_dc": [
+      "V(Vin)",
+      "V(Vout)",
+      "I(VDD)"
+    ]
+  },
+  "python_extraction_formulas": {
+    "VOH": "max(Vout) or Vout at Vin=0 from DC sweep",
+    "VOL": "min(Vout) or Vout at Vin=VDD from DC sweep",
+    "VM": "Vin where abs(Vout - Vin) is minimum in DC VTC",
+    "dc_gain_max": "max(abs(-dVout/dVin)) from DC VTC",
+    "tphl": "time(Vout crosses VDD/2 falling) - time(Vin crosses VDD/2 rising)",
+    "tplh": "time(Vout crosses VDD/2 rising) - time(Vin crosses VDD/2 falling)",
+    "rise_time": "time(Vout crosses 90% VDD) - time(Vout crosses 10% VDD)",
+    "fall_time": "time(Vout crosses 10% VDD) - time(Vout crosses 90% VDD)",
+    "average_power": "mean(VDD * -I(VDD)) over selected transient window",
+    "energy_per_transition": "integral(VDD * -I(VDD) dt) per transition"
+  }
+}

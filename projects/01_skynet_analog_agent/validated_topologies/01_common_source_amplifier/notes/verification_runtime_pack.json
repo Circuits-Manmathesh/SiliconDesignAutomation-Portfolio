@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "spec_alias_mapping": {
+    "dc_gain_db": "dc_gain_db",
+    "gain": "dc_gain_db",
+    "ugb_hz": "ugb_hz",
+    "ugb": "ugb_hz",
+    "unity_gain_bandwidth": "ugb_hz",
+    "phase_margin_deg": "phase_margin_proxy_deg",
+    "power_max_w": "average_power_w",
+    "max_power": "average_power_w",
+    "bias_current": "bias_current_a"
+  },
+  "checks": [
+    {
+      "spec_name": "dc_gain_db",
+      "metric": "dc_gain_db",
+      "operator": ">=",
+      "target_key": "dc_gain_db",
+      "unit": "dB",
+      "required": true
+    },
+    {
+      "spec_name": "ugb_hz",
+      "metric": "ugb_hz",
+      "operator": ">=",
+      "target_key": "ugb_hz",
+      "unit": "Hz",
+      "required": true
+    },
+    {
+      "spec_name": "power_max_w",
+      "metric": "average_power_w",
+      "operator": "<=",
+      "target_key": "power_max_w",
+      "unit": "W",
+      "required": true
+    },
+    {
+      "spec_name": "output_bias_min_v",
+      "metric": "output_bias_v",
+      "operator": ">=",
+      "target_value": 0.25,
+      "unit": "V",
+      "required": true
+    },
+    {
+      "spec_name": "output_bias_max_v",
+      "metric": "output_bias_v",
+      "operator": "<=",
+      "target_value": 0.8,
+      "unit": "V",
+      "required": true
+    },
+    {
+      "spec_name": "phase_margin_deg",
+      "metric": "phase_margin_proxy_deg",
+      "operator": ">=",
+      "target_key": "phase_margin_deg",
+      "unit": "deg",
+      "required": false
+    }
+  ],
+  "unit_parser_requirements": {
+    "Hz_suffixes": {
+      "GHz": 1000000000.0,
+      "MHz": 1000000.0,
+      "kHz": 1000.0,
+      "Hz": 1.0
+    },
+    "power_suffixes": {
+      "mW": 0.001,
+      "uW": 1e-06,
+      "nW": 1e-09,
+      "W": 1.0
+    },
+    "current_suffixes": {
+      "mA": 0.001,
+      "uA": 1e-06,
+      "nA": 1e-09,
+      "A": 1.0
+    },
+    "voltage_suffixes": {
+      "mV": 0.001,
+      "uV": 1e-06,
+      "V": 1.0
+    },
+    "dimensionless_suffixes": {
+      "dB": 1.0,
+      "deg": 1.0
+    }
+  },
+  "pass_fail_policy": {
+    "all_required_specs_must_pass": true,
+    "required_not_evaluated_blocks_pass": true,
+    "optional_metrics_do_not_block": true
+  }
+}

@@ -1,0 +1,9 @@
+spec_name,metric,operator,target,measured,required,pass,measurement_source_type,measurement_source_artifact,measurement_source_status
+dc_gain_db,dc_gain_db,>=,40.0,45.04622862181894,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\dc_curve.csv,PASS
+ugb_hz,ugb_hz,>=,10000000.0,15626228.529554041,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv,PASS
+phase_margin_deg,phase_margin_deg,>=,55.0,64.75308927943908,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\ac_bode.csv,PASS
+average_power_w,average_power_w,<=,0.0003,4.714154056273401e-05,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw,PASS
+output_bias_min_v,output_bias_v,>=,0.4,0.5537757277488708,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw,PASS
+output_bias_max_v,output_bias_v,<=,0.6,0.5537757277488708,True,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\reports\stage13\runs\demo_two_stage_opamp_op.raw,PASS
+slew_rate_v_per_s,slew_rate_v_per_s,>=,10000000.0,15962712.366085947,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\tran_curve.csv,PASS
+settling_time_1pct_s,settling_time_1pct_s,<=,2.0000000000000002e-07,1.895270000000274e-07,True,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_two_stage_opamp\verification\data\tran_curve.csv,PASS

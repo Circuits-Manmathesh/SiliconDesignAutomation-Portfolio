@@ -1,0 +1,52 @@
+project name: inverter_3GHz_clock_TT27
+design type: inverter
+technology/corner/temp: 50nm/TT_27/27
+model file: C:\SiliconDesignAutomation\00_Tech_Library\models\PVT\50nm_TT_27.lib
+LUT used: C:\SiliconDesignAutomation\00_Tech_Library\lut\device_lut_clean_TT27.h5
+
+1. Design specification
+VDD: 1.0 V
+frequency: 3.0e9 Hz
+load: 2e-14 F
+duty-cycle cases: [0.45, 0.5, 0.55]
+
+2. Selected inverter parameters
+Wn/Wp/Ln/Lp: 8e-06 / 2.3e-05 / 5e-08 / 5e-08
+Wp/Wn: 2.875
+gm/Id_N and gm/Id_P: 4.216352957881945 / 4.219999098955782
+ft_N from LUT: 39314994850.02007
+ft_P from LUT: 16946442358.193567
+
+3. DC operating-point evidence
+Id_N / Id_P: 0.0013786831783024 / 0.0016860320617979078
+gm_N / gm_P: 0.0058130148968176 / 0.0071150537815956
+DC .op gm/Id_N / gm/Id_P if available: 4.216352957881945 / 4.219999098955782
+inversion regions: strong / strong
+VTC VM / VIL / VIH: 0.5099999904632568 / 0.42578270177849475 / 0.5979732466589421
+Noise margins NML / NMH: 0.42575502886514727 / 0.4020116137612849
+Static power peak: 0.0009626404498703778 W
+
+4. AC small-signal evidence
+AC bandwidth: 2454708915.685008 Hz
+AC low-frequency gain: 20.984817157799274 dB
+input capacitance estimate: 3.7442591547768604e-13 F
+AC bias sweep summary: results/ac/ac_bandwidth_summary.csv
+
+5. Transient verification evidence
+worst-case tphl: 1.6116218758660246e-11
+worst-case tplh: 1.639657063445279e-11
+worst-case rise/fall: 1.0593235300671156e-11 / 1.1929675692411259e-11
+duty-cycle min/max: 0.4499997469999371 / 0.5499926048769965
+average power: 0.0004780106937208989
+
+6. pass/fail status
+all_specs_passed: YES
+
+7. final netlist path
+C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\generated_netlists\best\best_inverter.sp
+
+8. result file paths
+DC: C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\results\dc
+AC: C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\results\ac
+Transient: C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\results\tran
+Plots: C:\SiliconDesignAutomation\Projects\inverter_3GHz_clock_TT27\plots

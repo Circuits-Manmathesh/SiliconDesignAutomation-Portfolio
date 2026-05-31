@@ -1,0 +1,77 @@
+{
+  "schema_version": "2.0",
+  "project_id": "demo_common_source_amplifier",
+  "plot_contract_source": "workspace_override",
+  "required_plots": [
+    {
+      "plot_id": "spec_status_summary",
+      "analysis": "spec",
+      "required": true
+    },
+    {
+      "plot_id": "dc_transfer",
+      "analysis": "dc",
+      "required": true,
+      "x": "input_voltage_v",
+      "y": [
+        "output_voltage_v"
+      ]
+    },
+    {
+      "plot_id": "ac_bode_gain",
+      "analysis": "ac",
+      "required": true,
+      "x": "frequency_hz",
+      "y": [
+        "gain_db"
+      ]
+    },
+    {
+      "plot_id": "tran_input_output",
+      "analysis": "tran",
+      "required": true,
+      "x": "time_s",
+      "y": [
+        "vin_v",
+        "vout_v"
+      ]
+    },
+    {
+      "plot_id": "power_current_summary",
+      "analysis": "summary",
+      "required": true
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "analysis": "sizing",
+      "required": true
+    }
+  ],
+  "optional_plots": [
+    {
+      "plot_id": "ac_bode_phase",
+      "analysis": "ac",
+      "required": false,
+      "x": "frequency_hz",
+      "y": [
+        "phase_deg"
+      ]
+    },
+    {
+      "plot_id": "dc_gain_derivative",
+      "analysis": "dc",
+      "required": false
+    },
+    {
+      "plot_id": "device_operating_point_summary",
+      "analysis": "op",
+      "required": false
+    }
+  ],
+  "style": {
+    "family": "IEEE_ISSCC_clean",
+    "dpi": 300,
+    "major_grid": true,
+    "minor_grid": true
+  }
+}

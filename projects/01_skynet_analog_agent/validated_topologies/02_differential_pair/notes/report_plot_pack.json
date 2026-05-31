@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "final_report_requirements": {
+    "required_tables": [
+      "spec_checks.csv",
+      "measurement_summary.csv",
+      "final_device_sizing.csv",
+      "simulation_conditions.csv",
+      "plot_manifest.csv",
+      "diagnostics.csv"
+    ],
+    "required_reports": [
+      "final_design_report.json",
+      "final_design_report.md",
+      "gm_id_lut_awareness_report.json",
+      "physics_engine_audit.json",
+      "generic_engine_audit_summary.json"
+    ]
+  },
+  "plots": [
+    {
+      "plot_id": "spec_status_summary",
+      "analysis": "summary",
+      "required": true,
+      "x": "spec_name",
+      "y": [
+        "measured",
+        "target"
+      ],
+      "annotations": [
+        "PASS_FAIL_MARGIN"
+      ]
+    },
+    {
+      "plot_id": "dc_differential_transfer",
+      "analysis": "dc",
+      "required": true,
+      "x": "vid_v",
+      "y": [
+        "vout_diff_v"
+      ],
+      "annotations": [
+        "local_gain_near_vid0"
+      ]
+    },
+    {
+      "plot_id": "dc_output_common_mode",
+      "analysis": "dc",
+      "required": true,
+      "x": "vid_v",
+      "y": [
+        "vout_cm_v"
+      ],
+      "annotations": [
+        "valid_cm_window"
+      ]
+    },
+    {
+      "plot_id": "ac_differential_gain",
+      "analysis": "ac",
+      "required": true,
+      "x": "frequency_hz",
+      "y": [
+        "gain_db"
+      ],
+      "annotations": [
+        "target_gain",
+        "ugb"
+      ]
+    },
+    {
+      "plot_id": "ac_phase_diagnostic",
+      "analysis": "ac",
+      "required": false,
+      "x": "frequency_hz",
+      "y": [
+        "phase_deg"
+      ],
+      "annotations": [
+        "phase_at_ugb"
+      ]
+    },
+    {
+      "plot_id": "tran_differential_step",
+      "analysis": "tran",
+      "required": true,
+      "x": "time_s",
+      "y": [
+        "vin_diff_v",
+        "vout_diff_v"
+      ],
+      "annotations": [
+        "transient_gain",
+        "settling"
+      ]
+    },
+    {
+      "plot_id": "power_current_summary",
+      "analysis": "summary",
+      "required": true,
+      "x": "metric",
+      "y": [
+        "power_uW",
+        "tail_current_uA"
+      ],
+      "annotations": [
+        "target_limits"
+      ]
+    },
+    {
+      "plot_id": "gm_id_lut_candidate_summary",
+      "analysis": "s18",
+      "required": false,
+      "x": "candidate_id",
+      "y": [
+        "measured_differential_gain_db",
+        "measured_ugb_hz",
+        "measured_power_w"
+      ],
+      "annotations": [
+        "accepted_candidate",
+        "best_failed_candidate"
+      ]
+    }
+  ],
+  "style": {
+    "standard": "IEEE_ISSCC_CLEAN",
+    "dpi": 300,
+    "formats": [
+      "png"
+    ],
+    "font_family": "serif",
+    "line_width": 1.7,
+    "major_grid": true,
+    "minor_grid": true
+  },
+  "missing_optional_policy": "NOT_EVALUATED_NONBLOCKING"
+}

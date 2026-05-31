@@ -1,0 +1,60 @@
+{
+  "schema_version": "2.0",
+  "topology_type": "common_source_amplifier",
+  "topology_variant": "common_source_pmos_load",
+  "technology_id": "50nm_cmosedu",
+  "simulator_backend": "ltspice",
+  "contract_status": "PRODUCTION_READY_FOR_PROJECT_LOCAL_FLOW",
+  "artifact_identity_required": true,
+  "legacy_root_fallback_allowed": false,
+  "hierarchy": {
+    "top_cell": "common_source_amplifier",
+    "sub_blocks": [
+      {
+        "block_id": "ncs_transconductance_core",
+        "role": "voltage_to_current_transconductance_stage",
+        "device_instances": [
+          "M_NCS"
+        ],
+        "pins": {
+          "drain": "VOUT",
+          "gate": "VIN",
+          "source": "VSS",
+          "bulk": "VSS"
+        }
+      },
+      {
+        "block_id": "pmos_active_load",
+        "role": "high_output_resistance_current_source_load",
+        "device_instances": [
+          "M_PLOAD"
+        ],
+        "pins": {
+          "drain": "VOUT",
+          "gate": "VBP",
+          "source": "VDD",
+          "bulk": "VDD"
+        }
+      },
+      {
+        "block_id": "capacitive_output_load",
+        "role": "load_for_ac_and_transient_verification",
+        "instances": [
+          "CLOAD"
+        ],
+        "pins": {
+          "plus": "VOUT",
+          "minus": "VSS"
+        }
+      }
+    ]
+  },
+  "composition_rules": [
+    "VOUT is shared drain of M_NCS and M_PLOAD.",
+    "M_NCS source and bulk are tied to VSS.",
+    "M_PLOAD source and bulk are tied to VDD.",
+    "VBP controls PMOS load current and output bias point.",
+    "VIN is biased at VIN_CM for OP/AC and swept for DC transfer.",
+    "Transient input is a small-signal pulse around VIN_CM, not rail-to-rail inverter switching."
+  ]
+}

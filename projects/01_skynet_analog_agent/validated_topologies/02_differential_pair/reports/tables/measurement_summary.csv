@@ -1,0 +1,15 @@
+metric,value,unit,status,required,measurement_source_type,measurement_source_artifact
+output_common_mode_v,0.4970555007457733,V,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\reports\stage13\runs\demo_differential_pair_op.raw
+output_balance_error_v,0.0,V,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\reports\stage13\runs\demo_differential_pair_op.raw
+tail_current_a,8.975978744274471e-06,A,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\reports\stage13\runs\demo_differential_pair_op.raw
+branch_current_a,4.4879893721372355e-06,A,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\reports\stage13\runs\demo_differential_pair_op.raw
+average_power_w,8.976630851975642e-06,W,EXTRACTED,True,RAW_OP,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\reports\stage13\runs\demo_differential_pair_op.raw
+differential_gain_vv,-25.587393831023693,V/V,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\dc_curve.csv
+differential_gain_db,28.16052107339466,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\dc_curve.csv
+ac_midband_gain_db,28.160683588375832,dB,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\ac_bode.csv
+bandwidth_hz,2151091.2464885674,Hz,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\ac_bode.csv
+ugb_hz,55136704.54654229,Hz,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\ac_bode.csv
+phase_at_ugb_deg,91.80404430422611,deg,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\ac_bode.csv
+phase_margin_deg,88.19595569577388,deg,EXTRACTED,True,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\ac_bode.csv
+transient_differential_gain_vv,-23.391219661998928,V/V,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\tran_curve.csv
+transient_differential_gain_db,27.38105734654313,dB,EXTRACTED,False,CSV_DERIVED_FROM_RAW,C:\Skynet_Setup\skynet_analog_agent\workspace_projects\demo_differential_pair\verification\data\tran_curve.csv

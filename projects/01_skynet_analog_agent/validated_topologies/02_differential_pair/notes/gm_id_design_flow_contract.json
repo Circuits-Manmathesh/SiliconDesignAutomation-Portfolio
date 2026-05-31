@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "topology_type": "differential_pair",
+  "methodology": "gm_over_id_lut_driven_operating_point_synthesis",
+  "design_intelligence_scope": "topology_specific_rules_loaded_by_generic_S9_S10_S18",
+  "primary_design_equations": {
+    "gm_per_side_required_s": "2*pi*ugb_hz*c_load_each_f",
+    "id_per_side_required_a": "gm_per_side_required_s / gm_id_input_pair_target_vinv",
+    "tail_current_required_a": "2 * id_per_side_required_a",
+    "target_gain_vv": "10^(differential_gain_db/20)",
+    "normalized_gain_estimate_vv": "gm_id_input_pair / (gds_id_input_pair + gds_id_pmos_load)",
+    "required_gds_id_sum_max_vinv": "gm_id_input_pair_target_vinv / target_gain_vv",
+    "power_estimate_w": "v_dd_v * tail_current_required_a",
+    "output_common_mode_target_v": "0.5*(output_common_mode_min_v + output_common_mode_max_v)"
+  },
+  "default_targets": {
+    "gm_id_input_pair_target_vinv": 14.0,
+    "gm_id_pmos_load_target_vinv": 9.0,
+    "ft_to_ugb_min_ratio": 10.0,
+    "sat_margin_min_v": 0.05,
+    "tail_current_balance_tolerance_percent": 3.0,
+    "output_balance_error_target_v": 0.02
+  },
+  "operating_point_synthesis": {
+    "objective_order": [
+      "satisfy_tail_current_from_ugb",
+      "satisfy_output_common_mode_window",
+      "satisfy_differential_gain",
+      "preserve_ugb",
+      "preserve_power",
+      "preserve_saturation"
+    ],
+    "bias_mapping": [
+      {
+        "role": "input_pair",
+        "circuit_bias": "VIN_CM",
+        "from_lut_quantity": "nmos_vgs_or_vsg_v",
+        "equation": "VIN_CM = selected_nmos_vgs + VTAIL_estimate",
+        "first_validation_assumption": "VTAIL_estimate is solved/verified by OP; initial seed assumes small tail source voltage and DC verification refines it."
+      },
+      {
+        "role": "pmos_active_load",
+        "circuit_bias": "VBP",
+        "from_lut_quantity": "pmos_vgs_or_vsg_v",
+        "equation": "VBP = VDD - selected_pmos_vsg"
+      }
+    ],
+    "dc_operating_point_validation": [
+      "output_common_mode_v inside target window",
+      "output_balance_error_v <= target",
+      "tail_current_a within expected limit",
+      "all MOS devices saturation/headroom valid when OP data is available"
+    ]
+  },
+  "lut_requirements": {
+    "required_fields": [
+      "id",
+      "gm",
+      "gds",
+      "gm_id",
+      "gds_id",
+      "ft",
+      "region",
+      "sat_margin",
+      "vgs_or_vsg_v",
+      "vds_or_vsd_v",
+      "L",
+      "W"
+    ],
+    "preferred_fields": [
+      "cgg",
+      "cgs",
+      "cgd",
+      "id_over_w",
+      "gm_over_w",
+      "current_density"
+    ],
+    "device_types": [
+      "nmos",
+      "pmos"
+    ],
+    "corner_temperature_selection": {
+      "corner": "TT",
+      "temperature_c": 27.0
+    }
+  },
+  "notes": [
+    "Equations are read by S9/S10/S18. Core engine must not hardcode differential-pair equations.",
+    "Final measurements must come from LTspice S14, not from LUT estimates."
+  ]
+}
