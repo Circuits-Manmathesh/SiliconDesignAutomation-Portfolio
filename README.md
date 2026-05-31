@@ -37,6 +37,7 @@ User Requirement
 → Closed-Loop Correction
 → Final Evidence Package
 → Reusable Golden Topology
+
 ```
 
 ---
@@ -84,6 +85,7 @@ This section is intentionally placed immediately after the architecture diagram 
 
 ```text
 lut_characterizer\generated_lut
+
 ```
 
 - The LUT contains both **NMOS and PMOS device physics**, with thousands of valid operating-point rows. In our validated engine runs, the LUT service discovered around:
@@ -91,6 +93,7 @@ lut_characterizer\generated_lut
 ```text
 NMOS rows ≈ 24,640
 PMOS rows ≈ 24,640
+
 ```
 
 - The LUT grid has been matured around practical gm/Id design needs:
@@ -143,6 +146,7 @@ Required gm and selected gm/Id → required Id
 Required Id and LUT current density → required W/m
 Gain target → gm/gds and gds/Id constraint
 Swing/headroom target → valid VDS/VSD and saturation margin
+
 ```
 
 - After this, the engine queries the LUT and filters candidates using:
@@ -167,7 +171,7 @@ Swing/headroom target → valid VDS/VSD and saturation margin
 ### NMOS gm/Id Representative Plots at VDS = 0.5 V
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_nmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_nmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Nmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Nmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Nmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/nmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_nmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Nmos Full VDS 0.55v</sub> |
@@ -177,7 +181,7 @@ Swing/headroom target → valid VDS/VSD and saturation margin
 ### PMOS gm/Id Representative Plots at VSD = 0.5 V
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/01_gmid_vs_vctrl_pmos_full_vds_0p55V.png" width="430"><br><sub>01 gm/Id Vs Vctrl Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/02_gmid_vs_vov_pmos_full_vds_0p55V.png" width="430"><br><sub>02 gm/Id Vs Vov Pmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/03_id_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>03 Id Over W Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/04_gm_over_w_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>04 Gm Over W Vs gm/Id Pmos Full VDS 0.55v</sub> |
 | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/05_gm_over_gds_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>05 Gm Over Gds Vs gm/Id Pmos Full VDS 0.55v</sub> | <img src="projects/01_skynet_analog_agent/lut_gmid_database/pmos_gmid_plots/vds_0p55V/06_gds_over_id_vs_gmid_pmos_full_vds_0p55V.png" width="430"><br><sub>06 Gds Over Id Vs gm/Id Pmos Full VDS 0.55v</sub> |
@@ -212,6 +216,7 @@ User Requirement
 → Closed-Loop Correction
 → Final Evidence Package
 → Golden Regression / Topology Maturity Map
+
 ```
 
 This is not a manual plot collection. Each design is treated as a topology-driven CAD task. The engine reads the user specification, loads the corresponding topology knowledge pack, derives physics-aware sizing targets, selects LUT-backed devices, generates LTspice simulations, extracts real measurements, checks the required specifications, and iterates when needed.
@@ -266,7 +271,7 @@ The engine can convert a simple analog gain-cell requirement into a reproducible
 **Verified result plots:**
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 DC Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/07_ac_bode_gain.png" width="430"><br><sub>07 AC Bode Gain</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/01_common_source_amplifier/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 AC Phase Diagnostic</sub> |  |
 
@@ -324,7 +329,7 @@ The engine can handle matched differential devices, common-mode constraints, tai
 **Verified result plots:**
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/02_dc_differential_transfer.png" width="430"><br><sub>02 DC Differential Transfer</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/03_dc_output_common_mode_and_balance.png" width="430"><br><sub>03 DC Output Common Mode And Balance</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/04_ac_differential_gain_ugb.png" width="430"><br><sub>04 AC Differential Gain UGB</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/05_tran_differential_step_response.png" width="430"><br><sub>05 TRAN Differential Step Response</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/02_differential_pair/plots/08_ac_phase_diagnostic.png" width="430"><br><sub>08 AC Phase Diagnostic</sub> |  |
@@ -384,7 +389,7 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 **Verified result plots:**
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/02_dc_transfer_vout_vs_vin.png" width="430"><br><sub>02 DC Transfer Vout Vs Vin</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/03_ac_gain_phase_bode.png" width="430"><br><sub>03 AC Gain Phase Bode</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_phase_margin_marker.png" width="430"><br><sub>04 Phase Margin Marker</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/04_tran_input_output_waveform.png" width="430"><br><sub>04 TRAN Input Output Waveform</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/05_unity_gain_transient_step.png" width="430"><br><sub>05 Unity Gain Transient Step</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/03_two_stage_opamp/plots/06_slew_rate_and_settling.png" width="430"><br><sub>06 Slew Rate And Settling</sub> |
@@ -433,7 +438,7 @@ This project shows the engine can start from a simple reusable unit cell before 
 **Verified result plots:**
 
 | Plot | Plot |
-|---|---|
+| --- | --- |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/best_waveform_stacked.png" width="430"><br><sub>Best Waveform Stacked</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/delay_power_tradeoff.png" width="430"><br><sub>Delay Power Tradeoff</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/duty_cycle_check.png" width="430"><br><sub>Duty Cycle Check</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response.png" width="430"><br><sub>Gain Phase Response</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/gain_phase_response_vm.png" width="430"><br><sub>Gain Phase Response Vm</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/00_inverter_3ghz_clock_buffer/plots/vout_waveform.png" width="430"><br><sub>Vout Waveform</sub> |
@@ -482,6 +487,7 @@ Netlist Generation
 → Measurement Extraction
 → Spec Evaluation
 → Final Truth Gate
+
 ```
 
 The loop stops only when all required specs pass with real measurements or the valid physics/LUT candidate space is exhausted.
