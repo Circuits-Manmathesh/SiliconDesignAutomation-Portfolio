@@ -1,0 +1,312 @@
+{
+"example_name": "AI SoC 5 GHz Clock Distribution Baseline",
+"project": "Interactive SoC Clock Distribution Playbook",
+"version": "1.0",
+"purpose": "Reference baseline configuration and expected calculation values for the default 5 GHz SoC clock-distribution demo case.",
+"model_scope": {
+"type": "Architecture-level sensitivity model",
+"not_a_replacement_for": [
+"SPEF extraction",
+"Liberty timing",
+"Production STA",
+"SI signoff",
+"EMIR signoff",
+"PVT signoff",
+"OCV/AOCV/POCV analysis",
+"CTS implementation reports"
+],
+"intended_for": [
+"Learning",
+"Architecture review",
+"Interactive clock-distribution explanation",
+"Waveform and timing sensitivity demonstration",
+"GitHub and demo reproducibility"
+]
+},
+"inputs": {
+"design_name": "AI SoC 5 GHz Clock Distribution Baseline",
+"clock": {
+"frequency_ghz": 5.0,
+"pll_random_jitter_fs": 120.0,
+"pll_duty_cycle_percent": 51.5
+},
+"interconnect": {
+"global_wire_length_um": 2400.0,
+"top_metal_sheet_resistance_mohm_sq": 28.0,
+"wire_capacitance_af_um": 95.0,
+"repeater_count": 4
+},
+"noise": {
+"dynamic_vdd_droop_mv": 45.0,
+"crosstalk_mode": "Quiet / Orthogonal",
+"shielding_decaps_enabled": true
+},
+"timing": {
+"logic_path_delay_ps": 175.0,
+"spatial_clock_skew_ps": 8.0,
+"useful_skew_ps": 0.0,
+"setup_requirement_ps": 8.0,
+"hold_requirement_ps": 5.0
+},
+"constants": {
+"nominal_vdd_v": 0.75,
+"wire_width_um": 0.08,
+"buffer_delay_ps": 3.2,
+"base_slew_ps": 0.8,
+"rc_slew_gain": 2.4,
+"rc_uncertainty_coeff": 0.18,
+"psij_delay_coeff_ps_per_mv": 0.0048,
+"psij_jitter_coeff_fs_per_mv": 1.8,
+"shielded_mitigation_factor": 0.35,
+"unshielded_mitigation_factor": 0.72
+}
+},
+"expected_core_math": {
+"clock_period_ps": 200.0,
+"duty_cycle_error_percent": 1.5,
+"wire_width_um": 0.08,
+"wire_squares": 30000.0,
+"sheet_resistance_ohm_sq": 0.028,
+"wire_resistance_ohm": 840.0,
+"wire_capacitance_ff": 228.0,
+"total_rc_tau_ps": 191.52,
+"segment_count": 5,
+"segment_rc_tau_ps": 7.6608,
+"insertion_delay_ps": 12.8,
+"before_slew_ps": 19.18592,
+"after_slew_ps": 6.715072,
+"psij_edge_shift_ps": 0.216,
+"psij_jitter_fs": 81.0,
+"crosstalk_edge_shift_ps": 0.0,
+"crosstalk_jitter_fs": 8.0,
+"rc_uncertainty_fs": 1378.944,
+"before_total_jitter_fs": 1386.546629,
+"after_total_jitter_fs": 485.29132,
+"mitigation_factor": 0.35,
+"before_edge_shift_ps": 13.016,
+"after_edge_shift_ps": 12.8756
+},
+"expected_timing": {
+"period_ps": 200.0,
+"launch_clock_ps": 0.0,
+"spatial_skew_ps": 8.0,
+"useful_skew_ps": 0.0,
+"final_effective_skew_ps": 8.0,
+"capture_clock_ps": 208.0,
+"data_arrival_ps": 175.0,
+"setup_requirement_ps": 8.0,
+"hold_requirement_ps": 5.0,
+"setup_slack_ps": 25.0,
+"hold_slack_ps": 162.0,
+"status": "PASS"
+},
+"expected_jitter_budget": [
+{
+"component": "PLL Random Jitter",
+"value": 120.0,
+"unit": "fs"
+},
+{
+"component": "RC Slew Uncertainty",
+"value": 1378.944,
+"unit": "fs"
+},
+{
+"component": "PSIJ",
+"value": 81.0,
+"unit": "fs"
+},
+{
+"component": "Crosstalk",
+"value": 8.0,
+"unit": "fs"
+},
+{
+"component": "Before Mitigation Total",
+"value": 1386.546629,
+"unit": "fs"
+},
+{
+"component": "After Mitigation Total",
+"value": 485.29132,
+"unit": "fs"
+}
+],
+"expected_skew_budget": [
+{
+"component": "Trunk Mismatch",
+"value": 6.0,
+"unit": "ps"
+},
+{
+"component": "Regional Mismatch",
+"value": 3.5,
+"unit": "ps"
+},
+{
+"component": "Local Buffer Mismatch",
+"value": 2.85,
+"unit": "ps"
+},
+{
+"component": "Spatial Clock Skew",
+"value": 8.0,
+"unit": "ps"
+},
+{
+"component": "Useful Skew",
+"value": 0.0,
+"unit": "ps"
+},
+{
+"component": "Final Effective Skew",
+"value": 8.0,
+"unit": "ps"
+}
+],
+"expected_soc_nodes": [
+{
+"node": "PLL",
+"role": "Clock source / PLL output",
+"x_norm": 0.08,
+"y_norm": 0.5
+},
+{
+"node": "Divider",
+"role": "Frequency division and duty-cycle cleanup",
+"x_norm": 0.22,
+"y_norm": 0.5
+},
+{
+"node": "Global Trunk",
+"role": "Long top-metal clock spine across the SoC",
+"x_norm": 0.42,
+"y_norm": 0.5
+},
+{
+"node": "Regional Branch",
+"role": "Clock distribution into compute, memory, and NoC regions",
+"x_norm": 0.64,
+"y_norm": 0.68
+},
+{
+"node": "Local Leaf",
+"role": "Local clock buffers near sequential cells",
+"x_norm": 0.8,
+"y_norm": 0.4
+},
+{
+"node": "Flip-Flop",
+"role": "Final capture endpoint",
+"x_norm": 0.93,
+"y_norm": 0.4
+}
+],
+"stress_cases": {
+"long_wire_stress": {
+"description": "Increase global wire length to demonstrate RC and slew degradation.",
+"changed_inputs": {
+"global_wire_length_um": 3500.0,
+"repeater_count": 4
+},
+"expected": {
+"wire_squares": 43750.0,
+"wire_resistance_ohm": 1225.0,
+"wire_capacitance_ff": 332.5,
+"total_rc_tau_ps": 407.3125,
+"segment_rc_tau_ps": 16.2925,
+"before_slew_ps": 39.902
+}
+},
+"repeater_tradeoff_low_repeater": {
+"description": "Use fewer repeaters on a long wire to show poor segment RC and poor slew.",
+"changed_inputs": {
+"global_wire_length_um": 3500.0,
+"repeater_count": 2
+},
+"expected": {
+"segment_count": 3,
+"segment_rc_tau_ps": 45.256944,
+"before_slew_ps": 109.416667,
+"insertion_delay_ps": 6.4
+}
+},
+"repeater_tradeoff_high_repeater": {
+"description": "Use more repeaters on a long wire to show improved segment RC and slew but higher insertion delay.",
+"changed_inputs": {
+"global_wire_length_um": 3500.0,
+"repeater_count": 8
+},
+"expected": {
+"segment_count": 9,
+"segment_rc_tau_ps": 5.028549,
+"before_slew_ps": 12.868519,
+"insertion_delay_ps": 25.6
+}
+},
+"ir_drop_and_crosstalk_stress": {
+"description": "Increase dynamic droop and enable in-phase crosstalk to demonstrate PSIJ and deterministic edge shift.",
+"changed_inputs": {
+"global_wire_length_um": 3500.0,
+"repeater_count": 8,
+"dynamic_vdd_droop_mv": 70.0,
+"crosstalk_mode": "In-Phase",
+"shielding_decaps_enabled": true
+},
+"expected": {
+"psij_edge_shift_ps": 0.336,
+"psij_jitter_fs": 126.0,
+"crosstalk_edge_shift_ps": 0.75,
+"crosstalk_jitter_fs": 32.0
+}
+},
+"setup_violation": {
+"description": "Increase logic delay to create setup violation.",
+"changed_inputs": {
+"logic_path_delay_ps": 203.0,
+"spatial_clock_skew_ps": 10.0,
+"useful_skew_ps": 0.0
+},
+"expected": {
+"capture_clock_ps": 210.0,
+"setup_slack_ps": -1.0,
+"timing_status": "SETUP VIOLATION"
+}
+},
+"setup_recovery_with_useful_skew": {
+"description": "Apply positive useful skew to recover setup slack.",
+"changed_inputs": {
+"logic_path_delay_ps": 203.0,
+"spatial_clock_skew_ps": 10.0,
+"useful_skew_ps": 8.0
+},
+"expected": {
+"capture_clock_ps": 218.0,
+"setup_slack_ps": 7.0,
+"timing_status": "PASS"
+}
+},
+"hold_violation": {
+"description": "Use a short data path with large useful skew to demonstrate hold risk.",
+"changed_inputs": {
+"logic_path_delay_ps": 28.0,
+"spatial_clock_skew_ps": 10.0,
+"useful_skew_ps": 18.0,
+"hold_requirement_ps": 5.0
+},
+"expected": {
+"hold_slack_ps": -5.0,
+"timing_status": "HOLD VIOLATION"
+}
+}
+},
+"demo_interpretation": {
+"baseline_message": "The baseline represents a stable 5 GHz architecture-level clock-distribution case with positive setup and hold slack.",
+"clock_message": "At 5 GHz, the 200 ps period makes picosecond-level edge movement important.",
+"rc_message": "The global wire has significant unbuffered RC severity, but repeater segmentation reduces effective segment RC.",
+"jitter_message": "Endpoint jitter is built from PLL jitter, RC uncertainty, PSIJ, and crosstalk contributions.",
+"skew_message": "Spatial skew and useful skew must be reviewed together because useful skew can improve setup but reduce hold margin.",
+"power_message": "Dynamic VDD droop creates PSIJ and shows why EMIR awareness matters for clock timing.",
+"recommendation_message": "The recommendation engine maps live parameter values into architecture actions such as repeater optimization, decap planning, shielding, useful-skew review, and hold-buffer insertion."
+}
+}
