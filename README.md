@@ -15,7 +15,7 @@ For a quick technical review, start here:
 1. Review the Skynet Analog Agent architecture below.
 2. Check the gm/Id LUT device-physics foundation.
 3. Check the validated analog design evidence section.
-4. Open the common-source amplifier, differential pair, and two-stage op-amp evidence folders.
+4. Open the common-source amplifier, differential pair, two-stage op-amp, and CTLE equalizer evidence folders.
 5. Review the CAD methodology notes: simulation truth gate, closed-loop optimization, and golden regression validation.
 6. Review the clock-distribution playbook for SoC timing and methodology context.
 7. Review the RFIC research track for mm-wave design background.
@@ -195,6 +195,7 @@ Swing/headroom target → valid VDS/VSD and saturation margin
 | Common-source amplifier | Converts gain/UGB/load requirements into gm, current, intrinsic-gain and headroom-aware candidates |
 | Differential pair | Selects matched device candidates while checking gm/Id, current, common-mode and saturation constraints |
 | Two-stage op-amp | Supports gm budgeting, gain-stage sizing, compensation trade-off, slew-rate/power awareness and failure correction |
+| CTLE equalizer 2 Gb/s | Selects saturated NMOS input-pair and PMOS active-load operating points, supports zero/pole and peaking choices, and validates channel/eye/headroom constraints |
 | Inverter / clock buffer | Supports unit-cell drive/current/timing exploration with reusable device-level characterization |
 
 This is the key difference between a simple automation script and a physics-aware CAD methodology engine.
@@ -203,7 +204,7 @@ This is the key difference between a simple automation script and a physics-awar
 
 ## Validated Analog Design Evidence
 
-The following analog design projects were generated and validated using the same staged Skynet Analog Agent flow:
+The following analog design projects were generated and validated using the same staged Skynet Analog Agent flow, from low-frequency analog cells to a high-speed CTLE receiver-front-end block:
 
 ```text
 User Requirement
@@ -397,7 +398,101 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 
 ---
 
-### 4. Inverter 3 GHz Clock Buffer
+### 4. CTLE Equalizer 2 Gb/s NRZ Receiver Front-End
+
+**Status:** `VALIDATED / PASS`
+
+**Problem solved:**
+
+Validate a high-speed CTLE receiver-front-end block for a 2 Gb/s NRZ link, including lossy-channel modeling, CTLE peaking, PRBS transient behavior, eye-opening recovery, output common-mode/headroom, device saturation checks, and power/current validation.
+
+**User specification used by the engine:**
+
+| Parameter | Target |
+| --- | --- |
+| Data rate | 2 Gb/s NRZ |
+| Unit interval | 500 ps |
+| Nyquist frequency | 1 GHz |
+| Supply | 1.0 V |
+| Channel loss at Nyquist | Around 8 dB to 12 dB |
+| CTLE peaking | Around 5 dB to 8 dB |
+| Low-frequency gain | Bounded, not artificially high |
+| High-frequency behavior | Peaking near Nyquist followed by realistic roll-off |
+| Load style | PMOS active load, not simple resistor load |
+| Required transient checks | PRBS input, channel output, CTLE output |
+| Required eye checks | Eye-height and eye-width improvement |
+| Required circuit checks | Output common-mode, top/bottom headroom, device saturation |
+| Verification source | Real simulation artifacts and measurement truth gates |
+
+**Engine process:**
+
+The CTLE knowledge pack defines the NMOS differential input pair, PMOS active-load behavior, source-degeneration `RS/CS` zero-pole tuning, channel-loss fixture, PRBS stimulus, AC response checks, transient waveform checks, eye-diagram extraction, headroom checks, power checks, and gm/Id operating-point validity rules. The engine uses the gm/Id LUT to select physically valid NMOS/PMOS candidates, generates the CTLE and channel testbenches, runs real simulation, extracts measurements, verifies that all devices are in saturation, and produces final plots and reports.
+
+**Validated result:**
+
+| Metric | Measured Result | Status |
+| --- | --- | --- |
+| Channel loss at Nyquist | ~11.25 dB | `PASS` |
+| CTLE low-frequency gain | ~2.62 dB | `PASS` |
+| CTLE gain at Nyquist | ~9.92 dB | `PASS` |
+| CTLE peak gain | ~10.07 dB | `PASS` |
+| CTLE peaking | ~7.45 dB | `PASS` |
+| CTLE peak frequency | ~1.50 GHz | `PASS` |
+| CTLE high-frequency roll-off from peak | ~23.63 dB | `PASS` |
+| Channel + CTLE residual loss at Nyquist | ~3.93 dB | `PASS` |
+| Cascade improvement at Nyquist | ~7.33 dB | `PASS` |
+| Eye height before CTLE | ~18.7 mV | Reference |
+| Eye height after CTLE | ~59.8 mV | `PASS` |
+| Eye-height improvement | ~3.2x | `PASS` |
+| Eye width before CTLE | ~0.18 UI | Reference |
+| Eye width after CTLE | ~1.0 UI | `PASS` |
+| Output common-mode | ~0.55 V | `PASS` |
+| Top headroom | ~0.42 V | `PASS` |
+| Bottom headroom | ~0.52 V | `PASS` |
+| Total power | ~35.6 µW | `PASS` |
+| NMOS / PMOS operating region | Saturation valid | `PASS` |
+| Presentation-quality status | Clean final evidence package | `PASS` |
+
+**Final CTLE tuning summary:**
+
+| Parameter | Final Value |
+| --- | --- |
+| `RS` | ~220 ohm |
+| `CS` | ~1.8 pF |
+| Zero frequency | ~402 MHz |
+| First pole frequency | ~844 MHz |
+| Second pole frequency | ~8.0 GHz |
+| CTLE peak frequency | ~1.50 GHz |
+| CTLE peaking | ~7.45 dB |
+
+**What this proves:**
+
+The engine can extend beyond basic analog cells into high-speed link-aware analog design. This CTLE project demonstrates a complete receiver-front-end validation flow: channel loss, equalizer peaking, PRBS transient response, eye opening, headroom, gm/Id operating-point selection, PMOS active-load validation, and public-ready evidence plotting.
+
+**Evidence links:**
+
+- [Full project folder](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/)
+- [Plots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/)
+- [Reports](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/reports/)
+- [Notes](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/notes/)
+- [Screenshots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/screenshots/)
+- [Metadata](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/metadata/)
+
+**Verified result plots:**
+
+| Plot | Plot |
+| --- | --- |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/01_channel_only_loss_response.png" width="430"><br><sub>01 Channel-Only Loss Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/02_channel_only_eye_diagram.png" width="430"><br><sub>02 Channel-Only Eye Diagram</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/03_ctle_only_gain_peaking_response.png" width="430"><br><sub>03 CTLE-Only Gain Peaking Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/04_channel_ctle_cascade_response.png" width="430"><br><sub>04 Channel + CTLE Cascade Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/05_gain_phase_group_delay_diagnostic.png" width="430"><br><sub>05 Gain, Phase, and Group Delay Diagnostic</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/06_prbs_input_channel_ctle_response.png" width="430"><br><sub>06 PRBS Input, Channel, and CTLE Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/07_eye_before_after_ctle.png" width="430"><br><sub>07 Eye Before/After CTLE</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/08_equalized_eye_after_ctle.png" width="430"><br><sub>08 Equalized Eye After CTLE</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/09_output_headroom_summary.png" width="430"><br><sub>09 Output Headroom Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/10_device_operating_point_gmid_summary.png" width="430"><br><sub>10 Device Operating-Point gm/Id Summary</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png" width="430"><br><sub>11 RS/CS Zero-Pole Tuning Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/12_power_current_summary.png" width="430"><br><sub>12 Power and Current Summary</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/13_spec_status_summary.png" width="430"><br><sub>13 Spec Status Summary</sub> |  |
+
+---
+
+### 5. Inverter 3 GHz Clock Buffer
 
 **Status:** `VALIDATED UNIT CELL`
 
@@ -501,8 +596,9 @@ The same engine flow successfully handled:
 - a single-ended analog gain cell
 - a matched differential amplifier
 - a compensated two-stage op-amp
+- a high-speed CTLE equalizer with channel-loss, PRBS, and eye-diagram validation
 
-This demonstrates that the framework is not hardcoded for one circuit. The topology knowledge pack changes, but the CAD methodology remains the same. Each validated topology becomes a reusable design capability for future circuits such as CTLE, OTA, current mirror, comparator, and SerDes receiver blocks.
+This demonstrates that the framework is not hardcoded for one circuit. The topology knowledge pack changes, but the CAD methodology remains the same. Each validated topology becomes a reusable design capability for future circuits such as OTA, current mirror, comparator, SerDes receiver blocks, and future equalization stages.
 
 ---
 
@@ -540,7 +636,7 @@ Current topology track:
 - Common-source amplifier
 - Differential pair
 - Two-stage op-amp
-- CTLE equalizer 2 Gb/s as upcoming / in refinement
+- CTLE equalizer 2 Gb/s — validated high-speed receiver-front-end demo with channel loss, peaking, PRBS, eye-opening, headroom, power, and gm/Id operating-point evidence
 
 Start here:
 
@@ -663,4 +759,4 @@ Guide:
 
 ---
 
-_Last major portfolio update: May 2026_
+_Last major portfolio update: June 2026_
