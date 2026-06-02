@@ -51,59 +51,59 @@ The public demo does not use confidential PDKs, proprietary design files, client
 
 #### Channel-only loss response
 
-![Channel-only loss response](projects/05_ctle_nrz_2gbps/plots/01_channel_only_loss_response.png)
+![Channel-only loss response](projects/04_ctle_nrz_2gbps/plots/01_channel_only_loss_response.png)
 
 #### Channel-only eye diagram
 
-![Channel-only eye diagram](projects/05_ctle_nrz_2gbps/plots/02_channel_only_eye_diagram.png)
+![Channel-only eye diagram](projects/04_ctle_nrz_2gbps/plots/02_channel_only_eye_diagram.png)
 
 #### CTLE-only gain peaking response
 
-![CTLE gain peaking response](projects/05_ctle_nrz_2gbps/plots/03_ctle_only_gain_peaking_response.png)
+![CTLE gain peaking response](projects/04_ctle_nrz_2gbps/plots/03_ctle_only_gain_peaking_response.png)
 
 #### Channel + CTLE cascade response
 
-![Channel CTLE cascade response](projects/05_ctle_nrz_2gbps/plots/04_channel_ctle_cascade_response.png)
+![Channel CTLE cascade response](projects/04_ctle_nrz_2gbps/plots/04_channel_ctle_cascade_response.png)
 
 #### Gain, phase, and group-delay diagnostic
 
-![Gain phase group delay diagnostic](projects/05_ctle_nrz_2gbps/plots/05_gain_phase_group_delay_diagnostic.png)
+![Gain phase group delay diagnostic](projects/04_ctle_nrz_2gbps/plots/05_gain_phase_group_delay_diagnostic.png)
 
 #### PRBS input and channel response
 
-![PRBS input and channel response](projects/05_ctle_nrz_2gbps/plots/06a_prbs_input_channel_response.png)
+![PRBS input and channel response](projects/04_ctle_nrz_2gbps/plots/06a_prbs_input_channel_response.png)
 
 #### PRBS input, channel, and CTLE response
 
-![PRBS input channel CTLE response](projects/05_ctle_nrz_2gbps/plots/06b_prbs_input_channel_ctle_response.png)
+![PRBS input channel CTLE response](projects/04_ctle_nrz_2gbps/plots/06b_prbs_input_channel_ctle_response.png)
 
 #### Eye before and after CTLE
 
-![Eye before after CTLE](projects/05_ctle_nrz_2gbps/plots/07_eye_before_after_comparison.png)
+![Eye before after CTLE](projects/04_ctle_nrz_2gbps/plots/07_eye_before_after_comparison.png)
 
 #### Equalized eye after CTLE
 
-![Equalized eye after CTLE](projects/05_ctle_nrz_2gbps/plots/08_eye_after_ctle.png)
+![Equalized eye after CTLE](projects/04_ctle_nrz_2gbps/plots/08_eye_after_ctle.png)
 
 #### Output headroom summary
 
-![Output headroom summary](projects/05_ctle_nrz_2gbps/plots/09_output_headroom_summary.png)
+![Output headroom summary](projects/04_ctle_nrz_2gbps/plots/09_output_headroom_summary.png)
 
 #### Device operating-point gm/Id summary
 
-![Device operating point gmId summary](projects/05_ctle_nrz_2gbps/plots/10_device_operating_point_gmid_summary.png)
+![Device operating point gmId summary](projects/04_ctle_nrz_2gbps/plots/10_device_operating_point_gmid_summary.png)
 
 #### RS/CS zero-pole tuning summary
 
-![RS CS zero pole tuning summary](projects/05_ctle_nrz_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png)
+![RS CS zero pole tuning summary](projects/04_ctle_nrz_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png)
 
 #### Power and current summary
 
-![Power current summary](projects/05_ctle_nrz_2gbps/plots/12_power_current_summary.png)
+![Power current summary](projects/04_ctle_nrz_2gbps/plots/12_power_current_summary.png)
 
 #### Spec status summary
 
-![Spec status summary](projects/05_ctle_nrz_2gbps/plots/13_spec_status_summary.png)
+![Spec status summary](projects/04_ctle_nrz_2gbps/plots/13_spec_status_summary.png)
 
 ### Why This Project Matters
 
