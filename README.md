@@ -404,7 +404,7 @@ The engine can move beyond primitive cells and design a compensated multi-stage 
 
 **Problem solved:**
 
-Validate a high-speed CTLE receiver-front-end block for a 2 Gb/s NRZ link, including lossy-channel modeling, CTLE peaking, PRBS transient behavior, eye-opening recovery, output common-mode/headroom, device saturation checks, and power/current validation.
+Design and validate a **2 Gb/s NRZ CTLE receiver-front-end** using the same physics-aware Skynet Analog Agent methodology used for the common-source amplifier, differential pair, and two-stage op-amp. This project is intentionally more system-aware: it does not stop at AC gain. It validates the channel loss, CTLE peaking, PRBS response, eye opening, output headroom, device operating region, and final presentation-quality evidence package.
 
 **User specification used by the engine:**
 
@@ -416,19 +416,37 @@ Validate a high-speed CTLE receiver-front-end block for a 2 Gb/s NRZ link, inclu
 | Supply | 1.0 V |
 | Channel loss at Nyquist | Around 8 dB to 12 dB |
 | CTLE peaking | Around 5 dB to 8 dB |
-| Low-frequency gain | Bounded, not artificially high |
-| High-frequency behavior | Peaking near Nyquist followed by realistic roll-off |
+| CTLE low-frequency gain | Bounded, not artificially high |
+| CTLE high-frequency behavior | Peaking near Nyquist followed by realistic roll-off |
+| Equalization objective | Improve eye height and eye width after lossy channel |
 | Load style | PMOS active load, not simple resistor load |
+| Device condition | NMOS input pair and PMOS active load must remain in saturation |
 | Required transient checks | PRBS input, channel output, CTLE output |
-| Required eye checks | Eye-height and eye-width improvement |
-| Required circuit checks | Output common-mode, top/bottom headroom, device saturation |
-| Verification source | Real simulation artifacts and measurement truth gates |
+| Required eye checks | Channel-only eye, before/after CTLE eye, equalized eye after CTLE |
+| Required circuit checks | Output common-mode, top/bottom headroom, power/current, gm/Id operating point |
+| Verification source | Real generated simulation/measurement artifacts and final truth gates |
 
 **Engine process:**
 
-The CTLE knowledge pack defines the NMOS differential input pair, PMOS active-load behavior, source-degeneration `RS/CS` zero-pole tuning, channel-loss fixture, PRBS stimulus, AC response checks, transient waveform checks, eye-diagram extraction, headroom checks, power checks, and gm/Id operating-point validity rules. The engine uses the gm/Id LUT to select physically valid NMOS/PMOS candidates, generates the CTLE and channel testbenches, runs real simulation, extracts measurements, verifies that all devices are in saturation, and produces final plots and reports.
+The CTLE knowledge pack defines the topology, device roles, source-degeneration network, channel-loss model, PRBS stimulus, AC response checks, transient response checks, eye-diagram extraction, headroom limits, and final report plots. The engine follows the same staged flow used by the other validated topologies:
 
-**Validated result:**
+```text
+User CTLE Requirement
+→ CTLE Topology Knowledge Pack
+→ gm/Id + LUT-Based NMOS/PMOS Device Selection
+→ RS/CS Zero-Pole Tuning
+→ Channel-Loss Fixture Generation
+→ PRBS Stimulus Generation
+→ LTspice OP / AC / TRAN Simulation
+→ Channel + CTLE Measurement Extraction
+→ Eye-Height / Eye-Width / Headroom Truth Gate
+→ Closed-Loop Correction When Needed
+→ Final Validated Evidence Package
+```
+
+The engine checks that the CTLE is not only mathematically shaped but also physically usable. It rejects invalid operating points, verifies NMOS/PMOS saturation, checks the PMOS active load, confirms 1 V operation, measures channel loss at Nyquist, measures CTLE peaking and high-frequency roll-off, and validates that the equalized eye improves after CTLE.
+
+**Validated result summary:**
 
 | Metric | Measured Result | Status |
 | --- | --- | --- |
@@ -438,7 +456,9 @@ The CTLE knowledge pack defines the NMOS differential input pair, PMOS active-lo
 | CTLE peak gain | ~10.07 dB | `PASS` |
 | CTLE peaking | ~7.45 dB | `PASS` |
 | CTLE peak frequency | ~1.50 GHz | `PASS` |
-| CTLE high-frequency roll-off from peak | ~23.63 dB | `PASS` |
+| CTLE high-frequency gain at 50 GHz | ~-7.63 dB | `PASS` |
+| CTLE high-frequency gain at 100 GHz | ~-13.56 dB | `PASS` |
+| Roll-off from peak | ~23.63 dB | `PASS` |
 | Channel + CTLE residual loss at Nyquist | ~3.93 dB | `PASS` |
 | Cascade improvement at Nyquist | ~7.33 dB | `PASS` |
 | Eye height before CTLE | ~18.7 mV | Reference |
@@ -450,8 +470,10 @@ The CTLE knowledge pack defines the NMOS differential input pair, PMOS active-lo
 | Top headroom | ~0.42 V | `PASS` |
 | Bottom headroom | ~0.52 V | `PASS` |
 | Total power | ~35.6 µW | `PASS` |
-| NMOS / PMOS operating region | Saturation valid | `PASS` |
-| Presentation-quality status | Clean final evidence package | `PASS` |
+| Total current | ~35.6 µA | `PASS` |
+| NMOS input-pair validity | Saturation valid | `PASS` |
+| PMOS active-load validity | Saturation valid | `PASS` |
+| Final presentation quality | Clean evidence package | `PASS` |
 
 **Final CTLE tuning summary:**
 
@@ -467,32 +489,34 @@ The CTLE knowledge pack defines the NMOS differential input pair, PMOS active-lo
 
 **What this proves:**
 
-The engine can extend beyond basic analog cells into high-speed link-aware analog design. This CTLE project demonstrates a complete receiver-front-end validation flow: channel loss, equalizer peaking, PRBS transient response, eye opening, headroom, gm/Id operating-point selection, PMOS active-load validation, and public-ready evidence plotting.
+This project shows that the engine has matured beyond basic analog cells into **high-speed link-aware analog design automation**. The CTLE validation includes the complete design story: lossy channel response, controlled equalizer peaking, realistic high-frequency roll-off, PRBS waveform behavior, eye-opening recovery, common-mode/headroom safety, gm/Id operating-point selection, PMOS active-load validation, power/current summary, and final public-ready plots.
 
 **Evidence links:**
 
-- [Full project folder](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/)
-- [Plots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/)
-- [Reports](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/reports/)
-- [Notes](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/notes/)
-- [Screenshots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/screenshots/)
-- [Metadata](projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/metadata/)
+- [Full project folder](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/)
+- [Plots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/)
+- [Reports](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/reports/)
+- [Notes](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/notes/)
+- [Screenshots](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/screenshots/)
+- [Metadata](projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/metadata/)
 
 **Verified result plots:**
 
 | Plot | Plot |
 | --- | --- |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/01_channel_only_loss_response.png" width="430"><br><sub>01 Channel-Only Loss Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/02_channel_only_eye_diagram.png" width="430"><br><sub>02 Channel-Only Eye Diagram</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/03_ctle_only_gain_peaking_response.png" width="430"><br><sub>03 CTLE-Only Gain Peaking Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/04_channel_ctle_cascade_response.png" width="430"><br><sub>04 Channel + CTLE Cascade Response</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/05_gain_phase_group_delay_diagnostic.png" width="430"><br><sub>05 Gain, Phase, and Group Delay Diagnostic</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/06_prbs_input_channel_ctle_response.png" width="430"><br><sub>06 PRBS Input, Channel, and CTLE Response</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/07_eye_before_after_ctle.png" width="430"><br><sub>07 Eye Before/After CTLE</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/08_equalized_eye_after_ctle.png" width="430"><br><sub>08 Equalized Eye After CTLE</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/09_output_headroom_summary.png" width="430"><br><sub>09 Output Headroom Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/10_device_operating_point_gmid_summary.png" width="430"><br><sub>10 Device Operating-Point gm/Id Summary</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png" width="430"><br><sub>11 RS/CS Zero-Pole Tuning Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/12_power_current_summary.png" width="430"><br><sub>12 Power and Current Summary</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_equalizer_2gbps/plots/13_spec_status_summary.png" width="430"><br><sub>13 Spec Status Summary</sub> |  |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/01_channel_only_loss_response.png" width="430"><br><sub>01 Channel-Only Loss Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/02_channel_only_eye_diagram.png" width="430"><br><sub>02 Channel-Only Eye Diagram</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/03_ctle_only_gain_peaking_response.png" width="430"><br><sub>03 CTLE-Only Gain Peaking Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/04_channel_ctle_cascade_response.png" width="430"><br><sub>04 Channel + CTLE Cascade Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/05_gain_phase_group_delay_diagnostic.png" width="430"><br><sub>05 Gain, Phase, and Group Delay Diagnostic</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/06_prbs_input_channel_ctle_waveform.png" width="430"><br><sub>06 PRBS Input, Channel, and CTLE Waveform</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/06a_prbs_input_channel_response.png" width="430"><br><sub>06a PRBS Input and Channel Response</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/06b_prbs_input_channel_ctle_response.png" width="430"><br><sub>06b PRBS Input, Channel, and CTLE Response</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/07_eye_before_after_comparison.png" width="430"><br><sub>07 Eye Before/After CTLE</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/08_eye_after_ctle.png" width="430"><br><sub>08 Equalized Eye After CTLE</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/09_output_headroom_summary.png" width="430"><br><sub>09 Output Headroom Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/10_device_operating_point_gmid_summary.png" width="430"><br><sub>10 Device Operating-Point gm/Id Summary</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png" width="430"><br><sub>11 RS/CS Zero-Pole Tuning Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/12_power_current_summary.png" width="430"><br><sub>12 Power and Current Summary</sub> |
+| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/13_spec_status_summary.png" width="430"><br><sub>13 Spec Status Summary</sub> |  |
 
 ---
 
 ### 5. Inverter 3 GHz Clock Buffer
+
 
 **Status:** `VALIDATED UNIT CELL`
 
