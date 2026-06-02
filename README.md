@@ -511,7 +511,7 @@ This project shows that the engine has matured beyond basic analog cells into **
 | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/07_eye_before_after_comparison.png" width="430"><br><sub>07 Eye Before/After CTLE</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/08_eye_after_ctle.png" width="430"><br><sub>08 Equalized Eye After CTLE</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/09_output_headroom_summary.png" width="430"><br><sub>09 Output Headroom Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/10_device_operating_point_gmid_summary.png" width="430"><br><sub>10 Device Operating-Point gm/Id Summary</sub> |
 | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/11_rs_cs_zero_pole_tuning_summary.png" width="430"><br><sub>11 RS/CS Zero-Pole Tuning Summary</sub> | <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/12_power_current_summary.png" width="430"><br><sub>12 Power and Current Summary</sub> |
-| <img src="projects/01_skynet_analog_agent/validated_topologies/04_ctle_nrz_2gbps/plots/13_spec_status_summary.png" width="430"><br><sub>13 Spec Status Summary</sub> |  |
+|Summary</sub> |  |
 
 ---
 
